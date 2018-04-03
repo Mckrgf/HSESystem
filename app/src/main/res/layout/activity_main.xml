@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="www.supcon.com.hsesystem.Activity.MainActivity">
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:background="@color/darkgreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中控智能HSE"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_user"
+        android:layout_below="@id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_user_title"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户:"/>
+
+        <TextView
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_user"
+            android:layout_toRightOf="@+id/tv_user_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="员工A"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/tv_user"
+            android:id="@+id/tv_company_title"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="部门:"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_company"
+            android:layout_toRightOf="@+id/tv_company_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一车间"/>
+
+        <TextView
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/tv_user_code_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_user"
+            android:text="员工编号:" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_user_code"
+            android:layout_toRightOf="@+id/tv_user_code_title"
+            android:layout_below="@+id/tv_user"
+            android:text="123456"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+    </RelativeLayout>
+
+    <com.amap.api.maps.MapView
+        android:layout_below="@+id/rl_user"
+        android:layout_above="@+id/rl_tab"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.amap.api.maps.MapView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/rl_tab">
+
+        <include layout="@layout/bottom_tab"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HSESystem</string>
+    <string name="login">登录</string>
+    <string name="password">密码</string>
+    <string name="username">用户名</string>
+    <string name="user_login">账号登录</string>
+</resources>
