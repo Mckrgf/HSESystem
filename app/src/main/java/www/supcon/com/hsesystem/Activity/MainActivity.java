@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
@@ -27,6 +28,8 @@ import www.supcon.com.hsesystem.R;
 public class MainActivity extends BaseActivity {
     @BindView(R.id.map)
     MapView map;
+    @BindView(R.id.tv_user_code)
+    TextView tvUserCode;
     private AMap aMap;
     private ArrayList<Marker> marks;
 
@@ -45,6 +48,8 @@ public class MainActivity extends BaseActivity {
         }
 
         initMarker();
+
+        tvUserCode.setText("121313");
 
     }
 
