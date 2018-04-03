@@ -1,12 +1,15 @@
 package www.supcon.com.hsesystem.Activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +28,13 @@ import butterknife.ButterKnife;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.R;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.map)
     MapView map;
     @BindView(R.id.tv_user_code)
     TextView tvUserCode;
+    @BindView(R.id.bt_nav_2)
+    Button btNav2;
     private AMap aMap;
     private ArrayList<Marker> marks;
 
@@ -38,6 +43,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        initView();
         map.onCreate(savedInstanceState);// 此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
         int checkPermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
         if (checkPermission != PackageManager.PERMISSION_GRANTED) {
@@ -51,6 +57,10 @@ public class MainActivity extends BaseActivity {
 
         tvUserCode.setText("121313");
 
+    }
+
+    private void initView() {
+        btNav2.setOnClickListener(this);
     }
 
     /**
@@ -171,5 +181,15 @@ public class MainActivity extends BaseActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         map.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.bt_nav_2:
+                Intent intent = new Intent(getMe(),WorkListActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

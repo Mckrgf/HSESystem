@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="名称：" />
+
+    <TextView
+        android:id="@+id/tv_work_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_1"
+        android:layout_toRightOf="@id/tv_1"
+        android:text="xx区域施工作业" />
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_below="@id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="类型：" />
+
+    <TextView
+        android:id="@+id/tv_work_type"
+        android:layout_below="@id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_1"
+        android:layout_toRightOf="@id/tv_2"
+        android:text="施工作业" />
+
+    <TextView
+        android:layout_below="@id/tv_2"
+        android:id="@+id/tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="施工负责人：" />
+
+    <TextView
+        android:id="@+id/tv_man_a"
+        android:layout_below="@id/tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_3"
+        android:text="xxx" />
+
+    <TextView
+        android:layout_below="@id/tv_3"
+        android:id="@+id/tv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="安全负责人：" />
+
+    <TextView
+        android:id="@+id/tv_man_b"
+        android:layout_below="@id/tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_4"
+        android:text="uuu" />
+
+
+    <TextView
+        android:layout_below="@id/tv_4"
+        android:id="@+id/tv_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="作业地点：" />
+
+    <TextView
+        android:id="@+id/tv_work_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_4"
+        android:layout_below="@id/tv_4"
+        android:layout_toRightOf="@id/tv_5"
+        android:text="xx区域" />
+
+</RelativeLayout>

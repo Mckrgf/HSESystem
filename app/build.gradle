@@ -27,6 +27,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+
+    compile 'com.android.support:recyclerview-v7:26.1.0'
     //下拉刷新
     compile 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
     //事件总线库
