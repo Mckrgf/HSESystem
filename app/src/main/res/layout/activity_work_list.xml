@@ -15,6 +15,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"/>
 
+    <View
+        android:layout_below="@+id/user_info"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/gray"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rl_work_list"
         android:layout_width="match_parent"

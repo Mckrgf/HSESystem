@@ -32,7 +32,7 @@
         <activity
             android:name=".Base.BaseActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +40,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.WorkListActivity"></activity>
+        <activity android:name=".Activity.WorkListActivity" />
+        <activity android:name=".Activity.ManExamineActivity" />
+        <activity android:name=".Activity.WorkTicketActivity"></activity>
     </application>
 
 </manifest>

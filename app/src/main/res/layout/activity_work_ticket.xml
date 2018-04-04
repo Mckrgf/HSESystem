@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="www.supcon.com.hsesystem.Activity.WorkTicketActivity">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/tiitlebar" />
+
+    <include
+        android:id="@+id/user_info"
+        layout="@layout/user_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title" />
+
+    <include
+        android:id="@+id/work_item"
+        layout="@layout/work_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_info"
+        android:layout_margin="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_work_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/work_item"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工作任务：" />
+
+        <TextView
+            android:id="@+id/tv_work_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_1"
+            android:text="基础开挖" />
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_1"
+            android:text="工作组成员：" />
+
+        <TextView
+            android:id="@+id/tv_work_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_1"
+            android:layout_toRightOf="@id/tv_2"
+            android:text="成员A，成员B" />
+
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_2"
+            android:text="工作注意事项：" />
+
+        <LinearLayout
+            android:id="@+id/ll_safe"
+            android:layout_below="@id/tv_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="动火设备内部构件清理干净"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="断开与动火设备相关的所有管线"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="动火点周围易燃物已经清除"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="高处作业已采取防火花飞溅措施"/>
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_pass"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rl_work_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存并进入视频拍摄页面"/>
+
+
+    <include
+        android:id="@+id/bottom_tab"
+        layout="@layout/bottom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
