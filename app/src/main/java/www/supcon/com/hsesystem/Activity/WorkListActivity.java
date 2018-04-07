@@ -8,9 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,6 +34,8 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     Button btNav3;
     @BindView(R.id.bt_nav_4)
     Button btNav4;
+    @BindView(R.id.tv_task_no)
+    TextView tvTaskNo;
     private List works;
 
     @Override
@@ -50,10 +52,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         LinearLayoutManager manager = new LinearLayoutManager(getMyApplication(), LinearLayoutManager.VERTICAL, false);
         rlWorkList.setLayoutManager(manager);
         rlWorkList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        works = fake_data();
-        WorkListAdapter workListAdapter = new WorkListAdapter(works);
-        workListAdapter.setItemClickListener(this);
-        rlWorkList.setAdapter(workListAdapter);
+
     }
 
     @NonNull
@@ -62,6 +61,17 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         works = TaskDaoDBHelper.queryAll();
 
         return works;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        works = fake_data();
+        WorkListAdapter workListAdapter = new WorkListAdapter(works);
+        workListAdapter.setItemClickListener(this);
+        rlWorkList.setAdapter(workListAdapter);
+        int no = TaskDaoDBHelper.queryAll().size();
+        tvTaskNo.setText(String.valueOf(no));
     }
 
     @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_nav_3, R.id.bt_nav_4})
@@ -84,13 +94,13 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         Task task = (Task) works.get(position);
         if (task.getStatus().contains("未")) {
             //进入审核页面
-            Intent intent = new Intent(getMe(),ManExamineActivity.class);
-            intent.putExtra("TASK",task);
+            Intent intent = new Intent(getMe(), ManExamineActivity.class);
+            intent.putExtra("TASK", task);
             startActivity(intent);
-        }else {
+        } else {
             //进入详情页面
-            Intent intent = new Intent(getMe(),WorkTicketActivity.class);
-            intent.putExtra("TASK",task);
+            Intent intent = new Intent(getMe(), WorkTicketActivity.class);
+            intent.putExtra("TASK", task);
             startActivity(intent);
         }
 

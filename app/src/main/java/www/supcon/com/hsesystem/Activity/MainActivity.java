@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import www.supcon.com.hsesystem.Base.BaseActivity;
+import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -35,6 +36,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     TextView tvUserCode;
     @BindView(R.id.bt_nav_2)
     Button btNav2;
+    @BindView(R.id.tv_task_no)
+    TextView tvTaskNo;
     private AMap aMap;
     private ArrayList<Marker> marks;
 
@@ -56,6 +59,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initMarker();
 
         tvUserCode.setText("121313");
+
 
     }
 
@@ -169,6 +173,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         map.onResume();
+        int no = TaskDaoDBHelper.queryAll().size();
+        tvTaskNo.setText(String.valueOf(no));
     }
 
     @Override
@@ -187,7 +193,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_2:
-                Intent intent = new Intent(getMe(),WorkListActivity.class);
+                Intent intent = new Intent(getMe(), WorkListActivity.class);
                 startActivity(intent);
                 break;
         }

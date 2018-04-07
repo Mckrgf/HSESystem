@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +22,8 @@ public class ManExamineActivity extends BaseActivity {
     Button btNav1;
     @BindView(R.id.bt_nav_2)
     Button btNav2;
+    @BindView(R.id.tv_task_no)
+    TextView tvTaskNo;
     private Task task;
 
     @Override
@@ -31,12 +34,12 @@ public class ManExamineActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2,R.id.bt_pass})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
                 //首页（地图的那个页面）
-                Intent intent0 = new Intent(getMe(),MainActivity.class);
+                Intent intent0 = new Intent(getMe(), MainActivity.class);
                 startActivity(intent0);
                 break;
             case R.id.bt_nav_2:
@@ -49,5 +52,12 @@ public class ManExamineActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int no = TaskDaoDBHelper.queryAll().size();
+        tvTaskNo.setText(String.valueOf(no));
     }
 }

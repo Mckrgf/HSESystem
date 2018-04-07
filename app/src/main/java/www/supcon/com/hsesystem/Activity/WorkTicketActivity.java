@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.supcon.com.hsesystem.Base.BaseActivity;
+import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
 
 public class WorkTicketActivity extends BaseActivity {
@@ -19,6 +21,8 @@ public class WorkTicketActivity extends BaseActivity {
     Button btNav1;
     @BindView(R.id.bt_nav_2)
     Button btNav2;
+    @BindView(R.id.tv_task_no)
+    TextView tvTaskNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,5 +44,12 @@ public class WorkTicketActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int no = TaskDaoDBHelper.queryAll().size();
+        tvTaskNo.setText(String.valueOf(no));
     }
 }
