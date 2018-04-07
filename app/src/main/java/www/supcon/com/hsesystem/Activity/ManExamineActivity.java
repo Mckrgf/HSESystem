@@ -9,6 +9,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.supcon.com.hsesystem.Base.BaseActivity;
+import www.supcon.com.hsesystem.DB.Task;
+import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
 
 public class ManExamineActivity extends BaseActivity {
@@ -19,11 +21,13 @@ public class ManExamineActivity extends BaseActivity {
     Button btNav1;
     @BindView(R.id.bt_nav_2)
     Button btNav2;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_examine);
+        task = (Task) getIntent().getSerializableExtra("TASK");
         ButterKnife.bind(this);
     }
 
@@ -39,6 +43,8 @@ public class ManExamineActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_pass:
+                task.setStatus("进行中");
+                TaskDaoDBHelper.updateTask(task);
                 Intent intent = new Intent(getMe(), WorkTicketActivity.class);
                 startActivity(intent);
                 break;

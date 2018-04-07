@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.R;
 
 /**
@@ -17,7 +19,7 @@ import www.supcon.com.hsesystem.R;
  */
 
 public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHolder> implements View.OnClickListener {
-    private ArrayList datas;
+    private List datas;
     private OnItemClickListener mItemClickListener;
 
     @Override
@@ -31,7 +33,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         void onItemClick(int position);
     }
 
-    public WorkListAdapter(ArrayList data) {
+    public WorkListAdapter(List data) {
         this.datas = data;
     }
 
@@ -45,14 +47,14 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //对数据进行操作
-        HashMap data = (HashMap) datas.get(position);
+        Task task = (Task) datas.get(position);
 
-        holder.tv_work_name.setText(String.valueOf(data.get("name")));
-        holder.tv_work_type.setText(String.valueOf(data.get("type")));
-        holder.tv_man_a.setText(String.valueOf(data.get("man_a")));
-        holder.tv_man_b.setText(String.valueOf(data.get("man_b")));
-        holder.tv_work_place.setText(String.valueOf(data.get("location")));
-        holder.tv_work_status.setText(String.valueOf(data.get("status")));
+        holder.tv_work_name.setText(String.valueOf(task.getName()));
+        holder.tv_work_type.setText(String.valueOf(task.getType()));
+        holder.tv_man_a.setText(String.valueOf(task.getMan_a()));
+        holder.tv_man_b.setText(String.valueOf(task.getMan_b()));
+        holder.tv_work_place.setText(String.valueOf(task.getLocation()));
+        holder.tv_work_status.setText(String.valueOf(task.getStatus()));
         holder.itemView.setTag(position);
     }
 

@@ -11,12 +11,15 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.supcon.com.hsesystem.Adapter.WorkListAdapter;
 import www.supcon.com.hsesystem.Base.BaseActivity;
+import www.supcon.com.hsesystem.DB.Task;
+import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
 
 public class WorkListActivity extends BaseActivity implements WorkListAdapter.OnItemClickListener {
@@ -31,6 +34,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     Button btNav3;
     @BindView(R.id.bt_nav_4)
     Button btNav4;
+    private List works;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,51 +50,16 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         LinearLayoutManager manager = new LinearLayoutManager(getMyApplication(), LinearLayoutManager.VERTICAL, false);
         rlWorkList.setLayoutManager(manager);
         rlWorkList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        ArrayList works = fake_data();
+        works = fake_data();
         WorkListAdapter workListAdapter = new WorkListAdapter(works);
         workListAdapter.setItemClickListener(this);
         rlWorkList.setAdapter(workListAdapter);
     }
 
     @NonNull
-    private ArrayList fake_data() {
-        ArrayList<HashMap<String, Object>> works = new ArrayList();
-        HashMap<String,Object> data = new HashMap();
-        data.put("name", "xx区域动火作业");
-        data.put("type", "施工作业");
-        data.put("man_a", "施工负责人a");
-        data.put("man_b", "安全负责人a");
-        data.put("location", "xx区域");
-        data.put("status", "未审核");
-        works.add(data);
-
-        data = new HashMap<>();
-        data.put("name", "xx区域临时用电安全作业");
-        data.put("type", "施工作业");
-        data.put("man_a", "施工负责人b");
-        data.put("man_b", "安全负责人b");
-        data.put("location", "xx区域");
-        data.put("status", "已审核");
-        works.add(data);
-
-        data = new HashMap<>();
-        data.put("name", "xx区域高空安全作业");
-        data.put("type", "施工作业");
-        data.put("man_a", "施工负责人c");
-        data.put("man_b", "安全负责人c");
-        data.put("location", "xx区域");
-        data.put("status", "已审核");
-        works.add(data);
-
-        data = new HashMap<>();
-        data.put("name", "xx区域受限区域安全作业");
-        data.put("type", "施工作业");
-        data.put("man_a", "施工负责人d");
-        data.put("man_b", "安全负责人d");
-        data.put("location", "xx区域");
-        data.put("status", "已审核");
-        works.add(data);
-
+    private List fake_data() {
+        List<Task> works = new ArrayList();
+        works = TaskDaoDBHelper.queryAll();
 
         return works;
     }
@@ -112,13 +81,16 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
 
     @Override
     public void onItemClick(int position) {
-        if (position==0) {
+        Task task = (Task) works.get(position);
+        if (task.getStatus().contains("未")) {
             //进入审核页面
             Intent intent = new Intent(getMe(),ManExamineActivity.class);
+            intent.putExtra("TASK",task);
             startActivity(intent);
         }else {
             //进入详情页面
-            Intent intent = new Intent(getMe(),ManExamineActivity.class);
+            Intent intent = new Intent(getMe(),WorkTicketActivity.class);
+            intent.putExtra("TASK",task);
             startActivity(intent);
         }
 
