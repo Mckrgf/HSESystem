@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,6 +20,7 @@ import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
+import www.supcon.com.hsesystem.Utils.StringListConvertUtils;
 
 public class LoginActivity extends BaseActivity {
 
@@ -80,6 +82,16 @@ public class LoginActivity extends BaseActivity {
      */
     private void fillDB() {
         List list = TaskDaoDBHelper.queryAll();
+        List<String> attentions = new ArrayList();
+        attentions.add("动火设备内部构件清理干净");
+        attentions.add("断开与动火设备相关的所有管线");
+        attentions.add("动火点周围易燃物已经清除");
+        attentions.add("高处作业已采取防火花飞溅措施");
+        String attention = StringListConvertUtils.listToString(attentions);
+        List<String> colleagues = new ArrayList<>();
+        colleagues.add("张三");
+        colleagues.add("李四");
+        String colleague = StringListConvertUtils.listToString(colleagues);
 
         if (null == list | list.size() != 4) {
             Task task = new Task();
@@ -92,6 +104,9 @@ public class LoginActivity extends BaseActivity {
             task.setNumber("DH_20180404001");
             task.setLat(30.180262);
             task.setLng(120.158726);
+            task.setAttentions(attention);
+            task.setWork_mans(colleague);
+            task.setWork_content("基础开挖");
             TaskDaoDBHelper.insertTask(task);
 
             Task task2 = new Task();
@@ -104,6 +119,9 @@ public class LoginActivity extends BaseActivity {
             task2.setNumber("YD_20180404001");
             task2.setLat(30.180262);
             task2.setLng(120.178726);
+            task2.setAttentions(attention);
+            task2.setWork_mans(colleague);
+            task2.setWork_content("基础开挖");
             TaskDaoDBHelper.insertTask(task2);
 
             Task task3 = new Task();
@@ -116,6 +134,9 @@ public class LoginActivity extends BaseActivity {
             task3.setNumber("GK_20180404001");
             task3.setLat(30.180262);
             task3.setLng(120.198726);
+            task3.setAttentions(attention);
+            task3.setWork_mans(colleague);
+            task3.setWork_content("基础开挖");
             TaskDaoDBHelper.insertTask(task3);
 
             Task task4 = new Task();
@@ -128,6 +149,9 @@ public class LoginActivity extends BaseActivity {
             task4.setNumber("SX_20180404001");
             task4.setLat(30.180262);
             task4.setLng(120.218726);
+            task4.setAttentions(attention);
+            task4.setWork_mans(colleague);
+            task4.setWork_content("基础开挖");
             TaskDaoDBHelper.insertTask(task4);
         }
     }

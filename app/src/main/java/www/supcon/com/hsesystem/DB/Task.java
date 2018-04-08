@@ -5,6 +5,7 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by yaobing on 2018/4/7.
@@ -25,9 +26,14 @@ public class Task implements Serializable{
     private String  number ;//工单编号
     private double  lat ;//经纬度
     private double  lng ;//经纬度
-    @Generated(hash = 1065384455)
+
+    private String work_content;//工作内容
+    private String work_mans;//工作组成员
+    private String attentions;//注意事项
+    @Generated(hash = 1883778460)
     public Task(Long id, String status, String name, String type, String man_a,
-            String man_b, String location, String number, double lat, double lng) {
+            String man_b, String location, String number, double lat, double lng,
+            String work_content, String work_mans, String attentions) {
         this.id = id;
         this.status = status;
         this.name = name;
@@ -38,6 +44,9 @@ public class Task implements Serializable{
         this.number = number;
         this.lat = lat;
         this.lng = lng;
+        this.work_content = work_content;
+        this.work_mans = work_mans;
+        this.attentions = attentions;
     }
     @Generated(hash = 733837707)
     public Task() {
@@ -101,6 +110,24 @@ public class Task implements Serializable{
     }
     public void setLng(double lng) {
         this.lng = lng;
+    }
+    public String getWork_content() {
+        return this.work_content;
+    }
+    public void setWork_content(String work_content) {
+        this.work_content = work_content;
+    }
+    public String getWork_mans() {
+        return this.work_mans;
+    }
+    public void setWork_mans(String work_mans) {
+        this.work_mans = work_mans;
+    }
+    public String getAttentions() {
+        return this.attentions;
+    }
+    public void setAttentions(String attentions) {
+        this.attentions = attentions;
     }
 
 

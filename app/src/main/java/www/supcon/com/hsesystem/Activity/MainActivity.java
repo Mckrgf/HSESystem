@@ -82,47 +82,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Marker marker1 = aMap.addMarker(new MarkerOptions().position(latLng1).title("北京").snippet("DefaultMarker"));
             marker1.setTitle("作业票：" + task.getNumber());
             marker1.setSnippet(task.getStatus());
+            marker1.setObject(task);
             marker1.showInfoWindow();
             marks.add(marker1);
         }
-//        LatLng latLng = new LatLng(30.180262, 120.137789);
-//        Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title("北京").snippet("DefaultMarker"));
-//        marker.setTitle("这里有一张作业票");
-//        marker.setSnippet("作业票内容为动火作业");
-//        marker.showInfoWindow();
-//        marker.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-//                .decodeResource(getResources(), R.mipmap.fire_icon)));
-//
-//        LatLng latLng1 = new LatLng(30.180262, 120.158726);
-//        Marker marker1 = aMap.addMarker(new MarkerOptions().position(latLng1).title("北京").snippet("DefaultMarker"));
-//        marker1.setTitle("这里有一个报警");
-//        marker1.setSnippet("报警内容为设备损坏");
-//        marker1.showInfoWindow();
-//
-//        LatLng latLng2 = new LatLng(30.180262, 120.178726);
-//        Marker marker2 = aMap.addMarker(new MarkerOptions().position(latLng2).title("北京").snippet("DefaultMarker"));
-//        marker2.setTitle("这里有一个报警");
-//        marker2.setSnippet("报警内容为设备损坏");
-//        marker2.showInfoWindow();
-//
-//        LatLng latLng3 = new LatLng(30.180262, 120.198726);
-//        Marker marker3 = aMap.addMarker(new MarkerOptions().position(latLng3).title("北京").snippet("DefaultMarker"));
-//        marker3.setTitle("这里有一个报警");
-//        marker3.setSnippet("报警内容为设备损坏");
-//        marker3.showInfoWindow();
-//
-//        LatLng latLng4 = new LatLng(30.180262, 120.218726);
-//        Marker marker4 = aMap.addMarker(new MarkerOptions().position(latLng4).title("北京").snippet("DefaultMarker"));
-//        marker4.setTitle("这里有一个报警");
-//        marker4.setSnippet("报警内容为设备损坏");
-//        marker4.showInfoWindow();
-//
-//
-//        marks.add(marker);
-//        marks.add(marker1);
-//        marks.add(marker2);
-//        marks.add(marker3);
-//        marks.add(marker4);
 
     }
 
@@ -175,6 +138,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                Task task = (Task) marker.getObject();
+                if (task.getStatus().contains("未")) {
+                    //进入审核页面
+                    Intent intent = new Intent(getMe(), ManExamineActivity.class);
+                    intent.putExtra("TASK", task);
+                    startActivity(intent);
+                } else {
+                    //进入详情页面
+                    Intent intent = new Intent(getMe(), WorkTicketActivity.class);
+                    intent.putExtra("TASK", task);
+                    startActivity(intent);
+                }
                 Toast.makeText(getMyApplication(), "任务详情", Toast.LENGTH_SHORT).show();
             }
         });
@@ -212,6 +187,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         map.onResume();
         int no = TaskDaoDBHelper.queryAll().size();
         tvTaskNo.setText(String.valueOf(no));
+        initMarker();
     }
 
     @Override

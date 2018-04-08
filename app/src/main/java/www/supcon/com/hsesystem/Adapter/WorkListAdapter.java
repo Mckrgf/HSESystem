@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import www.supcon.com.hsesystem.DB.Task;
@@ -39,7 +37,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.work_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.work_item1, parent, false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
