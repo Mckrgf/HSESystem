@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -24,6 +25,26 @@ public class ManExamineActivity extends BaseActivity {
     Button btNav2;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.iv_return)
+    ImageView ivReturn;
+    @BindView(R.id.tv_work_number)
+    TextView tvWorkNumber;
+    @BindView(R.id.tv_work_name)
+    TextView tvWorkName;
+    @BindView(R.id.tv_work_type)
+    TextView tvWorkType;
+    @BindView(R.id.tv_man_a)
+    TextView tvManA;
+    @BindView(R.id.tv_man_b)
+    TextView tvManB;
+    @BindView(R.id.tv_work_place)
+    TextView tvWorkPlace;
+    @BindView(R.id.tv_work_status)
+    TextView tvWorkStatus;
+    @BindView(R.id.tv_work_content)
+    TextView tvWorkContent;
     private Task task;
 
     @Override
@@ -32,9 +53,22 @@ public class ManExamineActivity extends BaseActivity {
         setContentView(R.layout.activity_man_examine);
         task = (Task) getIntent().getSerializableExtra("TASK");
         ButterKnife.bind(this);
+        tvTitle.setText("中控智能HSE-审核页面"+"\n" + "正在对" + task.getNumber() + "进行审核");
+        initData();
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_pass})
+    private void initData() {
+        tvWorkNumber.setText(task.getNumber());
+        tvWorkType.setText(task.getType());
+        tvWorkName.setText(task.getName());
+        tvWorkPlace.setText(task.getLocation());
+        tvManA.setText(task.getMan_a());
+        tvManB.setText(task.getMan_b());
+        tvWorkStatus.setText(task.getStatus());
+        tvWorkContent.setText(task.getWork_content());
+    }
+
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_pass, R.id.iv_return})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -45,10 +79,14 @@ public class ManExamineActivity extends BaseActivity {
             case R.id.bt_nav_2:
                 finish();
                 break;
+            case R.id.iv_return:
+                finish();
+                break;
             case R.id.bt_pass:
+                //审核通过页面
                 task.setStatus("进行中");
                 TaskDaoDBHelper.updateTask(task);
-                Intent intent = new Intent(getMe(), WorkTicketActivity.class);
+                Intent intent = new Intent(getMe(), MainActivity.class);
                 startActivity(intent);
                 break;
         }

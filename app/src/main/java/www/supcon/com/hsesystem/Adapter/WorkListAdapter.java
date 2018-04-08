@@ -47,6 +47,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         //对数据进行操作
         Task task = (Task) datas.get(position);
 
+        holder.tv_work_number.setText(String.valueOf(task.getNumber()));
         holder.tv_work_name.setText(String.valueOf(task.getName()));
         holder.tv_work_type.setText(String.valueOf(task.getType()));
         holder.tv_man_a.setText(String.valueOf(task.getMan_a()));
@@ -66,6 +67,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tv_work_number;
         TextView tv_work_name;
         TextView tv_work_type;
         TextView tv_man_a;
@@ -75,6 +77,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
 
         private ViewHolder(View view) {
             super(view);
+            tv_work_number = view.findViewById(R.id.tv_work_number);
             tv_work_name = view.findViewById(R.id.tv_work_name);
             tv_work_type = view.findViewById(R.id.tv_work_type);
             tv_man_a = view.findViewById(R.id.tv_man_a);

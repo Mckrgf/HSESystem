@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     Button btNav4;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.iv_return)
+    ImageView ivReturn;
     private List works;
 
     @Override
@@ -43,7 +48,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_list);
         ButterKnife.bind(this);
-
+        tvTitle.setText("中控智能HSE-工作票列表页面");
         initData();
     }
 
@@ -74,7 +79,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         tvTaskNo.setText(String.valueOf(no));
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_nav_3, R.id.bt_nav_4})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_nav_3, R.id.bt_nav_4, R.id.iv_return})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -85,6 +90,9 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
             case R.id.bt_nav_3:
                 break;
             case R.id.bt_nav_4:
+                break;
+            case R.id.iv_return:
+                finish();
                 break;
         }
     }

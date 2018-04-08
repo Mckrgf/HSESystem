@@ -3,19 +3,18 @@ package www.supcon.com.hsesystem.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
@@ -40,6 +39,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     Button btNav2;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.iv_return)
+    ImageView ivReturn;
     private AMap aMap;
     private ArrayList<Marker> marks;
 
@@ -67,6 +70,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
         btNav2.setOnClickListener(this);
+        ivReturn.setOnClickListener(this);
+        tvTitle.setText("中控智能HSE-首页");
     }
 
     /**
@@ -208,6 +213,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.bt_nav_2:
                 Intent intent = new Intent(getMe(), WorkListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.iv_return:
+                finish();
                 break;
         }
     }
