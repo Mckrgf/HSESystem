@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="www.supcon.com.hsesystem.Activity.ManExamineActivity">
 
     <include layout="@layout/tiitlebar"
@@ -66,7 +68,26 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_margin="10dp"
+                android:id="@+id/ll_more"
                 android:layout_below="@+id/rg_inspection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="备注信息"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_below="@+id/ll_more"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button
