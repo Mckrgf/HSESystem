@@ -89,6 +89,9 @@ public class LoginActivity extends BaseActivity {
             task.setMan_b("施工负责人b");
             task.setLocation("xx区域");
             task.setStatus("未审核");
+            task.setNumber("DH_20180404001");
+            task.setLat(30.180262);
+            task.setLng(120.158726);
             TaskDaoDBHelper.insertTask(task);
 
             Task task2 = new Task();
@@ -98,6 +101,9 @@ public class LoginActivity extends BaseActivity {
             task2.setMan_b("施工负责人b");
             task2.setLocation("xx区域");
             task2.setStatus("已审核");
+            task2.setNumber("YD_20180404001");
+            task2.setLat(30.180262);
+            task2.setLng(120.178726);
             TaskDaoDBHelper.insertTask(task2);
 
             Task task3 = new Task();
@@ -107,6 +113,9 @@ public class LoginActivity extends BaseActivity {
             task3.setMan_b("施工负责人b");
             task3.setLocation("xx区域");
             task3.setStatus("已审核");
+            task3.setNumber("GK_20180404001");
+            task3.setLat(30.180262);
+            task3.setLng(120.198726);
             TaskDaoDBHelper.insertTask(task3);
 
             Task task4 = new Task();
@@ -116,6 +125,9 @@ public class LoginActivity extends BaseActivity {
             task4.setMan_b("施工负责人b");
             task4.setLocation("xx区域");
             task4.setStatus("已审核");
+            task4.setNumber("SX_20180404001");
+            task4.setLat(30.180262);
+            task4.setLng(120.218726);
             TaskDaoDBHelper.insertTask(task4);
         }
     }

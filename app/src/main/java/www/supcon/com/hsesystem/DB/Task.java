@@ -22,9 +22,12 @@ public class Task implements Serializable{
     private String man_a;//审核人a
     private String man_b;//审核人b
     private String location;//位置信息
-    @Generated(hash = 591833109)
+    private String  number ;//工单编号
+    private double  lat ;//经纬度
+    private double  lng ;//经纬度
+    @Generated(hash = 1065384455)
     public Task(Long id, String status, String name, String type, String man_a,
-            String man_b, String location) {
+            String man_b, String location, String number, double lat, double lng) {
         this.id = id;
         this.status = status;
         this.name = name;
@@ -32,6 +35,9 @@ public class Task implements Serializable{
         this.man_a = man_a;
         this.man_b = man_b;
         this.location = location;
+        this.number = number;
+        this.lat = lat;
+        this.lng = lng;
     }
     @Generated(hash = 733837707)
     public Task() {
@@ -77,6 +83,24 @@ public class Task implements Serializable{
     }
     public void setLocation(String location) {
         this.location = location;
+    }
+    public String getNumber() {
+        return this.number;
+    }
+    public void setNumber(String number) {
+        this.number = number;
+    }
+    public double getLat() {
+        return this.lat;
+    }
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+    public double getLng() {
+        return this.lng;
+    }
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
 
