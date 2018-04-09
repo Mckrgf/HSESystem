@@ -17,10 +17,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"/>
 
+    <include layout="@layout/examine_item"
+        android:layout_margin="10dp"
+        android:id="@+id/examine_item"
+        android:layout_below="@+id/user_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/user_info"
+        android:layout_below="@+id/examine_item"
         android:layout_above="@id/bottom_tab">
         <RelativeLayout
             android:layout_width="match_parent"
