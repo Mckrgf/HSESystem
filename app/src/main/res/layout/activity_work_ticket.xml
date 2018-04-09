@@ -26,6 +26,7 @@
         android:layout_margin="10dp" />
 
     <include layout="@layout/work_item2"
+        android:layout_margin="10dp"
         android:layout_below="@+id/work_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

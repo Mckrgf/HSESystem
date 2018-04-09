@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
@@ -108,7 +109,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
-
+        UiSettings uiSettings = aMap.getUiSettings();
+        uiSettings.setCompassEnabled(true);
         //地图点击事件
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override
@@ -192,6 +194,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         map.onResume();
         int no = TaskDaoDBHelper.queryAll().size();
         tvTaskNo.setText(String.valueOf(no));
+        initMap();
         initMarker();
     }
 
