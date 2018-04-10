@@ -3,6 +3,7 @@ package www.supcon.com.hsesystem.Base;
 import android.app.Activity;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.util.Log;
 
 import java.util.LinkedList;
@@ -78,4 +79,8 @@ public class BaseApplication extends Application {
         mList.remove(activity);
     }
 
+    /**
+     * 拍照后图片路径
+     */
+    public static String photoPath = Environment.getExternalStorageDirectory() + "/HSE" + "/Pic";
 }

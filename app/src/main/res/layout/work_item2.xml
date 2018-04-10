@@ -35,38 +35,6 @@
             android:layout_toRightOf="@id/tv_2"
             android:text="成员A，成员B" />
 
-        <TextView
-            android:id="@+id/tv_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_2"
-            android:text="工作注意事项：" />
-
-        <LinearLayout
-            android:id="@+id/ll_safe"
-            android:layout_below="@id/tv_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="动火设备内部构件清理干净"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="断开与动火设备相关的所有管线"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="动火点周围易燃物已经清除"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="高处作业已采取防火花飞溅措施"/>
-        </LinearLayout>
-
 
 
     </RelativeLayout>

@@ -52,11 +52,19 @@
                 android:layout_below="@id/work_item1"
                 android:layout_margin="10dp" />
 
+            <include
+                android:id="@+id/work_item3"
+                layout="@layout/work_item3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/work_item2"
+                android:layout_margin="10dp" />
+
             <LinearLayout
                 android:id="@+id/rg_inspection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/work_item2"
+                android:layout_below="@+id/work_item3"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
@@ -140,6 +148,7 @@
 
 
     <include
+        android:visibility="gone"
         android:id="@+id/bottom_tab"
         layout="@layout/bottom_tab"
         android:layout_width="match_parent"
