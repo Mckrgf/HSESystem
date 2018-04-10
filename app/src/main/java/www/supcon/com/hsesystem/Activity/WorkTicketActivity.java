@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -71,6 +72,7 @@ public class WorkTicketActivity extends BaseActivity {
     ImageView ivWorkPermission;
 
     private boolean isRunning = true;//默认任务正在进行中，实际需要从后台获取任务状态
+    private boolean hasPic = false;
 
     private Task task;
     private static final String TAG = "WorkTicketActivity";
@@ -95,6 +97,12 @@ public class WorkTicketActivity extends BaseActivity {
         tvManB.setText(task.getMan_b());
         tvWorkStatus.setText(task.getStatus());
         tvWorkContent.setText(task.getWork_content());
+
+        String path = task.getPic();
+        if (!TextUtils.isEmpty(path)) {
+            ivWorkPermission.setImageURI(Uri.parse(path));
+        }
+
     }
 
     @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_return, R.id.bt_start, R.id.bt_stop, R.id.bt_abort, R.id.bt_take_pic})
@@ -111,14 +119,22 @@ public class WorkTicketActivity extends BaseActivity {
             case R.id.bt_start:
                 //点击开始， 后可点击暂停和结束
                 //拍照成功后可以开始
-                btStart.setBackgroundColor(getResources().getColor(R.color.gray));
-                btStart.setClickable(false);
-                btStop.setBackgroundColor(getResources().getColor(R.color.white));
-                btStop.setClickable(true);                //拍照成功后可以开始
-                btAbort.setBackgroundColor(getResources().getColor(R.color.white));
-                btAbort.setClickable(true);
+                if (hasPic) {
+                    btStart.setBackgroundColor(getResources().getColor(R.color.gray));
+                    btStart.setClickable(false);
+                    btStop.setBackgroundColor(getResources().getColor(R.color.white));
+                    btStop.setClickable(true);                //拍照成功后可以开始
+                    btAbort.setBackgroundColor(getResources().getColor(R.color.white));
+                    btAbort.setClickable(true);
+                }else {
+                    Toast.makeText(getMe(),"请先拍摄作业证图片",Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.bt_stop:
+
+                task.setStatus("已完成");
+                TaskDaoDBHelper.updateTask(task);
                 finish();
                 break;
             case R.id.bt_abort:
@@ -137,15 +153,14 @@ public class WorkTicketActivity extends BaseActivity {
                 break;
             case R.id.bt_take_pic:
                 //动态申请相机权限
-//                if (ContextCompat.checkSelfPermission(getMe(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//                    //如果没有权限，就申请，然后走回调方法，在回调成功的时候调用拍照方法
-//                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
-//                    break;
-//                }else {
-//                    //如果有权限，进入拍照
-//                    take_pic();
-//                }
-                take_pic();
+                if (ContextCompat.checkSelfPermission(getMe(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //如果没有权限，就申请，然后走回调方法，在回调成功的时候调用拍照方法
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+                    break;
+                }else {
+                    //如果有权限，进入拍照
+                    take_pic();
+                }
                 break;
         }
     }
@@ -223,11 +238,15 @@ public class WorkTicketActivity extends BaseActivity {
                     //压缩拍后的图片
                     ImageCompressUtil.compressBitmap(filepath, 1024, 768, 80, filepath);
                     ivWorkPermission.setImageURI(Uri.parse(filepath));
+                    task.setPic(filepath);
+                    TaskDaoDBHelper.updateTask(task);
                 }
 
                 //拍照成功后可以开始
                 btStart.setBackgroundColor(getResources().getColor(R.color.white));
                 btStart.setClickable(true);
+
+                hasPic = true;
                 break;
         }
     }

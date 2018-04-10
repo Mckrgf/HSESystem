@@ -1,5 +1,7 @@
 package www.supcon.com.hsesystem.DB;
 
+import android.net.Uri;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -30,10 +32,11 @@ public class Task implements Serializable{
     private String work_content;//工作内容
     private String work_mans;//工作组成员
     private String attentions;//注意事项
-    @Generated(hash = 1883778460)
+    private String pic;//项目所属的作业票图片
+    @Generated(hash = 206082121)
     public Task(Long id, String status, String name, String type, String man_a,
             String man_b, String location, String number, double lat, double lng,
-            String work_content, String work_mans, String attentions) {
+            String work_content, String work_mans, String attentions, String pic) {
         this.id = id;
         this.status = status;
         this.name = name;
@@ -47,6 +50,7 @@ public class Task implements Serializable{
         this.work_content = work_content;
         this.work_mans = work_mans;
         this.attentions = attentions;
+        this.pic = pic;
     }
     @Generated(hash = 733837707)
     public Task() {
@@ -128,6 +132,12 @@ public class Task implements Serializable{
     }
     public void setAttentions(String attentions) {
         this.attentions = attentions;
+    }
+    public String getPic() {
+        return this.pic;
+    }
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
 
