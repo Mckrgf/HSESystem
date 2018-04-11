@@ -70,6 +70,12 @@ public class WorkTicketActivity extends BaseActivity {
     Button btTakePic;
     @BindView(R.id.iv_work_permission)
     ImageView ivWorkPermission;
+    @BindView(R.id.tv_examine_time_content)
+    TextView tvExamineTimeContent;
+    @BindView(R.id.tv_task_count)
+    TextView tvTaskCount;
+    @BindView(R.id.tv_test_content)
+    TextView tvTestContent;
 
     private boolean isRunning = true;//默认任务正在进行中，实际需要从后台获取任务状态
     private boolean hasPic = false;
@@ -97,6 +103,10 @@ public class WorkTicketActivity extends BaseActivity {
         tvManB.setText(task.getMan_b());
         tvWorkStatus.setText(task.getStatus());
         tvWorkContent.setText(task.getWork_content());
+
+        String time_start = MyDateUtils.getDateFromLong(task.getTime_start(), MyDateUtils.date_Format);
+        String time_stop = MyDateUtils.getDateFromLong(task.getTime_stop(), MyDateUtils.date_Format);
+        tvExamineTimeContent.setText(time_start + " 至 " + time_stop);
 
         String path = task.getPic();
         if (!TextUtils.isEmpty(path)) {
@@ -126,8 +136,8 @@ public class WorkTicketActivity extends BaseActivity {
                     btStop.setClickable(true);                //拍照成功后可以开始
                     btAbort.setBackgroundColor(getResources().getColor(R.color.white));
                     btAbort.setClickable(true);
-                }else {
-                    Toast.makeText(getMe(),"请先拍摄作业证图片",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getMe(), "请先拍摄作业证图片", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
@@ -157,7 +167,7 @@ public class WorkTicketActivity extends BaseActivity {
                     //如果没有权限，就申请，然后走回调方法，在回调成功的时候调用拍照方法
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
                     break;
-                }else {
+                } else {
                     //如果有权限，进入拍照
                     take_pic();
                 }
@@ -208,9 +218,6 @@ public class WorkTicketActivity extends BaseActivity {
         } else {
             uri = Uri.fromFile(out);
         }
-
-
-
 
 
         imageCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);

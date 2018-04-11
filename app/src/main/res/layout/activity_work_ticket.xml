@@ -26,74 +26,105 @@
         android:layout_below="@+id/user_info"
         android:layout_margin="10dp" />
 
-    <include
-        android:id="@+id/work_item"
-        layout="@layout/work_item1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ScrollView
         android:layout_below="@+id/examine_item"
-        android:layout_margin="10dp" />
-
-    <include layout="@layout/work_item2"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/work_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rl_work_content"/>
-
-    <LinearLayout
-        android:id="@+id/ll_bt"
-        android:layout_below="@+id/rl_work_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include
+                android:id="@+id/work_item"
+                layout="@layout/work_item1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
+            <include
+                android:id="@+id/rl_work_content"
+                layout="@layout/work_item2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/work_item"
+                android:layout_margin="10dp" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/rl_work_content"
+                android:id="@+id/tv_task_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="任务倒计时：" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/tv_task_count"
+                android:id="@+id/tv_test_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="检测气体倒计时：" />
+
+            <LinearLayout
+                android:id="@+id/ll_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_test_content">
 
 
-        <Button
-            android:id="@+id/bt_take_pic"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:layout_height="wrap_content"
-            android:text="作业证拍照"/>
+                <Button
+                    android:id="@+id/bt_take_pic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="作业证拍照"
+                    android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/bt_start"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@color/gray"
-            android:text="开始"/>
-        <Button
-            android:background="@color/gray"
-            android:id="@+id/bt_abort"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:text="暂停"/>
-        <Button
-            android:background="@color/gray"
-            android:id="@+id/bt_stop"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:text="结束"/>
+                <Button
+                    android:id="@+id/bt_start"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:text="开始" />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/bt_abort"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:clickable="false"
+                    android:text="暂停" />
 
-    <ImageView
-        android:layout_below="@+id/ll_bt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/iv_work_permission"/>
+                <Button
+                    android:id="@+id/bt_stop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:clickable="false"
+                    android:text="结束" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_work_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_bt" />
 
 
-    <include
-        android:visibility="gone"
-        android:id="@+id/bottom_tab"
-        layout="@layout/bottom_tab"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true" />
+            <include
+                android:id="@+id/bottom_tab"
+                layout="@layout/bottom_tab"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
+
+
 </RelativeLayout>

@@ -17,6 +17,7 @@ import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
+import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
 public class ManExamineActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
     @BindView(R.id.bt_pass)
@@ -57,6 +58,8 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     CheckBox cbD;
     @BindView(R.id.bt_refuse)
     Button btRefuse;
+    @BindView(R.id.tv_examine_time_content)
+    TextView tvExamineTimeContent;
     private Task task;
 
     @SuppressLint("SetTextI18n")
@@ -79,6 +82,9 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         tvManB.setText(task.getMan_b());
         tvWorkStatus.setText(task.getStatus());
         tvWorkContent.setText(task.getWork_content());
+        String time_start = MyDateUtils.getDateFromLong(task.getTime_start(), MyDateUtils.date_Format);
+        String time_stop = MyDateUtils.getDateFromLong(task.getTime_stop(), MyDateUtils.date_Format);
+        tvExamineTimeContent.setText(time_start + " 至 " + time_stop);
 
         cbA.setOnCheckedChangeListener(this);
         cbB.setOnCheckedChangeListener(this);

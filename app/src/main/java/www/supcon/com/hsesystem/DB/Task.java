@@ -26,6 +26,8 @@ public class Task implements Serializable{
     private String man_b;//审核人b
     private String location;//位置信息
     private String  number ;//工单编号
+    private long  time_start ;//开始时间
+    private long  time_stop ;//结束时间
     private double  lat ;//经纬度
     private double  lng ;//经纬度
 
@@ -33,10 +35,11 @@ public class Task implements Serializable{
     private String work_mans;//工作组成员
     private String attentions;//注意事项
     private String pic;//项目所属的作业票图片
-    @Generated(hash = 206082121)
+    @Generated(hash = 54050486)
     public Task(Long id, String status, String name, String type, String man_a,
-            String man_b, String location, String number, double lat, double lng,
-            String work_content, String work_mans, String attentions, String pic) {
+            String man_b, String location, String number, long time_start,
+            long time_stop, double lat, double lng, String work_content,
+            String work_mans, String attentions, String pic) {
         this.id = id;
         this.status = status;
         this.name = name;
@@ -45,6 +48,8 @@ public class Task implements Serializable{
         this.man_b = man_b;
         this.location = location;
         this.number = number;
+        this.time_start = time_start;
+        this.time_stop = time_stop;
         this.lat = lat;
         this.lng = lng;
         this.work_content = work_content;
@@ -138,6 +143,18 @@ public class Task implements Serializable{
     }
     public void setPic(String pic) {
         this.pic = pic;
+    }
+    public long getTime_start() {
+        return this.time_start;
+    }
+    public void setTime_start(long time_start) {
+        this.time_start = time_start;
+    }
+    public long getTime_stop() {
+        return this.time_stop;
+    }
+    public void setTime_stop(long time_stop) {
+        this.time_stop = time_stop;
     }
 
 

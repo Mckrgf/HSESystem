@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
+import www.supcon.com.hsesystem.Utils.MyDateUtils;
 import www.supcon.com.hsesystem.Utils.StringListConvertUtils;
 
 public class LoginActivity extends BaseActivity {
@@ -38,6 +40,8 @@ public class LoginActivity extends BaseActivity {
     LinearLayout llNfcLogin;
     @BindView(R.id.bt_reset)
     Button btReset;
+    private long time_start;
+    private long time_stop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,13 @@ public class LoginActivity extends BaseActivity {
         colleagues.add("张三");
         colleagues.add("李四");
         String colleague = StringListConvertUtils.listToString(colleagues);
+        String date_Format = "yyyy-MM-dd HH:mm:ss";
+        try {
+            time_start = MyDateUtils.getLongDateFromString("2018-04-05 09:00:00",date_Format);
+            time_stop = MyDateUtils.getLongDateFromString("2018-04-25 09:00:00",date_Format);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         if (null == list | list.size() != 4) {
             Task task = new Task();
@@ -107,6 +118,8 @@ public class LoginActivity extends BaseActivity {
             task.setAttentions(attention);
             task.setWork_mans(colleague);
             task.setWork_content("基础开挖");
+            task.setTime_start(time_start);
+            task.setTime_stop(time_stop);
             TaskDaoDBHelper.insertTask(task);
 
             Task task2 = new Task();
@@ -122,6 +135,8 @@ public class LoginActivity extends BaseActivity {
             task2.setAttentions(attention);
             task2.setWork_mans(colleague);
             task2.setWork_content("基础开挖");
+            task2.setTime_start(time_start);
+            task2.setTime_stop(time_stop);
             TaskDaoDBHelper.insertTask(task2);
 
             Task task3 = new Task();
@@ -137,6 +152,8 @@ public class LoginActivity extends BaseActivity {
             task3.setAttentions(attention);
             task3.setWork_mans(colleague);
             task3.setWork_content("基础开挖");
+            task3.setTime_start(time_start);
+            task3.setTime_stop(time_stop);
             TaskDaoDBHelper.insertTask(task3);
 
             Task task4 = new Task();
@@ -152,6 +169,8 @@ public class LoginActivity extends BaseActivity {
             task4.setAttentions(attention);
             task4.setWork_mans(colleague);
             task4.setWork_content("基础开挖");
+            task4.setTime_start(time_start);
+            task4.setTime_stop(time_stop);
             TaskDaoDBHelper.insertTask(task4);
         }
     }
