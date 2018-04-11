@@ -27,12 +27,14 @@
         android:layout_margin="10dp" />
 
     <ScrollView
-        android:layout_below="@+id/examine_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/examine_item">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <include
                 android:id="@+id/work_item"
                 layout="@layout/work_item1"
@@ -49,21 +51,40 @@
                 android:layout_margin="10dp" />
 
             <TextView
-                android:visibility="gone"
-                android:layout_margin="10dp"
+                android:id="@+id/tv_task_count1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_work_content"
-                android:id="@+id/tv_task_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="任务倒计时：" />
+
             <TextView
-                android:layout_marginLeft="10dp"
-                android:visibility="gone"
-                android:layout_marginBottom="10dp"
-                android:layout_below="@+id/tv_task_count"
-                android:id="@+id/tv_test_content"
+                android:id="@+id/tv_task_count"
+                android:layout_toRightOf="@id/tv_task_count1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_work_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="任务倒计时：" />
+
+            <TextView
+                android:id="@+id/tv_test_content1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_task_count"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="检测气体倒计时：" />
+
+            <TextView
+                android:id="@+id/tv_test_content"
+                android:layout_toRightOf="@id/tv_test_content1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_task_count"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="检测气体倒计时：" />
 
             <LinearLayout
@@ -113,7 +134,8 @@
                 android:id="@+id/iv_work_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_bt" />
+                android:layout_below="@+id/ll_bt"
+                android:layout_margin="10dp" />
 
 
             <include

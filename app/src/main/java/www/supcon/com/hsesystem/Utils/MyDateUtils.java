@@ -205,13 +205,38 @@ public class MyDateUtils {
      * @author fy.zhang
      */
     public static String formatDuring(long mss) {
-        if (mss<0) {
+        if (mss < 0) {
             return "已超时";
         }
         long days = mss / (1000 * 60 * 60 * 24);
         long hours = (mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
         long minutes = (mss % (1000 * 60 * 60)) / (1000 * 60);
         long seconds = (mss % (1000 * 60)) / 1000;
-        return hours + ":" + minutes + ":" + seconds;
+        return days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒";
+    }
+    /**
+     * @return 该毫秒数转换为 * days * hours * minutes * seconds 后的格式
+     * @author fy.zhang
+     */
+    public static String formatDuringNodays(long mss) {
+        if (mss < 0) {
+            return "已超时";
+        }
+        long days = mss / (1000 * 60 * 60 * 24);
+        long hours = (mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+        long minutes = (mss % (1000 * 60 * 60)) / (1000 * 60);
+        long seconds = (mss % (1000 * 60)) / 1000;
+        return minutes + "分钟" + seconds + "秒";
+    }
+    /**
+     * @return 该毫秒数转换为 * days * hours * minutes * seconds 后的格式
+     * @author fy.zhang
+     */
+    public static String getHourAdd(long mss) {
+        if (mss < 0) {
+            return "已超时";
+        }
+        long hours = (mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+        return hours+"";
     }
 }

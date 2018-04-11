@@ -3,9 +3,11 @@ package www.supcon.com.hsesystem.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,6 +97,80 @@ public class WorkTicketActivity extends BaseActivity {
         tvTitle.setText("中控智能HSE-工作票详情页面");
         task = (Task) getIntent().getSerializableExtra("TASK");
         initData();
+        count_time_task();
+        count_time_test();
+    }
+
+    /**
+     * 倒计时处理
+     */
+    private void count_time_task() {
+        long time = task.getTime_stop();
+        long timeGetTime = new Date().getTime();//当前时间戳
+        final long count = time - timeGetTime;
+        final String[] count_s = {MyDateUtils.formatDuring(count)};
+        tvTaskCount.setText(count_s[0]);
+        CountDownTimer timer = new CountDownTimer(count, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                count_s[0] = MyDateUtils.formatDuring(millisUntilFinished);
+                if (count_s[0].equals("已超时")) {
+                    tvTaskCount.setTextColor(Color.RED);
+                }
+                tvTaskCount.setText(count_s[0]);
+            }
+
+            @Override
+            public void onFinish() {
+                tvTaskCount.setTextColor(Color.RED);
+                tvTaskCount.setText("已超时");
+            }
+        };
+        timer.start();
+    }
+
+    /**
+     * 倒计时处理
+     */
+    private void count_time_test() {
+        long time_stop = new Date().getTime();
+        int a = new Date().getHours();
+        a = a + 1;//下一个整点
+        try {
+            String aa = MyDateUtils.getDateFromLong(new Date().getTime(), MyDateUtils.date_Format2);
+            String bb = aa + " " + a + ":00:00";
+            time_stop = MyDateUtils.getLongDateFromString(bb, MyDateUtils.date_Format);
+            String bbs = aa + a + ":00:00";
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        long timeGetTime = new Date().getTime();//当前时间戳
+        String aaa = MyDateUtils.getDateFromLong(timeGetTime, MyDateUtils.date_Format);
+        String sss = MyDateUtils.getDateFromLong(time_stop, MyDateUtils.date_Format);
+        final long count = time_stop - timeGetTime;
+        final String[] count_s = {MyDateUtils.formatDuringNodays(count)};
+        tvTestContent.setText(count_s[0]);
+        CountDownTimer timer = new CountDownTimer(count, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                count_s[0] = MyDateUtils.formatDuringNodays(millisUntilFinished);
+                String aaaa = String.valueOf(count_s[0].charAt(0));
+                if (aaaa.equals(1)) {
+                    Toast.makeText(getMe(),"该检测了",Toast.LENGTH_SHORT).show();
+                    Log.i(TAG,"该检测了");
+                }
+                tvTestContent.setText(count_s[0]);
+            }
+
+            @Override
+            public void onFinish() {
+                tvTestContent.setTextColor(Color.RED);
+                tvTestContent.setText("已超时");
+            }
+        };
+        timer.start();
     }
 
     private void initData() {
@@ -111,6 +190,11 @@ public class WorkTicketActivity extends BaseActivity {
         String path = task.getPic();
         if (!TextUtils.isEmpty(path)) {
             ivWorkPermission.setImageURI(Uri.parse(path));
+            //有照片，可以开始
+            btStart.setBackgroundColor(getResources().getColor(R.color.white));
+            btStart.setClickable(true);
+
+            hasPic = true;
         }
 
     }
