@@ -13,17 +13,18 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -31,6 +32,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.Base.BaseApplication;
+import www.supcon.com.hsesystem.DB.AirTest;
+import www.supcon.com.hsesystem.DB.AirTestDaoDBHelper;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
@@ -81,6 +84,8 @@ public class WorkTicketActivity extends BaseActivity {
     TextView tvTaskCount;
     @BindView(R.id.tv_test_content)
     TextView tvTestContent;
+    @BindView(R.id.bt_report)
+    Button btReport;
 
     private boolean isRunning = true;//默认任务正在进行中，实际需要从后台获取任务状态
     private boolean hasPic = false;
@@ -155,8 +160,8 @@ public class WorkTicketActivity extends BaseActivity {
                 count_s[0] = MyDateUtils.formatDuringNodays(millisUntilFinished);
                 String aaaa = String.valueOf(count_s[0].charAt(0));
                 if (aaaa.equals(1)) {
-                    Toast.makeText(getMe(),"该检测了",Toast.LENGTH_SHORT).show();
-                    Log.i(TAG,"该检测了");
+                    Toast.makeText(getMe(), "该检测了", Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, "该检测了");
                 }
                 tvTestContent.setText(count_s[0]);
             }
@@ -196,7 +201,7 @@ public class WorkTicketActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_return, R.id.bt_start, R.id.bt_stop, R.id.bt_abort, R.id.bt_take_pic})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_return, R.id.bt_start, R.id.bt_stop, R.id.bt_abort, R.id.bt_take_pic, R.id.bt_report})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -206,6 +211,9 @@ public class WorkTicketActivity extends BaseActivity {
                 break;
             case R.id.iv_return:
                 finish();
+                break;
+            case R.id.bt_report:
+                openDialog();
                 break;
             case R.id.bt_start:
                 //点击开始， 后可点击暂停和结束
@@ -255,6 +263,43 @@ public class WorkTicketActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void openDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.create();
+
+        View view = View.inflate(this, R.layout.air_test_dialog, null);
+        // dialog.setView(view);// 将自定义的布局文件设置给dialog
+        dialog.setView(view, 0, 0, 0, 0);// 设置边距为0,保证在2.x的版本上运行没问题
+
+        final EditText et_man = (EditText) view
+                .findViewById(R.id.et_man);
+        final EditText et_info = (EditText) view
+                .findViewById(R.id.et_info);
+        final EditText et_location = (EditText) view
+                .findViewById(R.id.et_location);
+
+        Button btnOK = (Button) view.findViewById(R.id.bt_upload);
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                AirTest airTest = new AirTest();
+                airTest.setInfo(String.valueOf(et_info.getText()));
+                airTest.setMan(String.valueOf(et_man.getText()));
+                airTest.setLocation(String.valueOf(et_location.getText()));
+                airTest.setNumber(task.getNumber());
+                airTest.setTime_b(String.valueOf(new Date()));
+                AirTestDaoDBHelper.insertAirTest(airTest);
+                Toast.makeText(getMe(),"上传成功",Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

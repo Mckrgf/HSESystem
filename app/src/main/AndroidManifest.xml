@@ -36,6 +36,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="eecfec225fd95f230af18b6575dc8429" />
@@ -53,7 +54,7 @@
         </activity>
         <activity android:name=".Activity.WorkListActivity" />
         <activity android:name=".Activity.ManExamineActivity" />
-        <activity android:name=".Activity.WorkTicketActivity"></activity>
+        <activity android:name=".Activity.WorkTicketActivity" />
     </application>
 
 </manifest>

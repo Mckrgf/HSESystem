@@ -19,7 +19,7 @@ android {
         }
     }
 
-    greendao{
+    greendao {
         schemaVersion 1
 //        daoPackage'www.supcon.com.hsesystem.DB'
 //        targetGenDir'src/main/java'
