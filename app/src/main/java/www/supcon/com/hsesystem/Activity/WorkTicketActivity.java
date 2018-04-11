@@ -102,7 +102,7 @@ public class WorkTicketActivity extends BaseActivity {
     }
 
     /**
-     * 倒计时处理
+     * 工单倒计时处理
      */
     private void count_time_task() {
         long time = task.getTime_stop();
@@ -130,7 +130,7 @@ public class WorkTicketActivity extends BaseActivity {
     }
 
     /**
-     * 倒计时处理
+     * 气体检测倒计时处理
      */
     private void count_time_test() {
         long time_stop = new Date().getTime();
@@ -140,15 +140,12 @@ public class WorkTicketActivity extends BaseActivity {
             String aa = MyDateUtils.getDateFromLong(new Date().getTime(), MyDateUtils.date_Format2);
             String bb = aa + " " + a + ":00:00";
             time_stop = MyDateUtils.getLongDateFromString(bb, MyDateUtils.date_Format);
-            String bbs = aa + a + ":00:00";
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
 
         long timeGetTime = new Date().getTime();//当前时间戳
-        String aaa = MyDateUtils.getDateFromLong(timeGetTime, MyDateUtils.date_Format);
-        String sss = MyDateUtils.getDateFromLong(time_stop, MyDateUtils.date_Format);
         final long count = time_stop - timeGetTime;
         final String[] count_s = {MyDateUtils.formatDuringNodays(count)};
         tvTestContent.setText(count_s[0]);
