@@ -21,4 +21,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="中控智能HSE"/>
+
+    <TextView
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:id="@+id/tv_take_video"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="拍摄视频"/>
 </RelativeLayout>

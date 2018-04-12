@@ -3,11 +3,15 @@ package www.supcon.com.hsesystem.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -23,6 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,18 +40,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.supcon.com.hsesystem.Adapter.AirTestListAdapter;
-import www.supcon.com.hsesystem.Adapter.WorkListAdapter;
+import www.supcon.com.hsesystem.Adapter.VideoListAdapter;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.Base.BaseApplication;
 import www.supcon.com.hsesystem.DB.AirTest;
 import www.supcon.com.hsesystem.DB.AirTestDaoDBHelper;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
+import www.supcon.com.hsesystem.DB.Video;
+import www.supcon.com.hsesystem.DB.VideoDaoDBHelper;
 import www.supcon.com.hsesystem.R;
 import www.supcon.com.hsesystem.Utils.ImageCompressUtil;
 import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
-public class WorkTicketActivity extends BaseActivity {
+public class WorkTicketActivity extends BaseActivity implements VideoListAdapter.OnItemClickListener {
 
     @BindView(R.id.bt_nav_1)
     Button btNav1;
@@ -94,6 +101,10 @@ public class WorkTicketActivity extends BaseActivity {
     Button btReport;
     @BindView(R.id.rv_air_test)
     RecyclerView rvAirTest;
+    @BindView(R.id.tv_take_video)
+    TextView tvTakeVideo;
+    @BindView(R.id.ll_videos)
+    RecyclerView llVideos;
 
     private boolean isRunning = true;//默认任务正在进行中，实际需要从后台获取任务状态
     private boolean hasPic = false;
@@ -102,6 +113,8 @@ public class WorkTicketActivity extends BaseActivity {
     private static final String TAG = "WorkTicketActivity";
     private String filename;
     private AirTestListAdapter airTestListAdapter;
+    private List<Video> videos;
+    private VideoListAdapter videoListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +123,7 @@ public class WorkTicketActivity extends BaseActivity {
         ButterKnife.bind(this);
         tvTitle.setText("中控智能HSE-工作票详情页面");
         task = (Task) getIntent().getSerializableExtra("TASK");
+        tvTakeVideo.setVisibility(View.VISIBLE);
         initData();
         count_time_task();
         count_time_test();
@@ -117,6 +131,9 @@ public class WorkTicketActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(getMyApplication(), LinearLayoutManager.VERTICAL, false);
         rvAirTest.setLayoutManager(manager);
         rvAirTest.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        LinearLayoutManager manager1 = new LinearLayoutManager(getMyApplication(), LinearLayoutManager.VERTICAL, false);
+        llVideos.setLayoutManager(manager1);
+        llVideos.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     /**
@@ -215,27 +232,27 @@ public class WorkTicketActivity extends BaseActivity {
             isRunning = false;
             if (!TextUtils.isEmpty(task.getPic())) {
                 //可以按开始,继续和停止都不能按
-            }else {
+            } else {
                 //都不能按
             }
-        }else if (task.getStatus().equals("进行中")) {
+        } else if (task.getStatus().equals("进行中")) {
             isRunning = true;
             //可以按继续和停止,开始不能按
-            startEnable(getResources().getColor(R.color.gray),false);
-            abortEnable(getResources().getColor(R.color.white),true);
-            stopEnable(getResources().getColor(R.color.white),true);
-        }else if (task.getStatus().equals("已完成")) {
+            startEnable(getResources().getColor(R.color.gray), false);
+            abortEnable(getResources().getColor(R.color.white), true);
+            stopEnable(getResources().getColor(R.color.white), true);
+        } else if (task.getStatus().equals("已完成")) {
             //都不能按
             isRunning = false;
-            startEnable(getResources().getColor(R.color.gray),false);
-            abortEnable(getResources().getColor(R.color.gray),false);
-            stopEnable(getResources().getColor(R.color.gray),false);
+            startEnable(getResources().getColor(R.color.gray), false);
+            abortEnable(getResources().getColor(R.color.gray), false);
+            stopEnable(getResources().getColor(R.color.gray), false);
             btTakePic.setClickable(false);
         }
 
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_return, R.id.bt_start, R.id.bt_stop, R.id.bt_abort, R.id.bt_take_pic, R.id.bt_report})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_return, R.id.bt_start, R.id.bt_stop, R.id.bt_abort, R.id.bt_take_pic, R.id.bt_report, R.id.tv_take_video})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -257,8 +274,8 @@ public class WorkTicketActivity extends BaseActivity {
                 //拍照成功后可以开始
                 if (hasPic) {
                     startEnable(getResources().getColor(R.color.gray), false);
-                    stopEnable(getResources().getColor(R.color.white),true);
-                    abortEnable(getResources().getColor(R.color.white),true);
+                    stopEnable(getResources().getColor(R.color.white), true);
+                    abortEnable(getResources().getColor(R.color.white), true);
                 } else {
                     Toast.makeText(getMe(), "请先拍摄作业证图片", Toast.LENGTH_SHORT).show();
                 }
@@ -286,6 +303,10 @@ public class WorkTicketActivity extends BaseActivity {
                 Intent intent1 = new Intent(getMe(), WorkListActivity.class);
                 startActivity(intent1);
                 break;
+            case R.id.tv_take_video:
+                //拍摄视频
+                takeVideo();
+                break;
             case R.id.bt_take_pic:
                 //动态申请相机权限
                 if (ContextCompat.checkSelfPermission(getMe(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -300,12 +321,25 @@ public class WorkTicketActivity extends BaseActivity {
         }
     }
 
-    private void abortEnable(int color,boolean clickable) {
+    /**
+     * 进行录像
+     */
+    private void takeVideo() {
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);//参数设置可以省略
+
+        startActivityForResult(intent, 102);
+
+
+    }
+
+    private void abortEnable(int color, boolean clickable) {
         btAbort.setBackgroundColor(color);
         btAbort.setClickable(clickable);
     }
 
-    private void stopEnable(int color,boolean clickable) {
+    private void stopEnable(int color, boolean clickable) {
         btStop.setBackgroundColor(color);
         btStop.setClickable(clickable);
     }
@@ -348,7 +382,7 @@ public class WorkTicketActivity extends BaseActivity {
                     airTest.setTime_b(String.valueOf(new Date()));
                     AirTestDaoDBHelper.insertAirTest(airTest);
                     Toast.makeText(getMe(), "上传成功", Toast.LENGTH_SHORT).show();
-                    airTestListAdapter.setData(AirTestDaoDBHelper.queryAll());
+                    airTestListAdapter.setData(AirTestDaoDBHelper.queryAllInOneTask(task.getNumber()));
                     dialog.dismiss();
                 } else {
                     Toast.makeText(getMe(), "所有内容均不能为空", Toast.LENGTH_SHORT).show();
@@ -416,9 +450,14 @@ public class WorkTicketActivity extends BaseActivity {
         super.onResume();
         int no = TaskDaoDBHelper.queryAll().size();
         tvTaskNo.setText(String.valueOf(no));
-        List<AirTest> tests = AirTestDaoDBHelper.queryAll();
+        List<AirTest> tests = AirTestDaoDBHelper.queryAllInOneTask(task.getNumber());
         airTestListAdapter = new AirTestListAdapter(tests);
         rvAirTest.setAdapter(airTestListAdapter);
+
+        List<Video> videos = VideoDaoDBHelper.queryAllInOneTask(task.getNumber());
+        videoListAdapter = new VideoListAdapter(this,videos);
+        llVideos.setAdapter(videoListAdapter);
+
     }
 
     @Override
@@ -443,7 +482,38 @@ public class WorkTicketActivity extends BaseActivity {
 
                 hasPic = true;
                 break;
+            case 102:
+                Uri videoUri = data.getData();
+                String[] projection = {MediaStore.Video.Media.DATA, MediaStore.Video.Media.SIZE};
+                Cursor cursor = managedQuery(videoUri, null, null, null, null);
+                cursor.moveToFirst();//这个必须加，否则下面读取会报错
+                int num = cursor.getCount();
+                String recordedVideoFilePath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+                int recordedVideoFileSize = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.SIZE));
+                Log.i(TAG, recordedVideoFilePath + "\n" + recordedVideoFileSize + "\n" + num + "\n" + projection);
+                Video video = new Video();
+                video.setNumber(task.getNumber());
+                video.setStatus("0");
+                video.setVideoUrl(recordedVideoFilePath);
+                video.setDate(MyDateUtils.getDateFromLong(new Date().getTime(), MyDateUtils.date_Format));
+                VideoDaoDBHelper.insertVideo(video);
+
+                //查询一共有几个视频,循环添加到相对布局中
+                videos = VideoDaoDBHelper.queryAllInOneTask(task.getNumber());
+                videoListAdapter = new VideoListAdapter(this,videos);
+                llVideos.setAdapter(videoListAdapter);
+                videoListAdapter.setItemClickListener(this);
+                break;
         }
     }
 
+    @Override
+    public void onItemClick(int position) {
+        //视频列表,点击查看视频
+        Video video = videos.get(position);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+        Uri data = Uri.parse(video.getVideoUrl());
+        intent.setDataAndType(data, "video/mp4");
+        startActivity(intent);
+    }
 }

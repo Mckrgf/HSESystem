@@ -43,4 +43,11 @@ public class AirTestDaoDBHelper {
     public static List<AirTest> queryAll() {
         return BaseApplication.getDaoInstant().getAirTestDao().loadAll();
     }
+
+    /**
+     * 查询全部数据
+     */
+    public static List<AirTest> queryAllInOneTask(String taskId) {
+        return BaseApplication.getDaoInstant().getAirTestDao().queryBuilder().where(AirTestDao.Properties.Number.eq(taskId)).list();
+    }
 }
