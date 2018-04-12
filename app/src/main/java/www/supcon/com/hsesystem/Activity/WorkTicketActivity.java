@@ -14,6 +14,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -26,10 +29,13 @@ import android.widget.Toast;
 import java.io.File;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import www.supcon.com.hsesystem.Adapter.AirTestListAdapter;
+import www.supcon.com.hsesystem.Adapter.WorkListAdapter;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.Base.BaseApplication;
 import www.supcon.com.hsesystem.DB.AirTest;
@@ -86,6 +92,8 @@ public class WorkTicketActivity extends BaseActivity {
     TextView tvTestContent;
     @BindView(R.id.bt_report)
     Button btReport;
+    @BindView(R.id.rv_air_test)
+    RecyclerView rvAirTest;
 
     private boolean isRunning = true;//默认任务正在进行中，实际需要从后台获取任务状态
     private boolean hasPic = false;
@@ -93,6 +101,7 @@ public class WorkTicketActivity extends BaseActivity {
     private Task task;
     private static final String TAG = "WorkTicketActivity";
     private String filename;
+    private AirTestListAdapter airTestListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +113,10 @@ public class WorkTicketActivity extends BaseActivity {
         initData();
         count_time_task();
         count_time_test();
+        //列表初始化
+        LinearLayoutManager manager = new LinearLayoutManager(getMyApplication(), LinearLayoutManager.VERTICAL, false);
+        rvAirTest.setLayoutManager(manager);
+        rvAirTest.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     /**
@@ -193,10 +206,31 @@ public class WorkTicketActivity extends BaseActivity {
         if (!TextUtils.isEmpty(path)) {
             ivWorkPermission.setImageURI(Uri.parse(path));
             //有照片，可以开始
-            btStart.setBackgroundColor(getResources().getColor(R.color.white));
-            btStart.setClickable(true);
+            startEnable(getResources().getColor(R.color.white), true);
 
             hasPic = true;
+        }
+
+        if (task.getStatus().equals("未审核")) {
+            isRunning = false;
+            if (!TextUtils.isEmpty(task.getPic())) {
+                //可以按开始,继续和停止都不能按
+            }else {
+                //都不能按
+            }
+        }else if (task.getStatus().equals("进行中")) {
+            isRunning = true;
+            //可以按继续和停止,开始不能按
+            startEnable(getResources().getColor(R.color.gray),false);
+            abortEnable(getResources().getColor(R.color.white),true);
+            stopEnable(getResources().getColor(R.color.white),true);
+        }else if (task.getStatus().equals("已完成")) {
+            //都不能按
+            isRunning = false;
+            startEnable(getResources().getColor(R.color.gray),false);
+            abortEnable(getResources().getColor(R.color.gray),false);
+            stopEnable(getResources().getColor(R.color.gray),false);
+            btTakePic.setClickable(false);
         }
 
     }
@@ -205,38 +239,39 @@ public class WorkTicketActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
+                //首页
                 Intent intent = new Intent(getMe(), MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.iv_return:
+                //返回
                 finish();
                 break;
             case R.id.bt_report:
+                //气体检测的弹窗
                 openDialog();
                 break;
             case R.id.bt_start:
                 //点击开始， 后可点击暂停和结束
                 //拍照成功后可以开始
                 if (hasPic) {
-                    btStart.setBackgroundColor(getResources().getColor(R.color.gray));
-                    btStart.setClickable(false);
-                    btStop.setBackgroundColor(getResources().getColor(R.color.white));
-                    btStop.setClickable(true);                //拍照成功后可以开始
-                    btAbort.setBackgroundColor(getResources().getColor(R.color.white));
-                    btAbort.setClickable(true);
+                    startEnable(getResources().getColor(R.color.gray), false);
+                    stopEnable(getResources().getColor(R.color.white),true);
+                    abortEnable(getResources().getColor(R.color.white),true);
                 } else {
                     Toast.makeText(getMe(), "请先拍摄作业证图片", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
             case R.id.bt_stop:
-
+                //停止
                 task.setStatus("已完成");
                 TaskDaoDBHelper.updateTask(task);
                 finish();
                 break;
             case R.id.bt_abort:
+                //终端
                 if (isRunning) {
                     //正在运行，点击暂停
                     btAbort.setText("继续");
@@ -247,6 +282,7 @@ public class WorkTicketActivity extends BaseActivity {
                 isRunning = !isRunning;
                 break;
             case R.id.bt_nav_2:
+                //列表页面
                 Intent intent1 = new Intent(getMe(), WorkListActivity.class);
                 startActivity(intent1);
                 break;
@@ -264,6 +300,21 @@ public class WorkTicketActivity extends BaseActivity {
         }
     }
 
+    private void abortEnable(int color,boolean clickable) {
+        btAbort.setBackgroundColor(color);
+        btAbort.setClickable(clickable);
+    }
+
+    private void stopEnable(int color,boolean clickable) {
+        btStop.setBackgroundColor(color);
+        btStop.setClickable(clickable);
+    }
+
+    private void startEnable(int color, boolean clickable) {
+        btStart.setBackgroundColor(color);
+        btStart.setClickable(clickable);
+    }
+
     private void openDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog dialog = builder.create();
@@ -272,28 +323,37 @@ public class WorkTicketActivity extends BaseActivity {
         // dialog.setView(view);// 将自定义的布局文件设置给dialog
         dialog.setView(view, 0, 0, 0, 0);// 设置边距为0,保证在2.x的版本上运行没问题
 
-        final EditText et_man = (EditText) view
+        final EditText et_man = view
                 .findViewById(R.id.et_man);
-        final EditText et_info = (EditText) view
+        final EditText et_info = view
                 .findViewById(R.id.et_info);
-        final EditText et_location = (EditText) view
+        final EditText et_location = view
                 .findViewById(R.id.et_location);
 
-        Button btnOK = (Button) view.findViewById(R.id.bt_upload);
+        Button btnOK = view.findViewById(R.id.bt_upload);
 
         btnOK.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                AirTest airTest = new AirTest();
-                airTest.setInfo(String.valueOf(et_info.getText()));
-                airTest.setMan(String.valueOf(et_man.getText()));
-                airTest.setLocation(String.valueOf(et_location.getText()));
-                airTest.setNumber(task.getNumber());
-                airTest.setTime_b(String.valueOf(new Date()));
-                AirTestDaoDBHelper.insertAirTest(airTest);
-                Toast.makeText(getMe(),"上传成功",Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                String info = String.valueOf(et_info.getText());
+                String man = String.valueOf(et_man.getText());
+                String location = String.valueOf(et_location.getText());
+                if (!TextUtils.isEmpty(info) && !TextUtils.isEmpty(man) && !TextUtils.isEmpty(location)) {
+                    AirTest airTest = new AirTest();
+                    airTest.setInfo(String.valueOf(et_info.getText()));
+                    airTest.setMan(String.valueOf(et_man.getText()));
+                    airTest.setLocation(String.valueOf(et_location.getText()));
+                    airTest.setNumber(task.getNumber());
+                    airTest.setTime_b(String.valueOf(new Date()));
+                    AirTestDaoDBHelper.insertAirTest(airTest);
+                    Toast.makeText(getMe(), "上传成功", Toast.LENGTH_SHORT).show();
+                    airTestListAdapter.setData(AirTestDaoDBHelper.queryAll());
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(getMe(), "所有内容均不能为空", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -356,6 +416,9 @@ public class WorkTicketActivity extends BaseActivity {
         super.onResume();
         int no = TaskDaoDBHelper.queryAll().size();
         tvTaskNo.setText(String.valueOf(no));
+        List<AirTest> tests = AirTestDaoDBHelper.queryAll();
+        airTestListAdapter = new AirTestListAdapter(tests);
+        rvAirTest.setAdapter(airTestListAdapter);
     }
 
     @Override
@@ -376,8 +439,7 @@ public class WorkTicketActivity extends BaseActivity {
                 }
 
                 //拍照成功后可以开始
-                btStart.setBackgroundColor(getResources().getColor(R.color.white));
-                btStart.setClickable(true);
+                startEnable(getResources().getColor(R.color.white), true);
 
                 hasPic = true;
                 break;

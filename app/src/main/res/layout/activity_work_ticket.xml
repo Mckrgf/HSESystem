@@ -27,6 +27,7 @@
         android:layout_margin="10dp" />
 
     <ScrollView
+        android:layout_above="@id/ll_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/examine_item">
@@ -104,56 +105,29 @@
                     android:text="提交气体检测数据"/>
             </RelativeLayout>
 
-
-
-            <LinearLayout
-                android:id="@+id/ll_bt"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_margin="10dp"
+                android:id="@+id/tv_list_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rl_test">
+                android:layout_below="@+id/rl_test"
+                android:text="气体检测数据提交记录"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/rv_air_test"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/tv_list_title"
+                android:layout_height="wrap_content"/>
 
 
-                <Button
-                    android:id="@+id/bt_take_pic"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="作业证拍照"
-                    android:textSize="12sp" />
 
-                <Button
-                    android:id="@+id/bt_start"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:text="开始" />
-
-                <Button
-                    android:id="@+id/bt_abort"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:clickable="false"
-                    android:text="暂停" />
-
-                <Button
-                    android:id="@+id/bt_stop"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:clickable="false"
-                    android:text="结束" />
-
-            </LinearLayout>
 
             <ImageView
                 android:id="@+id/iv_work_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_bt"
+                android:layout_below="@+id/rv_air_test"
                 android:layout_margin="10dp" />
 
 
@@ -166,6 +140,50 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+
+        <Button
+            android:id="@+id/bt_take_pic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="作业证拍照"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/bt_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/bt_abort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:clickable="false"
+            android:text="暂停" />
+
+        <Button
+            android:id="@+id/bt_stop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:clickable="false"
+            android:text="结束" />
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>
