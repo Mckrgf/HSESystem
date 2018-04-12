@@ -305,7 +305,16 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
                 break;
             case R.id.tv_take_video:
                 //拍摄视频
-                takeVideo();
+                //动态申请相机权限
+                if (ContextCompat.checkSelfPermission(getMe(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //如果没有权限，就申请，然后走回调方法，在回调成功的时候调用拍照方法
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
+                    break;
+                } else {
+                    //如果有权限，拍视频
+                    takeVideo();
+                }
+
                 break;
             case R.id.bt_take_pic:
                 //动态申请相机权限
@@ -408,6 +417,16 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
                     Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();
                 }
                 take_pic();
+                break;
+            case 2:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
+
+                } else {
+                    // 没有获取到权限，做特殊处理
+                    Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();
+                }
+                takeVideo();
                 break;
             default:
                 break;

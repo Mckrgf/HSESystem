@@ -55,6 +55,7 @@
         <activity android:name=".Activity.WorkListActivity" />
         <activity android:name=".Activity.ManExamineActivity" />
         <activity android:name=".Activity.WorkTicketActivity" />
+        <activity android:name=".Activity.VideoPlayActivity"></activity>
     </application>
 
 </manifest>

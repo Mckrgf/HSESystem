@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import www.supcon.com.hsesystem.Activity.VideoPlayActivity;
 import www.supcon.com.hsesystem.DB.Video;
 import www.supcon.com.hsesystem.R;
 
@@ -67,9 +68,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
             @Override
             public void onClick(View view) {
                 //视频列表,点击查看视频
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
-                Uri data = Uri.parse(video.getVideoUrl());
-                intent.setData(data);
+                Intent intent = new Intent(context, VideoPlayActivity.class);
+                intent.putExtra("uri",video.getVideoUrl());
                 context.startActivity(intent);
             }
         });
