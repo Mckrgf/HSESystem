@@ -19,14 +19,14 @@ public class TaskDaoDBHelper {
         BaseApplication.getDaoInstant().getTaskDao().insert(task);
     }
 
-//    /**
-//     * 删除数据
-//     *
-//     * @param id
-//     */
-//    public static void deleteTask(long id) {
-//        BaseApplication.getDaoInstant().getTaskDao().deleteByKey(id);
-//    }
+    /**
+     * 删除数据
+     *
+     * @param number
+     */
+    public static Task queryTask(String number) {
+        return BaseApplication.getDaoInstant().getTaskDao().queryBuilder().where(TaskDao.Properties.Number.eq(number)).unique();
+    }
 
     /**
      * 更新数据

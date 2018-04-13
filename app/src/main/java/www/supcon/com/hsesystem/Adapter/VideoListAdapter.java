@@ -70,6 +70,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
                 //视频列表,点击查看视频
                 Intent intent = new Intent(context, VideoPlayActivity.class);
                 intent.putExtra("uri",video.getVideoUrl());
+                intent.putExtra("video",video);
                 context.startActivity(intent);
             }
         });

@@ -135,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ll_videos"
                 android:orientation="horizontal"
+                android:layout_margin="10dp"
                 android:layout_below="@+id/iv_work_permission">
 
             </android.support.v7.widget.RecyclerView>

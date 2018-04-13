@@ -3,13 +3,12 @@ package www.supcon.com.hsesystem.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -22,14 +21,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +35,6 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import www.supcon.com.hsesystem.Adapter.VideoListAdapter;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.Video;
@@ -48,6 +44,10 @@ import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
 public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.Callback {
 
+    @BindView(R.id.tv_task_count)
+    TextView tvTaskCount;
+    @BindView(R.id.tv_test_count)
+    TextView tvTestCount;
     private SurfaceView mSurfaceview;
     private TextView mBtnStartStop;
     private boolean mStartedFlg = false;
@@ -64,17 +64,17 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                    if (mRecorder != null) {
-                        mRecorder.stop();
-                        mRecorder.reset();
-                    }
-                    if (recordTask != null) {
-                        recordTask.cancel();
-                    }
-                    Intent intent = new Intent();
-                    intent.putExtra("path", path);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                if (mRecorder != null) {
+                    mRecorder.stop();
+                    mRecorder.reset();
+                }
+                if (recordTask != null) {
+                    recordTask.cancel();
+                }
+                Intent intent = new Intent();
+                intent.putExtra("path", path);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         }
     };
@@ -94,7 +94,10 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);// 设置全屏
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         setContentView(R.layout.activity_video_record);
+        ButterKnife.bind(this);
         initView();
+        count_time_task();
+        count_time_test();
         mBtnStartStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +105,47 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
             }
         });
 
+    }
+
+    /**
+     * 气体检测倒计时处理
+     */
+    private void count_time_test() {
+        long time_stop = new Date().getTime();
+        int a = new Date().getHours();
+        a = a + 1;//下一个整点
+        try {
+            String aa = MyDateUtils.getDateFromLong(new Date().getTime(), MyDateUtils.date_Format2);
+            String bb = aa + " " + a + ":00:00";
+            time_stop = MyDateUtils.getLongDateFromString(bb, MyDateUtils.date_Format);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        long timeGetTime = new Date().getTime();//当前时间戳
+        final long count = time_stop - timeGetTime;
+        final String[] count_s = {MyDateUtils.formatDuringNodays(count)};
+        tvTestCount.setText(count_s[0]);
+        CountDownTimer timer = new CountDownTimer(count, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                count_s[0] = MyDateUtils.formatDuringNodays(millisUntilFinished);
+                String aaaa = String.valueOf(count_s[0].charAt(0));
+                if (aaaa.equals(1)) {
+                    Toast.makeText(getMe(), "该检测了", Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, "该检测了");
+                }
+                tvTestCount.setText(count_s[0]);
+            }
+
+            @Override
+            public void onFinish() {
+                tvTestCount.setTextColor(Color.RED);
+                tvTestCount.setText("已超时");
+            }
+        };
+        timer.start();
     }
 
     /**
@@ -124,6 +168,35 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
         // setType必须设置，要不出错.
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
+
+    /**
+     * 工单倒计时处理
+     */
+    private void count_time_task() {
+        long time = task.getTime_stop();
+        long timeGetTime = new Date().getTime();//当前时间戳
+        final long count = time - timeGetTime;
+        final String[] count_s = {MyDateUtils.formatDuring(count)};
+        tvTaskCount.setText(count_s[0]);
+        CountDownTimer timer = new CountDownTimer(count, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                count_s[0] = MyDateUtils.formatDuring(millisUntilFinished);
+                if (count_s[0].equals("已超时")) {
+                    tvTaskCount.setTextColor(Color.RED);
+                }
+                tvTaskCount.setText(count_s[0]);
+            }
+
+            @Override
+            public void onFinish() {
+                tvTaskCount.setTextColor(Color.RED);
+                tvTaskCount.setText("已超时");
+            }
+        };
+        timer.start();
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
