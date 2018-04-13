@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -53,6 +54,17 @@ public class VideoPlayActivity extends BaseActivity {
         } else {
             vvVideo.setVideoURI(Uri.parse(url));
         }
+
+        MediaController controller = new MediaController(this);
+
+        vvVideo.setVideoPath(url);
+        vvVideo.setMediaController(controller);
+
+        controller.setMediaPlayer(vvVideo);
+
+
+        vvVideo.requestFocus();
+        vvVideo.start();
     }
 
     @OnClick({R.id.iv_return, R.id.bt_replay, R.id.bt_start, R.id.bt_abort})

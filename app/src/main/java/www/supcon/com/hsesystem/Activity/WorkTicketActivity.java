@@ -305,15 +305,19 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
                 break;
             case R.id.tv_take_video:
                 //拍摄视频
+                //列表页面
+                Intent intent2 = new Intent(getMe(), VideoRecordActivity.class);
+                intent2.putExtra("task",task);
+                startActivity(intent2);
                 //动态申请相机权限
-                if (ContextCompat.checkSelfPermission(getMe(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    //如果没有权限，就申请，然后走回调方法，在回调成功的时候调用拍照方法
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
-                    break;
-                } else {
-                    //如果有权限，拍视频
-                    takeVideo();
-                }
+//                if (ContextCompat.checkSelfPermission(getMe(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                    //如果没有权限，就申请，然后走回调方法，在回调成功的时候调用拍照方法
+//                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
+//                    break;
+//                } else {
+//                    //如果有权限，拍视频
+//                    takeVideo();
+//                }
 
                 break;
             case R.id.bt_take_pic:
@@ -477,6 +481,12 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
         videoListAdapter = new VideoListAdapter(this,videos);
         llVideos.setAdapter(videoListAdapter);
 
+        //刷新数据库里的视频
+        videos = VideoDaoDBHelper.queryAllInOneTask(task.getNumber());
+        videoListAdapter = new VideoListAdapter(this,videos);
+        llVideos.setAdapter(videoListAdapter);
+        videoListAdapter.setItemClickListener(this);
+
     }
 
     @Override
@@ -517,11 +527,7 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
                 video.setDate(MyDateUtils.getDateFromLong(new Date().getTime(), MyDateUtils.date_Format));
                 VideoDaoDBHelper.insertVideo(video);
 
-                //查询一共有几个视频,循环添加到相对布局中
-                videos = VideoDaoDBHelper.queryAllInOneTask(task.getNumber());
-                videoListAdapter = new VideoListAdapter(this,videos);
-                llVideos.setAdapter(videoListAdapter);
-                videoListAdapter.setItemClickListener(this);
+
                 break;
         }
     }
