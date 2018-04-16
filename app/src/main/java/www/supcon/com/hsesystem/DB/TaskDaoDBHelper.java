@@ -43,4 +43,6 @@ public class TaskDaoDBHelper {
     public static List<Task> queryAll() {
         return BaseApplication.getDaoInstant().getTaskDao().loadAll();
     }
+
+
 }

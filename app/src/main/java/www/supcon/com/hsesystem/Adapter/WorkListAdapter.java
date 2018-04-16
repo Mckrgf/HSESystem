@@ -27,6 +27,11 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         }
     }
 
+    public void setData(List<Task> tasks_check) {
+        datas = tasks_check;
+        notifyDataSetChanged();
+    }
+
     public interface OnItemClickListener{
         void onItemClick(int position);
     }

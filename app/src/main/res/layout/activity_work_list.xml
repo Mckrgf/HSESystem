@@ -7,13 +7,33 @@
     tools:context="www.supcon.com.hsesystem.Activity.WorkListActivity">
 
     <include layout="@layout/tiitlebar"
+        android:visibility="gone"
         android:id="@+id/title"/>
+    
+    <RelativeLayout
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="97px"
+        android:id="@+id/rl_title">
+
+        <EditText
+            android:padding="5dp"
+            android:id="@+id/et_search"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@drawable/bg_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="60px" />
+
+    </RelativeLayout>
 
     <include layout="@layout/user_info"
+        android:visibility="gone"
         android:id="@+id/user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"/>
+        android:layout_below="@+id/rl_title"/>
 
     <View
         android:layout_below="@+id/user_info"
