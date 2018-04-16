@@ -112,6 +112,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             marks.add(marker1);
         }
 
+        aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                View view = View.inflate(getMe(),R.layout.info_window,null);
+                TextView textView = view.findViewById(R.id.tv_title);
+                TextView textView1 = view.findViewById(R.id.tv_content);
+                textView.setText(marker.getTitle());
+                textView1.setText(marker.getSnippet());
+                return view;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
+            }
+        });
     }
 
     /**
@@ -130,6 +146,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 //        UiSettings uiSettings = aMap.getUiSettings();
 //        uiSettings.setCompassEnabled(true);
+
+
         //地图点击事件
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override

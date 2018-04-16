@@ -6,6 +6,7 @@
 
     <color name="transparent">#00000000</color><!--透明色 -->
     <color name="title_color_trans">#903142b5</color><!--透明色 -->
+    <color name="infowindow_blue">#1f63c7</color><!--透明色 -->
     <color name="bg_bottom">#010933</color><!--透明色 -->
     <color name="green_selected">#589d7b</color><!--透明色 -->
     <color name="white">#FFFFFF</color><!--白色 -->

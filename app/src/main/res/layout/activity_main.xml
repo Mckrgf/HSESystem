@@ -50,9 +50,93 @@
         android:layout_marginLeft="14dp"
         android:layout_marginTop="5.6dp"
         android:id="@+id/rl_latest"
-        android:background="@drawable/bg_latestTask"
+        android:background="@drawable/bg_latesttask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:id="@+id/rl_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="87px">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/fire_icon"
+                android:id="@+id/iv_man"/>
+
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="7.5dp"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/iv_man"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_task_man_title"
+                    android:text="费振华"/>
+                <TextView
+                    android:layout_below="@+id/tv_task_man_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_task_man"
+                    android:text="巡检二组"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/fire_icon"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_below="@+id/rl_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divider"/>
+
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/rl_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="109px">
+
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_latest_task"
+                    android:text="当前任务"/>
+                <TextView
+                    android:textSize="18.75sp"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/tv_latest_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="巡视任务吧啦吧啦"/>
+            </RelativeLayout>
+
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/fire_icon"/>
+        </RelativeLayout>
 
     </RelativeLayout>
 

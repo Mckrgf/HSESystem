@@ -25,6 +25,7 @@
                     android:src="@mipmap/fire_icon"/>
 
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/iv_map"
                     android:id="@+id/bt_nav_1"
                     android:layout_width="wrap_content"
@@ -69,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/fire_icon"/>
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/iv_task"
                     android:id="@+id/bt_nav_2"
                     android:layout_width="wrap_content"
@@ -111,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/fire_icon"/>
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/iv_warning"
                     android:id="@+id/bt_nav_3"
                     android:layout_width="wrap_content"
