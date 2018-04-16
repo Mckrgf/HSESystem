@@ -50,7 +50,7 @@
         android:layout_marginLeft="14dp"
         android:layout_marginTop="5.6dp"
         android:id="@+id/rl_latest"
-        android:background="@drawable/bg_latesttask"
+        android:background="@drawable/bg_latest_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
