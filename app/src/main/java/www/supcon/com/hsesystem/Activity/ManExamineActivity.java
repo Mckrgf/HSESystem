@@ -23,9 +23,9 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     @BindView(R.id.bt_pass)
     Button btPass;
     @BindView(R.id.bt_nav_1)
-    Button btNav1;
+    TextView btNav1;
     @BindView(R.id.bt_nav_2)
-    Button btNav2;
+    TextView btNav2;;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
     @BindView(R.id.tv_title)

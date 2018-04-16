@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#3142b5</color>
     <color name="colorAccent">@color/blue_sky</color>
 
     <color name="transparent">#00000000</color><!--透明色 -->
+    <color name="title_color_trans">#903142b5</color><!--透明色 -->
+    <color name="bg_bottom">#010933</color><!--透明色 -->
+    <color name="green_selected">#589d7b</color><!--透明色 -->
     <color name="white">#FFFFFF</color><!--白色 -->
     <color name="ivory">#FFFFF0</color><!--象牙色 -->
     <color name="lightyellow">#FFFFE0</color><!--亮黄色 -->

@@ -1,15 +1,19 @@
 package www.supcon.com.hsesystem.Activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,17 +40,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     MapView map;
     @BindView(R.id.tv_user_code)
     TextView tvUserCode;
+    @BindView(R.id.bt_nav_1)
+    TextView btNav1;
     @BindView(R.id.bt_nav_2)
-    Button btNav2;
+    TextView btNav2;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.iv_return)
-    ImageView ivReturn;
+    @BindView(R.id.title)
+    RelativeLayout title;
     private AMap aMap;
     private ArrayList<Marker> marks;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,18 +66,32 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else {
             initMap();
         }
-
         initMarker();
-
-        tvUserCode.setText("121313");
-
-
     }
 
+    @SuppressLint("ResourceAsColor")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
+        btNav1.setTextColor(getResources().getColor(R.color.green_selected));
+
+        //设置全屏,并且控件在状态栏上也有显示,
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.title_color_trans));
+        }
+        //设置标题栏
+        int statusBarHeight1 = -1;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight1 = getResources().getDimensionPixelSize(resourceId);
+        }
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(title.getLayoutParams());
+        lp.setMargins(0, statusBarHeight1, 0, 0);
+        title.setLayoutParams(lp);
+
         btNav2.setOnClickListener(this);
-        ivReturn.setOnClickListener(this);
-        tvTitle.setText("中控智能HSE-首页");
+
     }
 
     /**
@@ -107,10 +126,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
+//        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
-        UiSettings uiSettings = aMap.getUiSettings();
-        uiSettings.setCompassEnabled(true);
+//        UiSettings uiSettings = aMap.getUiSettings();
+//        uiSettings.setCompassEnabled(true);
         //地图点击事件
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override

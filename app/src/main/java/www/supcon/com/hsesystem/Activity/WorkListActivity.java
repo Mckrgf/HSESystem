@@ -28,13 +28,11 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     @BindView(R.id.rl_work_list)
     RecyclerView rlWorkList;
     @BindView(R.id.bt_nav_1)
-    Button btNav1;
+    TextView btNav1;
     @BindView(R.id.bt_nav_2)
-    Button btNav2;
+    TextView btNav2;
     @BindView(R.id.bt_nav_3)
-    Button btNav3;
-    @BindView(R.id.bt_nav_4)
-    Button btNav4;
+    TextView btNav3;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
     @BindView(R.id.tv_title)
@@ -79,7 +77,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         tvTaskNo.setText(String.valueOf(no));
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_nav_3, R.id.bt_nav_4, R.id.iv_return})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_nav_3, R.id.iv_return})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -88,8 +86,6 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
             case R.id.bt_nav_2:
                 break;
             case R.id.bt_nav_3:
-                break;
-            case R.id.bt_nav_4:
                 break;
             case R.id.iv_return:
                 finish();
