@@ -57,7 +57,10 @@
                 android:textSize="32px" />
         </RelativeLayout>
 
+        <include layout="@layout/divide_light_gray"/>
+
         <RelativeLayout
+            android:layout_marginLeft="25px"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -77,7 +80,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/tv_3"
-                android:text="一车间"
+                android:text="申请人"
                 android:textSize="32px" />
 
             <TextView
@@ -159,6 +162,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25px"
         android:layout_marginRight="25px"
+        android:layout_marginTop="20px"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -170,7 +174,7 @@
                 android:id="@+id/tv_examine_charge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20px"
+
                 android:text="动火作业负责人"
                 android:textColor="@color/green_text"
                 android:textSize="26px" />
@@ -184,7 +188,11 @@
                 android:textSize="32px" />
 
         </RelativeLayout>
+
+        <include layout="@layout/divide_light_gray"/>
+
         <RelativeLayout
+            android:layout_marginLeft="25px"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -193,7 +201,6 @@
                 android:id="@+id/tv_examine_workman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20px"
                 android:text="动火人"
                 android:textColor="@color/green_text"
                 android:textSize="26px" />

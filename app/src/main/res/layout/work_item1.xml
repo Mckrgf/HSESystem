@@ -53,6 +53,14 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 
+    <View
+        android:visibility="gone"
+        android:layout_below="@+id/rl_name_number_status"
+        android:id="@+id/vv_divide"
+        android:layout_width="match_parent"
+        android:layout_height="10px"
+        android:background="@color/activity_light_gray"/>
+
     <LinearLayout
         android:layout_marginTop="20px"
         android:layout_marginBottom="20px"
@@ -61,7 +69,7 @@
         android:id="@+id/ll_type_man_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_name_number_status"
+        android:layout_below="@+id/vv_divide"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -105,7 +113,10 @@
                 android:textSize="32px" />
         </RelativeLayout>
 
+        <include layout="@layout/divide_light_gray"/>
+
         <RelativeLayout
+            android:layout_marginLeft="25px"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">

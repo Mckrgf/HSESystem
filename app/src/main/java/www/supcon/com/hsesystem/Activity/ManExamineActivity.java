@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -20,8 +19,6 @@ import www.supcon.com.hsesystem.R;
 import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
 public class ManExamineActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
-    @BindView(R.id.bt_pass)
-    Button btPass;
     @BindView(R.id.bt_nav_1)
     TextView btNav1;
     @BindView(R.id.bt_nav_2)
@@ -57,12 +54,16 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     CheckBox cbC;
     @BindView(R.id.cb_d)
     CheckBox cbD;
-    @BindView(R.id.bt_refuse)
-    Button btRefuse;
+    @BindView(R.id.tv_refuse)
+    TextView tvRefuse;
     @BindView(R.id.tv_time_start)
     TextView tvTimeStart;
     @BindView(R.id.tv_time_stop)
     TextView tvTimeStop;
+    @BindView(R.id.vv_divide)
+    View vvDivide;
+    @BindView(R.id.vi_divide)
+    View viDivide;
     private Task task;
 
     @SuppressLint("SetTextI18n")
@@ -73,6 +74,8 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         task = (Task) getIntent().getSerializableExtra("TASK");
         ButterKnife.bind(this);
         tvTitle.setText("中控智能HSE-审核页面" + "\n" + "正在对" + task.getNumber() + "进行审核");
+        vvDivide.setVisibility(View.VISIBLE);
+        viDivide.setVisibility(View.GONE);
         initData();
     }
 
@@ -96,7 +99,7 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         cbD.setOnCheckedChangeListener(this);
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_pass, R.id.iv_return, R.id.bt_refuse})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_return, R.id.tv_refuse})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -110,10 +113,8 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
             case R.id.iv_return:
                 finish();
                 break;
-            case R.id.bt_refuse:
+            case R.id.tv_refuse:
                 finish();
-                break;
-            case R.id.bt_pass:
                 //审核通过页面
                 task.setStatus("进行中");
                 TaskDaoDBHelper.updateTask(task);
@@ -135,11 +136,9 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if (cbA.isChecked() && cbB.isChecked() && cbC.isChecked() && cbD.isChecked()) {
-            btPass.setBackgroundColor(getResources().getColor(R.color.white));
-            btPass.setClickable(true);
+
         } else {
-            btPass.setBackgroundColor(getResources().getColor(R.color.gray));
-            btPass.setClickable(false);
+
         }
     }
 }

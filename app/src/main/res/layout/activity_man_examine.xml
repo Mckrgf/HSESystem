@@ -9,36 +9,36 @@
     tools:context="www.supcon.com.hsesystem.Activity.ManExamineActivity">
 
     <include
-        android:visibility="gone"
         android:id="@+id/title"
-        layout="@layout/tiitlebar" />
+        layout="@layout/tiitlebar"
+        android:visibility="gone" />
 
     <RelativeLayout
-        android:background="@color/colorPrimaryDark"
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="97px"
-        android:id="@+id/rl_title">
+        android:background="@color/colorPrimaryDark">
 
         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="23px"
-            android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_gray_return"/>
+            android:src="@mipmap/ic_gray_return" />
 
         <TextView
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="工单详情"/>
+            android:layout_centerInParent="true"
+            android:text="工单详情"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 
 
-
     <ScrollView
+        android:background="@color/activity_light_gray"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/ll_judge"
@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content" />
 
             <include
+                android:layout_marginTop="10px"
                 android:id="@+id/examine_item"
                 layout="@layout/examine_item"
                 android:layout_width="match_parent"
@@ -62,13 +63,13 @@
                 android:layout_below="@+id/work_item1" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/rg_inspection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/examine_item"
                 android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -101,13 +102,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_more"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rg_inspection"
                 android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,7 +120,6 @@
                     android:layout_height="wrap_content"
                     android:hint="备注信息" />
             </LinearLayout>
-
 
 
             <include
@@ -136,37 +136,58 @@
 
         </RelativeLayout>
     </ScrollView>
+
     <LinearLayout
+        android:elevation="10dp"
         android:id="@+id/ll_judge"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="110px"
         android:layout_alignParentBottom="true">
 
-        <Button
-            android:id="@+id/bt_pass"
+        <TextView
+            android:id="@+id/tv_judge"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/gray"
-            android:text="审核通过" />
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="审核项(0/5)"
+            android:textSize="26px" />
 
-        <Button
-            android:id="@+id/bt_refuse"
+        <View
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:id="@+id/tv_sign"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="签名项(0/5)"
+            android:textSize="26px" />
+
+        <TextView
+            android:id="@+id/tv_refuse"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/red"
-            android:text="审核拒绝" />
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="审核拒绝"
+            android:textSize="26px" />
 
     </LinearLayout>
 
     <include
-        android:visibility="gone"
         android:id="@+id/bottom_tab"
         layout="@layout/bottom_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
 </RelativeLayout>
