@@ -25,7 +25,8 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     @BindView(R.id.bt_nav_1)
     TextView btNav1;
     @BindView(R.id.bt_nav_2)
-    TextView btNav2;;
+    TextView btNav2;
+    ;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
     @BindView(R.id.tv_title)
@@ -46,8 +47,8 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     TextView tvWorkPlace;
     @BindView(R.id.tv_work_status)
     TextView tvWorkStatus;
-    @BindView(R.id.tv_work_content)
-    TextView tvWorkContent;
+    @BindView(R.id.tv_work_task_content)
+    TextView tvWorkTaskContent;
     @BindView(R.id.cb_a)
     CheckBox cbA;
     @BindView(R.id.cb_b)
@@ -58,8 +59,10 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     CheckBox cbD;
     @BindView(R.id.bt_refuse)
     Button btRefuse;
-    @BindView(R.id.tv_examine_time_content)
-    TextView tvExamineTimeContent;
+    @BindView(R.id.tv_time_start)
+    TextView tvTimeStart;
+    @BindView(R.id.tv_time_stop)
+    TextView tvTimeStop;
     private Task task;
 
     @SuppressLint("SetTextI18n")
@@ -81,10 +84,11 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         tvManA.setText(task.getMan_a());
         tvManB.setText(task.getMan_b());
         tvWorkStatus.setText(task.getStatus());
-        tvWorkContent.setText(task.getWork_content());
+        tvWorkTaskContent.setText(task.getWork_content());
         String time_start = MyDateUtils.getDateFromLong(task.getTime_start(), MyDateUtils.date_Format);
         String time_stop = MyDateUtils.getDateFromLong(task.getTime_stop(), MyDateUtils.date_Format);
-        tvExamineTimeContent.setText(time_start + " 至 " + time_stop);
+        tvTimeStart.setText(time_start);
+        tvTimeStop.setText(time_stop);
 
         cbA.setOnCheckedChangeListener(this);
         cbB.setOnCheckedChangeListener(this);

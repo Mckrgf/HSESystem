@@ -4,14 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -57,7 +54,8 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
     @BindView(R.id.bt_nav_1)
     TextView btNav1;
     @BindView(R.id.bt_nav_2)
-    TextView btNav2;;
+    TextView btNav2;
+    ;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
     @BindView(R.id.tv_title)
@@ -90,8 +88,6 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
     Button btTakePic;
     @BindView(R.id.iv_work_permission)
     ImageView ivWorkPermission;
-    @BindView(R.id.tv_examine_time_content)
-    TextView tvExamineTimeContent;
     @BindView(R.id.tv_task_count)
     TextView tvTaskCount;
     @BindView(R.id.tv_test_content)
@@ -104,6 +100,10 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
     TextView tvTakeVideo;
     @BindView(R.id.ll_videos)
     RecyclerView llVideos;
+    @BindView(R.id.tv_time_start)
+    TextView tvTimeStart;
+    @BindView(R.id.tv_time_stop)
+    TextView tvTimeStop;
 
     private boolean isRunning = true;//默认任务正在进行中，实际需要从后台获取任务状态
     private boolean hasPic = false;
@@ -216,7 +216,8 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
 
         String time_start = MyDateUtils.getDateFromLong(task.getTime_start(), MyDateUtils.date_Format);
         String time_stop = MyDateUtils.getDateFromLong(task.getTime_stop(), MyDateUtils.date_Format);
-        tvExamineTimeContent.setText(time_start + " 至 " + time_stop);
+        tvTimeStart.setText(time_start);
+        tvTimeStop.setText(time_stop);
 
         String path = task.getPic();
         if (!TextUtils.isEmpty(path)) {
@@ -306,7 +307,7 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
                 //拍摄视频
                 //列表页面
                 Intent intent2 = new Intent(getMe(), VideoRecordActivity.class);
-                intent2.putExtra("task",task);
+                intent2.putExtra("task", task);
                 startActivity(intent2);
                 //动态申请相机权限
 //                if (ContextCompat.checkSelfPermission(getMe(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -477,12 +478,12 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
         rvAirTest.setAdapter(airTestListAdapter);
 
         List<Video> videos = VideoDaoDBHelper.queryAllInOneTask(task.getNumber());
-        videoListAdapter = new VideoListAdapter(this,videos);
+        videoListAdapter = new VideoListAdapter(this, videos);
         llVideos.setAdapter(videoListAdapter);
 
         //刷新数据库里的视频
         videos = VideoDaoDBHelper.queryAllInOneTask(task.getNumber());
-        videoListAdapter = new VideoListAdapter(this,videos);
+        videoListAdapter = new VideoListAdapter(this, videos);
         llVideos.setAdapter(videoListAdapter);
         videoListAdapter.setItemClickListener(this);
 
@@ -535,7 +536,7 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
     public void onItemClick(int position) {
         //视频列表,点击查看视频
         Video video = videos.get(position);
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri data = Uri.parse(video.getVideoUrl());
         intent.setDataAndType(data, "video/mp4");
         startActivity(intent);

@@ -9,29 +9,40 @@
     tools:context="www.supcon.com.hsesystem.Activity.ManExamineActivity">
 
     <include
+        android:visibility="gone"
         android:id="@+id/title"
         layout="@layout/tiitlebar" />
 
-    <include
-        android:id="@+id/user_info"
-        layout="@layout/user_info"
+    <RelativeLayout
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title" />
+        android:layout_height="97px"
+        android:id="@+id/rl_title">
 
-    <include
-        android:id="@+id/examine_item"
-        layout="@layout/examine_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/user_info"
-        android:layout_margin="10dp" />
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="23px"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_gray_return"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="工单详情"/>
+
+    </RelativeLayout>
+
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_tab"
-        android:layout_below="@+id/examine_item">
+        android:layout_above="@id/ll_judge"
+        android:layout_below="@+id/rl_title">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,30 +52,21 @@
                 android:id="@+id/work_item1"
                 layout="@layout/work_item1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp" />
+                android:layout_height="wrap_content" />
 
             <include
-                android:id="@+id/work_item2"
-                layout="@layout/work_item2"
-                android:layout_width="wrap_content"
+                android:id="@+id/examine_item"
+                layout="@layout/examine_item"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/work_item1"
-                android:layout_margin="10dp" />
-
-            <include
-                android:id="@+id/work_item3"
-                layout="@layout/work_item3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/work_item2"
-                android:layout_margin="10dp" />
+                android:layout_below="@+id/work_item1" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/rg_inspection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/work_item3"
+                android:layout_below="@+id/examine_item"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
@@ -99,6 +101,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_more"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,35 +120,47 @@
                     android:hint="备注信息" />
             </LinearLayout>
 
-            <LinearLayout
+
+
+            <include
+                android:id="@+id/user_info"
+                layout="@layout/user_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_more">
-
-                <Button
-                    android:id="@+id/bt_pass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:text="审核通过" />
-
-                <Button
-                    android:id="@+id/bt_refuse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_weight="1"
-                    android:background="@color/red"
-                    android:text="审核拒绝" />
-
-            </LinearLayout>
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="162dp"
+                android:visibility="gone" />
 
 
         </RelativeLayout>
     </ScrollView>
+    <LinearLayout
+        android:id="@+id/ll_judge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
+        <Button
+            android:id="@+id/bt_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:text="审核通过" />
+
+        <Button
+            android:id="@+id/bt_refuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="审核拒绝" />
+
+    </LinearLayout>
 
     <include
         android:visibility="gone"
