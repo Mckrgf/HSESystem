@@ -3,6 +3,7 @@ package www.supcon.com.hsesystem.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,8 +71,6 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         //列表初始化
         LinearLayoutManager manager = new LinearLayoutManager(getMyApplication(), LinearLayoutManager.VERTICAL, false);
         rlWorkList.setLayoutManager(manager);
-        rlWorkList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-
     }
 
     @NonNull
@@ -85,9 +85,24 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     protected void onResume() {
         super.onResume();
         works = fake_data();
-        workListAdapter = new WorkListAdapter(works);
+        workListAdapter = new WorkListAdapter(works,this);
         workListAdapter.setItemClickListener(this);
         rlWorkList.setAdapter(workListAdapter);
+        rlWorkList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                boolean b = ViewCompat.canScrollVertically(recyclerView,1);
+                if (!b) {
+                    Toast.makeText(getMe(),"不能滑动了",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         int no = TaskDaoDBHelper.queryAll().size();
         tvTaskNo.setText(String.valueOf(no));
     }

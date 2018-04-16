@@ -1,11 +1,14 @@
 package www.supcon.com.hsesystem.Adapter;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ import www.supcon.com.hsesystem.R;
 
 public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHolder> implements View.OnClickListener {
     private List datas;
+    private Context context;
     private OnItemClickListener mItemClickListener;
 
     @Override
@@ -37,8 +41,9 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         void onItemClick(int position);
     }
 
-    public WorkListAdapter(List data) {
+    public WorkListAdapter(List data,Context context) {
         this.datas = data;
+        this.context = context;
     }
 
     @Override
@@ -48,7 +53,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         return new ViewHolder(view);
     }
 
-    @SuppressLint("ResourceAsColor")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //对数据进行操作
@@ -63,12 +68,13 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         holder.tv_work_status.setText(String.valueOf(task.getStatus()));
         String status = String.valueOf(task.getStatus());
         if (status.equals("未审核")){
-            holder.tv_work_status.setBackgroundResource(R.color.status_green);
+            holder.tv_work_status.setBackground(context.getDrawable(R.drawable.bg_status_green));
         }else if (status.equals("进行中")) {
-            holder.tv_work_status.setBackgroundResource(R.color.status_yellow);
+            holder.tv_work_status.setBackground(context.getDrawable(R.drawable.bg_status_yellow));
         }else if (status.equals("已完成")) {
-            holder.tv_work_status.setBackgroundResource(R.color.status_blue);
+            holder.tv_work_status.setBackground(context.getDrawable(R.drawable.bg_status_blue));
         }
+
         holder.itemView.setTag(position);
 
     }

@@ -16,6 +16,7 @@
     <color name="status_green">#2baa72</color><!--列表状态绿色 -->
     <color name="status_yellow">#e89f17</color><!--列表状态黄色 -->
     <color name="status_blue">#2b45af</color><!--列表状态蓝色 -->
+    <color name="activity_gray">#efefef</color><!--列表状态蓝色 -->
 
 
 
