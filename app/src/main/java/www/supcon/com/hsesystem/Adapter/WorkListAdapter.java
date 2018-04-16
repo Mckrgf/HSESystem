@@ -1,5 +1,6 @@
 package www.supcon.com.hsesystem.Adapter;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //对数据进行操作
@@ -59,7 +61,16 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         holder.tv_man_b.setText(String.valueOf(task.getMan_b()));
         holder.tv_work_place.setText(String.valueOf(task.getLocation()));
         holder.tv_work_status.setText(String.valueOf(task.getStatus()));
+        String status = String.valueOf(task.getStatus());
+        if (status.equals("未审核")){
+            holder.tv_work_status.setBackgroundResource(R.color.status_green);
+        }else if (status.equals("进行中")) {
+            holder.tv_work_status.setBackgroundResource(R.color.status_yellow);
+        }else if (status.equals("已完成")) {
+            holder.tv_work_status.setBackgroundResource(R.color.status_blue);
+        }
         holder.itemView.setTag(position);
+
     }
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {

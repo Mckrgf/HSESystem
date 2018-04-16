@@ -1,111 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_margin="10dp"
-    android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/tv_0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="编号：" />
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
-    <TextView
-        android:id="@+id/tv_work_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/tv_1"
-        android:layout_toRightOf="@id/tv_1"
-        android:text="xxxxx" />
-    <TextView
-        android:layout_below="@+id/tv_0"
-        android:id="@+id/tv_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="名称：" />
+    <RelativeLayout
+        android:id="@+id/rl_name_number_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_below="@+id/tv_0"
-        android:id="@+id/tv_work_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/tv_1"
-        android:layout_toRightOf="@id/tv_1"
-        android:text="xx区域施工作业" />
+        <TextView
+            android:id="@+id/tv_work_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxxxx"
+            android:textColor="@color/gray"
+            android:textSize="22px" />
 
-    <TextView
-        android:id="@+id/tv_2"
-        android:layout_below="@id/tv_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="类型：" />
+        <TextView
+            android:id="@+id/tv_work_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_work_number"
+            android:layout_toEndOf="@id/tv_1"
+            android:layout_toRightOf="@id/tv_1"
+            android:text="xx区域施工作业"
+            android:textSize="35px"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_work_type"
-        android:layout_below="@id/tv_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/tv_1"
-        android:layout_toRightOf="@id/tv_2"
-        android:text="施工作业" />
+        <TextView
+            android:id="@+id/tv_work_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10px"
+            android:background="@color/green"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="3dp"
+            android:text="任务状态"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
-    <TextView
-        android:layout_below="@id/tv_2"
-        android:id="@+id/tv_3"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll_type_man_location"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="施工负责人：" />
+        android:layout_below="@+id/rl_name_number_status"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_man_a"
-        android:layout_below="@id/tv_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_3"
-        android:text="xxx" />
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-    <TextView
-        android:layout_below="@id/tv_3"
-        android:id="@+id/tv_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="安全负责人：" />
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_1"
+                android:text="类型："
+                android:textColor="@color/green_text"
+                android:textSize="26px" />
 
-    <TextView
-        android:id="@+id/tv_man_b"
-        android:layout_below="@id/tv_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_4"
-        android:text="uuu" />
+            <TextView
+                android:id="@+id/tv_work_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_2"
+                android:text="施工作业"
+                android:textSize="32px" />
 
+            <TextView
+                android:id="@+id/tv_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_work_type"
+                android:layout_marginTop="20px"
+                android:text="作业地点："
+                android:textColor="@color/green_text"
+                android:textSize="26px" />
 
-    <TextView
-        android:layout_below="@id/tv_4"
-        android:id="@+id/tv_5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="作业地点：" />
+            <TextView
+                android:id="@+id/tv_work_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_5"
+                android:text="xx区域"
+                android:textSize="32px" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_work_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_4"
-        android:layout_toRightOf="@id/tv_5"
-        android:text="xx区域" />
-    <TextView
-        android:layout_below="@id/tv_5"
-        android:id="@+id/tv_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="任务状态：" />
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/tv_work_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_5"
-        android:layout_toRightOf="@id/tv_5"
-        android:text="任务状态" />
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="施工负责人："
+                android:textColor="@color/green_text"
+                android:textSize="26px" />
+
+            <TextView
+                android:id="@+id/tv_man_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_3"
+                android:text="日积分日"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/tv_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_man_a"
+                android:layout_marginTop="20px"
+                android:text="安全负责人："
+                android:textColor="@color/green_text"
+                android:textSize="26px" />
+
+            <TextView
+                android:id="@+id/tv_man_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_4"
+                android:text="服务侧"
+                android:textSize="32px" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -5,10 +5,20 @@
     <color name="colorAccent">@color/blue_sky</color>
 
     <color name="transparent">#00000000</color><!--透明色 -->
-    <color name="title_color_trans">#903142b5</color><!--透明色 -->
-    <color name="infowindow_blue">#1f63c7</color><!--透明色 -->
-    <color name="bg_bottom">#010933</color><!--透明色 -->
-    <color name="green_selected">#589d7b</color><!--透明色 -->
+
+
+    <!--UI专用区-->
+    <color name="title_color_trans">#903142b5</color><!--蓝色透明,地图页面专用 -->
+    <color name="infowindow_blue">#1f63c7</color><!--infowindow背景色 -->
+    <color name="bg_bottom">#010933</color><!--底部导航栏背景色 -->
+    <color name="green_selected">#589d7b</color><!--底部导航栏选中颜色-->
+    <color name="green_text">#27aa71</color><!--列表页面文字绿色 -->
+    <color name="status_green">#2baa72</color><!--列表状态绿色 -->
+    <color name="status_yellow">#e89f17</color><!--列表状态黄色 -->
+    <color name="status_blue">#2b45af</color><!--列表状态蓝色 -->
+
+
+
     <color name="white">#FFFFFF</color><!--白色 -->
     <color name="ivory">#FFFFF0</color><!--象牙色 -->
     <color name="lightyellow">#FFFFE0</color><!--亮黄色 -->
