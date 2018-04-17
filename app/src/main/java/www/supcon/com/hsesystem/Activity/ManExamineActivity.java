@@ -7,7 +7,11 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +68,22 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     View vvDivide;
     @BindView(R.id.vi_divide)
     View viDivide;
+    @BindView(R.id.judge_layout)
+    RelativeLayout judgeLayout;
+    @BindView(R.id.tv_judge)
+    TextView tvJudge;
+    @BindView(R.id.tv_sign)
+    TextView tvSign;
+    @BindView(R.id.mongolia)
+    View mongolia;
+    @BindView(R.id.ll_judge)
+    LinearLayout llJudge;
+    @BindView(R.id.tv_ensure)
+    TextView tvEnsure;
     private Task task;
+    private int height;
+    private boolean judge_status = true;//true为底部
+    private boolean sign_status = true;//true为弹出
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -73,10 +92,24 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         setContentView(R.layout.activity_man_examine);
         task = (Task) getIntent().getSerializableExtra("TASK");
         ButterKnife.bind(this);
+        initView();
+        initData();
+    }
+
+    private void initView() {
         tvTitle.setText("中控智能HSE-审核页面" + "\n" + "正在对" + task.getNumber() + "进行审核");
         vvDivide.setVisibility(View.VISIBLE);
         viDivide.setVisibility(View.GONE);
-        initData();
+
+        //隐藏审核项和签名项
+        int w = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        judgeLayout.measure(w, h);
+        height = judgeLayout.getMeasuredHeight();
+        int width = judgeLayout.getMeasuredWidth();
+        ObjectAnimator.ofFloat(judgeLayout, "translationY", 0, height).setDuration(10).start();
     }
 
     private void initData() {
@@ -99,7 +132,7 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         cbD.setOnCheckedChangeListener(this);
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_return, R.id.tv_refuse})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.mongolia, R.id.tv_ensure, R.id.iv_return, R.id.tv_refuse, R.id.tv_judge, R.id.tv_sign})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -113,6 +146,21 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
             case R.id.iv_return:
                 finish();
                 break;
+            case R.id.tv_judge:
+                //负责弹出关闭审核项
+                open_judge();
+                break;
+            case R.id.tv_ensure:
+                //负责关闭签名项
+                close_judge();
+                break;
+            case R.id.mongolia:
+                //蒙层负责关闭签名项
+                close_judge();
+                break;
+            case R.id.tv_sign:
+                //负责弹出关闭签名项
+                break;
             case R.id.tv_refuse:
                 finish();
                 //审核通过页面
@@ -123,6 +171,26 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
                 finish();
                 break;
         }
+    }
+
+    private void open_judge() {
+        judge_status = !judge_status;
+        llJudge.setVisibility(View.GONE);
+        ObjectAnimator.ofFloat(judgeLayout, "translationY", height, 0).setDuration(100).start();
+        try {
+            Thread.sleep(150);
+            mongolia.setVisibility(View.VISIBLE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void close_judge() {
+        judge_status = !judge_status;
+        mongolia.setVisibility(View.GONE);
+        llJudge.setVisibility(View.VISIBLE);
+        ObjectAnimator.ofFloat(judgeLayout, "translationY", 0, height).setDuration(100).start();
     }
 
     @Override

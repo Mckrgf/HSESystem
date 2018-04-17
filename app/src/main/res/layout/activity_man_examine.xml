@@ -62,80 +62,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/work_item1" />
 
-            <LinearLayout
-                android:id="@+id/rg_inspection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/examine_item"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:visibility="gone">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="需要对以下几项进行审核:" />
-
-                <CheckBox
-                    android:id="@+id/cb_a"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="动火设备内部构件清理干净" />
-
-                <CheckBox
-                    android:id="@+id/cb_b"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="断开与动火设备相关的所有管线" />
-
-                <CheckBox
-                    android:id="@+id/cb_c"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="动火点周围易燃物已经清除" />
-
-                <CheckBox
-                    android:id="@+id/cb_d"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="高处作业已采取防火花飞溅措施" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_more"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rg_inspection"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="备注" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="备注信息" />
-            </LinearLayout>
-
-
-            <include
-                android:id="@+id/user_info"
-                layout="@layout/user_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="162dp"
-                android:visibility="gone" />
 
 
         </RelativeLayout>
     </ScrollView>
+
+
 
     <LinearLayout
         android:elevation="10dp"
@@ -183,6 +116,12 @@
 
     </LinearLayout>
 
+    <include layout="@layout/judge_layout"
+        android:id="@+id/judge_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <include
         android:id="@+id/bottom_tab"
         layout="@layout/bottom_tab"
@@ -190,4 +129,12 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
+
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/judge_layout"
+        android:background="@color/black_trans"
+        android:id="@+id/mongolia"/>
 </RelativeLayout>
