@@ -36,6 +36,7 @@ dependencies {
 
 
     compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile "com.android.support:design:26.1.0"
     //下拉刷新
     compile 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
     //事件总线库
