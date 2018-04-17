@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 
@@ -89,6 +90,7 @@ public class ManExamineActivity extends BaseActivity {
     private boolean judge_status = true;//true为底部
     private boolean sign_status = true;//true为弹出
     private int checks = 0;//检查项的勾选数目
+    private boolean task_pass = false;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -177,17 +179,20 @@ public class ManExamineActivity extends BaseActivity {
                 open_sign();
                 break;
             case R.id.tv_refuse:
-                finish();
-                //审核通过页面
-                task.setStatus("进行中");
-                TaskDaoDBHelper.updateTask(task);
-                Intent intent = new Intent(getMe(), MainActivity.class);
-                startActivity(intent);
-                finish();
+                if (task_pass) {
+                    task.setStatus("进行中");
+                    TaskDaoDBHelper.updateTask(task);
+                    Intent intent = new Intent(getMe(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText(getMe(),"审核项未完成",Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
 
+    @SuppressLint("ResourceType")
     private void judge_check() {
         checks = 0;
         if (cbA.isChecked()) {
@@ -203,6 +208,15 @@ public class ManExamineActivity extends BaseActivity {
             checks++;
         }
         tvJudge.setText("审核项(" + checks + "/4)");
+        if (checks==4) {
+            tvRefuse.setText("审核通过");
+            tvRefuse.setBackgroundColor(getResources().getColor(R.color.green_text));
+            task_pass = true;
+        }else {
+            tvRefuse.setText("审核拒绝");
+            tvRefuse.setBackgroundColor(getResources().getColor(R.color.red));
+            task_pass = false;
+        }
     }
 
     /**
