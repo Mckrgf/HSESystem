@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/rg_inspection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_marginBottom="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_sign_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="费振华"
+                android:textColor="@color/black"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/tv_judge_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_sign_a"
+                android:text="动火设备内部构件清理干净"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:id="@+id/iv_card_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_toLeftOf="@+id/iv_face_a"
+                android:src="@mipmap/fire_icon" />
+
+            <ImageView
+                android:id="@+id/iv_face_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10px"
+                android:src="@mipmap/fire_icon" />
+
+            <View
+                android:layout_marginTop="20px"
+                android:layout_below="@+id/iv_face_a"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginBottom="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_sign_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="费振华"
+                android:textColor="@color/black"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/tv_judge_content_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_sign_b"
+                android:text="断开与动火设备相关的所有管线"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:id="@+id/iv_card_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_toLeftOf="@+id/iv_face_b"
+                android:src="@mipmap/fire_icon" />
+
+            <ImageView
+                android:id="@+id/iv_face_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10px"
+                android:src="@mipmap/fire_icon" />
+
+            <View
+                android:layout_marginTop="20px"
+                android:layout_below="@+id/iv_face_b"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginBottom="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_sign_c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="费振华"
+                android:textColor="@color/black"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/tv_judge_content_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_sign_c"
+                android:text="冻货店周围易燃物已经清除"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:id="@+id/iv_card_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_toLeftOf="@+id/iv_face_c"
+                android:src="@mipmap/fire_icon" />
+
+            <ImageView
+                android:id="@+id/iv_face_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10px"
+                android:src="@mipmap/fire_icon" />
+
+            <View
+                android:layout_marginTop="20px"
+                android:layout_below="@+id/iv_face_c"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginBottom="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_sign_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="费振华"
+                android:textColor="@color/black"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/tv_judge_content_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_sign_d"
+                android:text="高处作业已经采取防火花飞溅措施"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:id="@+id/iv_card_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10px"
+                android:layout_toLeftOf="@+id/iv_face_d"
+                android:src="@mipmap/fire_icon" />
+
+            <ImageView
+                android:id="@+id/iv_face_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10px"
+                android:src="@mipmap/fire_icon" />
+
+            <View
+                android:layout_marginTop="20px"
+                android:layout_below="@+id/iv_face_d"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rg_inspection"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="备注信息" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_ensure_sign"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_below="@+id/ll_more"
+        android:background="@color/green_text"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="30px" />
+
+</RelativeLayout>

@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,7 +22,7 @@ import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
 import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
-public class ManExamineActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
+public class ManExamineActivity extends BaseActivity {
     @BindView(R.id.bt_nav_1)
     TextView btNav1;
     @BindView(R.id.bt_nav_2)
@@ -70,6 +70,8 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     View viDivide;
     @BindView(R.id.judge_layout)
     RelativeLayout judgeLayout;
+    @BindView(R.id.sign_layout)
+    RelativeLayout signLayout;
     @BindView(R.id.tv_judge)
     TextView tvJudge;
     @BindView(R.id.tv_sign)
@@ -80,10 +82,13 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
     LinearLayout llJudge;
     @BindView(R.id.tv_ensure)
     TextView tvEnsure;
+    @BindView(R.id.tv_ensure_sign)
+    TextView tvEnsureSign;
     private Task task;
     private int height;
     private boolean judge_status = true;//true为底部
     private boolean sign_status = true;//true为弹出
+    private int checks = 0;//检查项的勾选数目
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -108,8 +113,10 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
                 View.MeasureSpec.UNSPECIFIED);
         judgeLayout.measure(w, h);
         height = judgeLayout.getMeasuredHeight();
-        int width = judgeLayout.getMeasuredWidth();
         ObjectAnimator.ofFloat(judgeLayout, "translationY", 0, height).setDuration(10).start();
+        signLayout.measure(w, h);
+        height = signLayout.getMeasuredHeight();
+        ObjectAnimator.ofFloat(signLayout, "translationY", 0, height).setDuration(10).start();
     }
 
     private void initData() {
@@ -125,14 +132,9 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         String time_stop = MyDateUtils.getDateFromLong(task.getTime_stop(), MyDateUtils.date_Format);
         tvTimeStart.setText(time_start);
         tvTimeStop.setText(time_stop);
-
-        cbA.setOnCheckedChangeListener(this);
-        cbB.setOnCheckedChangeListener(this);
-        cbC.setOnCheckedChangeListener(this);
-        cbD.setOnCheckedChangeListener(this);
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.mongolia, R.id.tv_ensure, R.id.iv_return, R.id.tv_refuse, R.id.tv_judge, R.id.tv_sign})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.mongolia, R.id.tv_ensure, R.id.iv_return, R.id.tv_refuse, R.id.tv_judge, R.id.tv_sign, R.id.tv_ensure_sign})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -151,15 +153,28 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
                 open_judge();
                 break;
             case R.id.tv_ensure:
-                //负责关闭签名项
+                //负责关闭检查项
                 close_judge();
+                //确认检查项的填写情况
+                judge_check();
+                //关闭签名项
+                close_sign();
+                break;
+            case R.id.tv_ensure_sign:
+                //负责关闭签名项
+                close_sign();
                 break;
             case R.id.mongolia:
-                //蒙层负责关闭签名项
+                //关闭签名项
                 close_judge();
+                //确认检查项的填写情况
+                judge_check();
+                //关闭签名项
+                close_sign();
                 break;
             case R.id.tv_sign:
                 //负责弹出关闭签名项
+                open_sign();
                 break;
             case R.id.tv_refuse:
                 finish();
@@ -173,24 +188,87 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         }
     }
 
-    private void open_judge() {
-        judge_status = !judge_status;
-        llJudge.setVisibility(View.GONE);
-        ObjectAnimator.ofFloat(judgeLayout, "translationY", height, 0).setDuration(100).start();
-        try {
-            Thread.sleep(150);
-            mongolia.setVisibility(View.VISIBLE);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private void judge_check() {
+        checks = 0;
+        if (cbA.isChecked()) {
+            checks++;
         }
+        if (cbB.isChecked()) {
+            checks++;
+        }
+        if (cbC.isChecked()) {
+            checks++;
+        }
+        if (cbD.isChecked()) {
+            checks++;
+        }
+        tvJudge.setText("审核项(" + checks + "/4)");
+    }
+
+    /**
+     * 打开审核
+     */
+    private void open_judge() {
+        if (judge_status) {
+            judge_status = !judge_status;
+            llJudge.setVisibility(View.GONE);
+            ObjectAnimator.ofFloat(judgeLayout, "translationY", height, 0).setDuration(100).start();
+            try {
+                Thread.sleep(150);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mongolia.getLayoutParams();
+                params.addRule(RelativeLayout.ABOVE, R.id.judge_layout);
+                mongolia.setVisibility(View.VISIBLE);
+                mongolia.setVisibility(View.VISIBLE);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 关闭审核
+     */
+    private void close_judge() {
+        if (!judge_status) {
+            judge_status = !judge_status;
+            mongolia.setVisibility(View.GONE);
+            llJudge.setVisibility(View.VISIBLE);
+            ObjectAnimator.ofFloat(judgeLayout, "translationY", 0, height).setDuration(100).start();
+        }
+    }
+
+    /**
+     * 打开签名
+     */
+    private void open_sign() {
+        if (sign_status) {
+            llJudge.setVisibility(View.GONE);
+            ObjectAnimator.ofFloat(signLayout, "translationY", height, 0).setDuration(100).start();
+            try {
+                Thread.sleep(150);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mongolia.getLayoutParams();
+                params.addRule(RelativeLayout.ABOVE, R.id.sign_layout);
+                mongolia.setVisibility(View.VISIBLE);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            sign_status = !sign_status;
+        }
+
 
     }
 
-    private void close_judge() {
-        judge_status = !judge_status;
-        mongolia.setVisibility(View.GONE);
-        llJudge.setVisibility(View.VISIBLE);
-        ObjectAnimator.ofFloat(judgeLayout, "translationY", 0, height).setDuration(100).start();
+    /**
+     * 关闭签名
+     */
+    private void close_sign() {
+        if (!sign_status) {
+            sign_status = !sign_status;
+            mongolia.setVisibility(View.GONE);
+            llJudge.setVisibility(View.VISIBLE);
+            ObjectAnimator.ofFloat(signLayout, "translationY", 0, height).setDuration(100).start();
+        }
+
     }
 
     @Override
@@ -200,13 +278,4 @@ public class ManExamineActivity extends BaseActivity implements CompoundButton.O
         tvTaskNo.setText(String.valueOf(no));
     }
 
-    @SuppressLint("ResourceAsColor")
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if (cbA.isChecked() && cbB.isChecked() && cbC.isChecked() && cbD.isChecked()) {
-
-        } else {
-
-        }
-    }
 }
