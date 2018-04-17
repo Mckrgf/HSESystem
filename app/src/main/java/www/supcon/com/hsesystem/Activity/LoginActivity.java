@@ -113,8 +113,8 @@ public class LoginActivity extends BaseActivity {
             task.setLocation("xx区域");
             task.setStatus("未审核");
             task.setNumber("DH_20180404001");
-            task.setLat(30.180262);
-            task.setLng(120.158726);
+            task.setLat(32.296232);
+            task.setLng(119.851951);
             task.setAttentions(attention);
             task.setWork_mans(colleague);
             task.setWork_content("基础开挖");
@@ -130,8 +130,8 @@ public class LoginActivity extends BaseActivity {
             task2.setLocation("xx区域");
             task2.setStatus("未审核");
             task2.setNumber("YD_20180404001");
-            task2.setLat(30.180262);
-            task2.setLng(120.178726);
+            task2.setLat(32.296957);
+            task2.setLng(119.852509);
             task2.setAttentions(attention);
             task2.setWork_mans(colleague);
             task2.setWork_content("基础开挖");
@@ -147,8 +147,8 @@ public class LoginActivity extends BaseActivity {
             task3.setLocation("xx区域");
             task3.setStatus("未审核");
             task3.setNumber("GK_20180404001");
-            task3.setLat(30.180262);
-            task3.setLng(120.198726);
+            task3.setLat(32.292731);
+            task3.setLng(119.857895);
             task3.setAttentions(attention);
             task3.setWork_mans(colleague);
             task3.setWork_content("基础开挖");
@@ -164,8 +164,8 @@ public class LoginActivity extends BaseActivity {
             task4.setLocation("xx区域");
             task4.setStatus("未审核");
             task4.setNumber("SX_20180404001");
-            task4.setLat(30.180262);
-            task4.setLng(120.218726);
+            task4.setLat(32.295198);
+            task4.setLng(119.858474);
             task4.setAttentions(attention);
             task4.setWork_mans(colleague);
             task4.setWork_content("基础开挖");

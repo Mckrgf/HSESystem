@@ -24,6 +24,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.PolygonOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,27 +96,30 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * 初始化任务点信息
+     * 初始化任务点信息,其余用户位置信息,危险区域信息
      */
     private void initMarker() {
+        setZone();
         marks = new ArrayList<>();
         List<Task> taskList = TaskDaoDBHelper.queryAll();
 
+        //任务信息
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             LatLng latLng1 = new LatLng(task.getLat(), task.getLng());
-            Marker marker1 = aMap.addMarker(new MarkerOptions().position(latLng1).title("北京").snippet("DefaultMarker"));
+            Marker marker1 = aMap.addMarker(new MarkerOptions().position(latLng1));
             marker1.setTitle("作业票：" + task.getNumber());
             marker1.setSnippet(task.getStatus());
             marker1.setObject(task);
             marker1.showInfoWindow();
+
             marks.add(marker1);
         }
-
+        //任务点击事件
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
-                View view = View.inflate(getMe(),R.layout.info_window,null);
+                View view = View.inflate(getMe(), R.layout.info_window, null);
                 TextView textView = view.findViewById(R.id.tv_title);
                 TextView textView1 = view.findViewById(R.id.tv_content);
                 textView.setText(marker.getTitle());
@@ -128,6 +132,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 return null;
             }
         });
+
+        //其余用户信息
+
+
+    }
+
+    private void setZone() {
+        // 定义多边形的5个点点坐标,暂定于高港地区
+        LatLng latLng1 = new LatLng(32.296056, 119.854639);
+        LatLng latLng2 = new LatLng(32.295453, 119.854172);
+        LatLng latLng3 = new LatLng(32.293938, 119.856758);
+        LatLng latLng4 = new LatLng(32.294523, 119.857246);
+        PolygonOptions polygonOptions = new PolygonOptions();
+        polygonOptions.add(latLng1, latLng2, latLng3, latLng4);
+        polygonOptions.strokeWidth(1) // 多边形的边框
+                .strokeColor(getResources().getColor(R.color.black)) // 边框颜色
+                .fillColor(getResources().getColor(R.color.red));   // 多边形的填充色
+        aMap.addPolygon(polygonOptions);
     }
 
     /**
