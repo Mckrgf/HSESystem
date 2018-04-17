@@ -83,4 +83,6 @@ public class BaseApplication extends Application {
      * 拍照后图片路径
      */
     public static String photoPath = Environment.getExternalStorageDirectory() + "/HSE" + "/Pic";
+
+    public static String filename = "";//拍照文件名
 }

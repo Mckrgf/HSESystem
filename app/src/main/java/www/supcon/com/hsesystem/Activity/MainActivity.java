@@ -212,7 +212,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     startActivity(intent);
                 } else {
                     //进入详情页面
-                    Intent intent = new Intent(getMe(), WorkTicketActivity.class);
+                    Intent intent = new Intent(getMe(), WorkMissionActivity.class);
                     intent.putExtra("TASK", task);
                     startActivity(intent);
                 }

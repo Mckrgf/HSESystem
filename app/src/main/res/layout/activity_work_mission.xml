@@ -38,6 +38,7 @@
         android:layout_below="@+id/rl_title" />
 
     <android.support.v4.view.ViewPager
+        android:background="@color/activity_light_gray"
         android:id="@+id/vp_mission"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,12 +46,15 @@
         android:layout_below="@+id/tb_type" />
 
     <LinearLayout
+        android:elevation="5dp"
         android:id="@+id/ll_charge"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="112px"
         android:layout_alignParentBottom="true">
 
         <TextView
+            android:background="@color/white"
             android:id="@+id/bt_stop"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
