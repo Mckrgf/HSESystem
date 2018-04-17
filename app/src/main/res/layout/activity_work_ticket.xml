@@ -5,17 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="www.supcon.com.hsesystem.Activity.WorkTicketActivity">
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="97px"
+        android:background="@color/colorPrimaryDark">
 
-    <include
-        android:id="@+id/title"
-        layout="@layout/tiitlebar" />
+        <ImageView
+            android:id="@+id/iv_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="23px"
+            android:src="@mipmap/ic_gray_return" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="作业票详情"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
 
     <include
         android:id="@+id/user_info"
         layout="@layout/user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title" />
+        android:layout_below="@+id/rl_title" />
 
 
     <include

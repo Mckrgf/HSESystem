@@ -44,8 +44,6 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     TextView tvTaskNo;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_return)
-    ImageView ivReturn;
     @BindView(R.id.et_search)
     EditText etSearch;
     private List works;
@@ -107,7 +105,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         tvTaskNo.setText(String.valueOf(no));
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_nav_3, R.id.iv_return})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_nav_3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -116,9 +114,6 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
             case R.id.bt_nav_2:
                 break;
             case R.id.bt_nav_3:
-                break;
-            case R.id.iv_return:
-                finish();
                 break;
         }
     }

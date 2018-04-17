@@ -20,6 +20,7 @@
         android:background="@color/colorPrimaryDark">
 
         <ImageView
+            android:id="@+id/iv_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="工单详情"
+            android:text="作业票审核"
             android:textColor="@color/white" />
 
     </RelativeLayout>
@@ -85,7 +86,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
-            android:text="审核项(0/5)"
+            android:text="审核项(0/4)"
             android:textSize="26px" />
 
         <View
@@ -100,7 +101,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
-            android:text="签名项(0/5)"
+            android:text="签名项(0/4)"
             android:textSize="26px" />
 
         <TextView

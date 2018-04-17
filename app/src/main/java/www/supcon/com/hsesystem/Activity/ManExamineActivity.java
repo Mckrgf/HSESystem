@@ -28,7 +28,6 @@ public class ManExamineActivity extends BaseActivity {
     TextView btNav1;
     @BindView(R.id.bt_nav_2)
     TextView btNav2;
-    ;
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
     @BindView(R.id.tv_title)

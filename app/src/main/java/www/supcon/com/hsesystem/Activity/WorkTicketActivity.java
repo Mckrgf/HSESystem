@@ -55,13 +55,9 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
     TextView btNav1;
     @BindView(R.id.bt_nav_2)
     TextView btNav2;
-    ;
+
     @BindView(R.id.tv_task_no)
     TextView tvTaskNo;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.iv_return)
-    ImageView ivReturn;
     @BindView(R.id.tv_work_number)
     TextView tvWorkNumber;
     @BindView(R.id.tv_work_name)
@@ -96,14 +92,14 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
     Button btReport;
     @BindView(R.id.rv_air_test)
     RecyclerView rvAirTest;
-    @BindView(R.id.tv_take_video)
-    TextView tvTakeVideo;
     @BindView(R.id.ll_videos)
     RecyclerView llVideos;
     @BindView(R.id.tv_time_start)
     TextView tvTimeStart;
     @BindView(R.id.tv_time_stop)
     TextView tvTimeStop;
+    @BindView(R.id.iv_return)
+    ImageView ivReturn;
 
     private boolean isRunning = true;//默认任务正在进行中，实际需要从后台获取任务状态
     private boolean hasPic = false;
@@ -120,9 +116,7 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_ticket);
         ButterKnife.bind(this);
-        tvTitle.setText("中控智能HSE-工作票详情页面");
         task = (Task) getIntent().getSerializableExtra("TASK");
-        tvTakeVideo.setVisibility(View.VISIBLE);
         initData();
         count_time_task();
         count_time_test();
@@ -252,7 +246,7 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
 
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_return, R.id.bt_start, R.id.bt_stop, R.id.bt_abort, R.id.bt_take_pic, R.id.bt_report, R.id.tv_take_video})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_start, R.id.bt_stop, R.id.bt_abort, R.id.bt_take_pic, R.id.bt_report, R.id.iv_return})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -261,13 +255,12 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.iv_return:
-                //返回
-                finish();
-                break;
             case R.id.bt_report:
                 //气体检测的弹窗
                 openDialog();
+                break;
+            case R.id.iv_return:
+                finish();
                 break;
             case R.id.bt_start:
                 //点击开始， 后可点击暂停和结束
