@@ -4,6 +4,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +21,8 @@ import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptor;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
@@ -133,6 +138,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         marks = new ArrayList<>();
         List<Task> taskList = TaskDaoDBHelper.queryAll();
 
+
+
+        LatLng latLngA = new LatLng(32.298409, 119.856629);
+        Marker markerA = aMap.addMarker(new MarkerOptions().position(latLngA));
+        markerA.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                .decodeResource(getResources(),R.mipmap.location_other)));
+        marks.add(markerA);
+
+        LatLng latLngB = new LatLng(32.29783, 119.855288);
+        Marker markerB = aMap.addMarker(new MarkerOptions().position(latLngB));
+        markerB.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                .decodeResource(getResources(),R.mipmap.location_other)));
+        marks.add(markerB);
+
         //任务信息
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
@@ -141,6 +160,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             marker1.setTitle("作业票：" + task.getNumber());
             marker1.setSnippet(task.getStatus());
             marker1.setObject(task);
+            marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                    .decodeResource(getResources(),R.mipmap.mark_task)));
             marker1.showInfoWindow();
 
             marks.add(marker1);
@@ -190,7 +211,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         aMap = null;
         aMap = map.getMap();
         MyLocationStyle myLocationStyle;
+
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                .decodeResource(getResources(),R.mipmap.location_me)));
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
@@ -198,7 +222,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 //        UiSettings uiSettings = aMap.getUiSettings();
 //        uiSettings.setCompassEnabled(true);
-
 
         //地图点击事件
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {

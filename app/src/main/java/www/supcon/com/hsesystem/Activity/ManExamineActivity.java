@@ -86,6 +86,14 @@ public class ManExamineActivity extends BaseActivity {
     TextView tvEnsureSign;
     @BindView(R.id.iv_return)
     ImageView ivReturn;
+    @BindView(R.id.iv_face_a)
+    ImageView ivFaceA;
+    @BindView(R.id.iv_face_b)
+    ImageView ivFaceB;
+    @BindView(R.id.iv_face_c)
+    ImageView ivFaceC;
+    @BindView(R.id.iv_face_d)
+    ImageView ivFaceD;
     private Task task;
     private int height;
     private boolean judge_status = true;//true为底部
@@ -93,6 +101,7 @@ public class ManExamineActivity extends BaseActivity {
     private int checks = 0;//检查项的勾选数目
     private boolean task_pass = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,11 +143,11 @@ public class ManExamineActivity extends BaseActivity {
         tvWorkStatus.setText(task.getStatus());
         tvWorkTaskContent.setText(task.getWork_content());
         String status = task.getStatus();
-        if (status.equals("未审核")){
+        if (status.equals("未审核")) {
             tvWorkStatus.setBackground(getApplicationContext().getDrawable(R.drawable.bg_status_green));
-        }else if (status.equals("进行中")) {
+        } else if (status.equals("进行中")) {
             tvWorkStatus.setBackground(getApplicationContext().getDrawable(R.drawable.bg_status_yellow));
-        }else if (status.equals("已完成")) {
+        } else if (status.equals("已完成")) {
             tvWorkStatus.setBackground(getApplicationContext().getDrawable(R.drawable.bg_status_blue));
         }
         String time_start = MyDateUtils.getDateFromLong(task.getTime_start(), MyDateUtils.date_Format);
@@ -147,7 +156,7 @@ public class ManExamineActivity extends BaseActivity {
         tvTimeStop.setText(time_stop);
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.mongolia, R.id.tv_ensure, R.id.iv_return, R.id.tv_refuse, R.id.tv_judge, R.id.tv_sign, R.id.tv_ensure_sign})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_face_a, R.id.iv_face_b, R.id.iv_face_c, R.id.iv_face_d, R.id.mongolia, R.id.tv_ensure, R.id.iv_return, R.id.tv_refuse, R.id.tv_judge, R.id.tv_sign, R.id.tv_ensure_sign})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -188,6 +197,22 @@ public class ManExamineActivity extends BaseActivity {
             case R.id.tv_sign:
                 //负责弹出关闭签名项
                 open_sign();
+                break;
+            case R.id.iv_face_a:
+//                Intent intenta = new Intent(getMe(), FaceActivity.class);
+//                startActivity(intenta);
+                break;
+            case R.id.iv_face_b:
+//                Intent intentb = new Intent(getMe(), FaceActivity.class);
+//                startActivity(intentb);
+                break;
+            case R.id.iv_face_c:
+//                Intent intentc = new Intent(getMe(), FaceActivity.class);
+//                startActivity(intentc);
+                break;
+            case R.id.iv_face_d:
+//                Intent intentd = new Intent(getMe(), FaceActivity.class);
+//                startActivity(intentd);
                 break;
             case R.id.tv_refuse:
                 if (task_pass) {

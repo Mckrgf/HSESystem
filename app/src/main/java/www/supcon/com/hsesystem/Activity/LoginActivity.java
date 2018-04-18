@@ -40,6 +40,8 @@ public class LoginActivity extends BaseActivity {
     LinearLayout llNfcLogin;
     @BindView(R.id.bt_reset)
     Button btReset;
+    @BindView(R.id.iv_lock)
+    ImageView ivLock;
     private long time_start;
     private long time_stop;
 
@@ -52,7 +54,7 @@ public class LoginActivity extends BaseActivity {
         String password = String.valueOf(etPassword.getText());
     }
 
-    @OnClick({R.id.btn_confirm, R.id.ll_scan_login, R.id.ll_nfc_login, R.id.bt_reset})
+    @OnClick({R.id.btn_confirm, R.id.ll_scan_login, R.id.ll_nfc_login, R.id.bt_reset, R.id.iv_lock})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_confirm:
@@ -67,6 +69,9 @@ public class LoginActivity extends BaseActivity {
                 Toast.makeText(this, "暂未开放", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.bt_reset:
+                resetData();
+                break;
+            case R.id.iv_lock:
                 resetData();
                 break;
         }
@@ -98,8 +103,8 @@ public class LoginActivity extends BaseActivity {
         String colleague = StringListConvertUtils.listToString(colleagues);
         String date_Format = "yyyy-MM-dd HH:mm:ss";
         try {
-            time_start = MyDateUtils.getLongDateFromString("2018-04-05 09:00:00",date_Format);
-            time_stop = MyDateUtils.getLongDateFromString("2018-04-25 09:00:00",date_Format);
+            time_start = MyDateUtils.getLongDateFromString("2018-04-19 09:00:00", date_Format);
+            time_stop = MyDateUtils.getLongDateFromString("2018-04-19 12:00:00", date_Format);
         } catch (ParseException e) {
             e.printStackTrace();
         }

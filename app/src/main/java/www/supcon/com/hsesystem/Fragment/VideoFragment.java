@@ -27,8 +27,6 @@ import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.Video;
 import www.supcon.com.hsesystem.DB.VideoDaoDBHelper;
 import www.supcon.com.hsesystem.R;
-import www.supcon.com.hsesystem.Utils.MyDateUtils;
-import www.supcon.com.hsesystem.View.MyDecoration;
 
 /**
  * Created by yaobing on 2018/4/17.

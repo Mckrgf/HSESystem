@@ -33,20 +33,20 @@
                 android:textColor="@color/gray" />
 
             <ImageView
-                android:id="@+id/iv_card_a"
+                android:id="@+id/iv_face_a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10px"
-                android:layout_toLeftOf="@+id/iv_face_a"
-                android:src="@mipmap/fire_icon" />
+                android:layout_toLeftOf="@+id/iv_card_a"
+                android:src="@mipmap/face_checked" />
 
             <ImageView
-                android:id="@+id/iv_face_a"
+                android:id="@+id/iv_card_a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_margin="10px"
-                android:src="@mipmap/fire_icon" />
+                android:src="@mipmap/nfc_checked" />
 
             <View
                 android:layout_marginTop="20px"
@@ -78,20 +78,20 @@
                 android:textColor="@color/gray" />
 
             <ImageView
-                android:id="@+id/iv_card_b"
+                android:id="@+id/iv_face_b"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10px"
-                android:layout_toLeftOf="@+id/iv_face_b"
-                android:src="@mipmap/fire_icon" />
+                android:layout_toLeftOf="@+id/iv_card_b"
+                android:src="@mipmap/face_checked" />
 
             <ImageView
-                android:id="@+id/iv_face_b"
+                android:id="@+id/iv_card_b"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_margin="10px"
-                android:src="@mipmap/fire_icon" />
+                android:src="@mipmap/nfc_checked" />
 
             <View
                 android:layout_marginTop="20px"
@@ -123,20 +123,20 @@
                 android:textColor="@color/gray" />
 
             <ImageView
-                android:id="@+id/iv_card_c"
+                android:id="@+id/iv_face_c"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10px"
-                android:layout_toLeftOf="@+id/iv_face_c"
-                android:src="@mipmap/fire_icon" />
+                android:layout_toLeftOf="@+id/iv_card_c"
+                android:src="@mipmap/face_checked" />
 
             <ImageView
-                android:id="@+id/iv_face_c"
+                android:id="@+id/iv_card_c"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_margin="10px"
-                android:src="@mipmap/fire_icon" />
+                android:src="@mipmap/nfc_checked" />
 
             <View
                 android:layout_marginTop="20px"
@@ -168,20 +168,20 @@
                 android:textColor="@color/gray" />
 
             <ImageView
-                android:id="@+id/iv_card_d"
+                android:id="@+id/iv_face_d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10px"
-                android:layout_toLeftOf="@+id/iv_face_d"
-                android:src="@mipmap/fire_icon" />
+                android:layout_toLeftOf="@+id/iv_card_d"
+                android:src="@mipmap/face_checked" />
 
             <ImageView
-                android:id="@+id/iv_face_d"
+                android:id="@+id/iv_card_d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_margin="10px"
-                android:src="@mipmap/fire_icon" />
+                android:src="@mipmap/nfc_checked" />
 
             <View
                 android:layout_marginTop="20px"

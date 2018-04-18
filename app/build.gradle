@@ -27,16 +27,14 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
-
     compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile "com.android.support:design:26.1.0"
+    compile 'com.android.support:design:26.1.0'
     //下拉刷新
     compile 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
     //事件总线库
@@ -46,7 +44,6 @@ dependencies {
     //butterknife
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     //3D地图so及jar
     compile 'com.amap.api:3dmap:latest.integration'
     //定位功能
@@ -54,5 +51,7 @@ dependencies {
     //搜索功能
     compile 'com.amap.api:search:latest.integration'
     //数据库
-    compile 'org.greenrobot:greendao:3.2.2' // add library
+    compile 'org.greenrobot:greendao:3.2.2'
+    // add library
+    implementation files('libs/zxing.jar')
 }

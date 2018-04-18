@@ -246,7 +246,7 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
         } else if (mStartedFlg) {
             stopRecord(false);
         }
-        mStartedFlg = false; // Set button status flag
+        mStartedFlg = true; // Set button status flag
 
     }
 
