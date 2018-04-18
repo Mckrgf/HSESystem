@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity {
 
         if (null == list | list.size() != 4) {
             Task task = new Task();
-            task.setName("xx区域动火作业");
+            task.setName("A区域动火作业");
             task.setType("施工作业");
             task.setMan_a("施工负责人a");
             task.setMan_b("施工负责人b");
@@ -123,7 +123,7 @@ public class LoginActivity extends BaseActivity {
             TaskDaoDBHelper.insertTask(task);
 
             Task task2 = new Task();
-            task2.setName("xx区域临时用电安全作业");
+            task2.setName("B区域临时用电安全作业");
             task2.setType("施工作业");
             task2.setMan_a("施工负责人a");
             task2.setMan_b("施工负责人b");
@@ -140,7 +140,7 @@ public class LoginActivity extends BaseActivity {
             TaskDaoDBHelper.insertTask(task2);
 
             Task task3 = new Task();
-            task3.setName("xx区域高空安全作业");
+            task3.setName("C区域高空安全作业");
             task3.setType("施工作业");
             task3.setMan_a("施工负责人a");
             task3.setMan_b("施工负责人b");
@@ -157,7 +157,7 @@ public class LoginActivity extends BaseActivity {
             TaskDaoDBHelper.insertTask(task3);
 
             Task task4 = new Task();
-            task4.setName("xx区域受限区域安全作业");
+            task4.setName("D区域受限区域安全作业");
             task4.setType("施工作业");
             task4.setMan_a("施工负责人a");
             task4.setMan_b("施工负责人b");

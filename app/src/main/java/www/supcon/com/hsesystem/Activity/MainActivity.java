@@ -55,8 +55,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     RelativeLayout rlTasks;
     @BindView(R.id.rl_warning)
     RelativeLayout rlWarning;
+    @BindView(R.id.iv_hide)
+    ImageView ivHide;
+    @BindView(R.id.rl_user_info)
+    RelativeLayout rlUserInfo;
+    @BindView(R.id.rl_latest_task)
+    RelativeLayout rlLatestTask;
+    @BindView(R.id.tv_latest_task_name)
+    TextView tvLatestTaskName;
     private AMap aMap;
     private ArrayList<Marker> marks;
+    private Task task;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -64,6 +73,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
+
         initView();
         map.onCreate(savedInstanceState);// 此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
         int checkPermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -74,6 +86,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             initMap();
         }
         initMarker();
+    }
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        tvLatestTaskName.setText(task.getName());
     }
 
     @SuppressLint("ResourceAsColor")
@@ -102,6 +121,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         rlMap.setOnClickListener(this);
         rlTasks.setOnClickListener(this);
         rlWarning.setOnClickListener(this);
+        ivHide.setOnClickListener(this);
+        rlLatestTask.setOnClickListener(this);
     }
 
     /**
@@ -264,6 +285,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvTaskNo.setText(String.valueOf(no));
         initMap();
         initMarker();
+        List<Task> tasks = TaskDaoDBHelper.queryAll();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (!tasks.get(i).getStatus().equals("已完成")) {
+                task = tasks.get(i);
+                initData();
+                break;
+            }else {
+                //如果是 已完成
+                if (i==tasks.size()-1) {
+                    tvLatestTaskName.setText("当前没有任务");
+                }
+            }
+        }
     }
 
     @Override
@@ -293,7 +327,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.rl_warning:
-                Toast.makeText(getMe(),"暂未开放",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getMe(), "暂未开放", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.iv_hide:
+                rlUserInfo.setVisibility(View.GONE);
+                break;
+            case R.id.rl_latest_task:
+                if (task.getStatus().contains("未审核")) {
+                    //进入审核页面
+                    Intent intent1 = new Intent(getMe(), ManExamineActivity.class);
+                    intent1.putExtra("TASK", task);
+                    startActivity(intent1);
+                } else {
+                    //进入详情页面
+                    Intent intent2 = new Intent(getMe(), WorkMissionActivity.class);
+                    intent2.putExtra("TASK", task);
+                    startActivity(intent2);
+                }
                 break;
         }
     }

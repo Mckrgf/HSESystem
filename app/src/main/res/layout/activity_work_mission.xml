@@ -20,7 +20,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="23px"
-            android:src="@mipmap/ic_gray_return" />
+            android:src="@mipmap/iv_return" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@color/black"
-            android:text="停止作业"
+            android:text="结束作业"
             android:textSize="30px" />
 
         <TextView

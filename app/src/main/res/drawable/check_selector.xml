@@ -5,7 +5,7 @@
 
     </item>
     <item android:state_checked="true"
-        android:drawable="@drawable/checkbox_pressed">
+        android:drawable="@drawable/checkbox_checked">
 
     </item>
 

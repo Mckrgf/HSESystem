@@ -88,6 +88,7 @@
             </RelativeLayout>
 
             <ImageView
+                android:id="@+id/iv_hide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/close"
@@ -105,6 +106,7 @@
             android:background="@color/divider"/>
 
         <RelativeLayout
+            android:id="@+id/rl_latest_task"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/rl_user_info"
             android:layout_width="match_parent"
@@ -120,6 +122,7 @@
                     android:id="@+id/tv_latest_task"
                     android:text="当前任务"/>
                 <TextView
+                    android:id="@+id/tv_latest_task_name"
                     android:textSize="18.75sp"
                     android:textStyle="bold"
                     android:layout_below="@+id/tv_latest_task"

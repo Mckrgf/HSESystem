@@ -18,7 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="23px"
-            android:src="@mipmap/ic_gray_return" />
+            android:src="@mipmap/iv_return" />
 
         <TextView
             android:layout_width="wrap_content"

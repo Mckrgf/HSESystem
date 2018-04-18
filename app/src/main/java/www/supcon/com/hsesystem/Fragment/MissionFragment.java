@@ -2,6 +2,7 @@ package www.supcon.com.hsesystem.Fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -100,8 +103,30 @@ public class MissionFragment extends Fragment {
     ImageView ivTakePic;
     @BindView(R.id.rl_take_pic)
     RelativeLayout rlTakePic;
+    @BindView(R.id.vi_divide)
+    View viDivide;
+    @BindView(R.id.tv_work_number)
+    TextView tvWorkNumber;
+    @BindView(R.id.tv_work_name)
+    TextView tvWorkName;
+    @BindView(R.id.tv_work_status)
+    TextView tvWorkStatus;
+    @BindView(R.id.rl_name_number_status)
+    RelativeLayout rlNameNumberStatus;
+    @BindView(R.id.vv_divide)
+    View vvDivide;
+    @BindView(R.id.tv_work_type)
+    TextView tvWorkType;
+    @BindView(R.id.tv_work_place)
+    TextView tvWorkPlace;
+    @BindView(R.id.tv_man_a)
+    TextView tvManA;
+    @BindView(R.id.tv_man_b)
+    TextView tvManB;
 
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -109,6 +134,23 @@ public class MissionFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         tvTimeStart.setText(MyDateUtils.getDateFromLong(task1.getTime_start(), MyDateUtils.date_Format));
         tvTimeStop.setText(MyDateUtils.getDateFromLong(task1.getTime_stop(), MyDateUtils.date_Format));
+
+        tvWorkNumber.setText(task1.getNumber());
+        tvWorkType.setText(task1.getType());
+        tvWorkName.setText(task1.getName());
+        tvWorkPlace.setText(task1.getLocation());
+        tvManA.setText(task1.getMan_a());
+        tvManB.setText(task1.getMan_b());
+        tvWorkStatus.setText(task1.getStatus());
+        String status = task1.getStatus();
+        if (status.equals("未审核")){
+            tvWorkStatus.setBackground(getActivity().getApplicationContext().getDrawable(R.drawable.bg_status_green));
+        }else if (status.equals("进行中")) {
+            tvWorkStatus.setBackground(getActivity().getApplicationContext().getDrawable(R.drawable.bg_status_yellow));
+        }else if (status.equals("已完成")) {
+            tvWorkStatus.setBackground(getActivity().getApplicationContext().getDrawable(R.drawable.bg_status_blue));
+        }
+
         rlTakePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,7 +221,7 @@ public class MissionFragment extends Fragment {
     }
 
     public ImageView getImageView() {
-        if (null==ivPic) {
+        if (null == ivPic) {
             return null;
         }
         return ivPic;

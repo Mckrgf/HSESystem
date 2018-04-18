@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <include layout="@layout/work_item1"
+            android:id="@+id/ic_task_info"/>
         <include layout="@layout/examine_item"
             android:id="@+id/examine_item_fragment"/>
 

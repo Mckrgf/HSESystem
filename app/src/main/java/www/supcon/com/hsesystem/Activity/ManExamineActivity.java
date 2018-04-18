@@ -1,8 +1,11 @@
 package www.supcon.com.hsesystem.Activity;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -119,6 +122,8 @@ public class ManExamineActivity extends BaseActivity {
         ObjectAnimator.ofFloat(signLayout, "translationY", 0, height).setDuration(10).start();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void initData() {
         tvWorkNumber.setText(task.getNumber());
         tvWorkType.setText(task.getType());
@@ -128,6 +133,14 @@ public class ManExamineActivity extends BaseActivity {
         tvManB.setText(task.getMan_b());
         tvWorkStatus.setText(task.getStatus());
         tvWorkTaskContent.setText(task.getWork_content());
+        String status = task.getStatus();
+        if (status.equals("未审核")){
+            tvWorkStatus.setBackground(getApplicationContext().getDrawable(R.drawable.bg_status_green));
+        }else if (status.equals("进行中")) {
+            tvWorkStatus.setBackground(getApplicationContext().getDrawable(R.drawable.bg_status_yellow));
+        }else if (status.equals("已完成")) {
+            tvWorkStatus.setBackground(getApplicationContext().getDrawable(R.drawable.bg_status_blue));
+        }
         String time_start = MyDateUtils.getDateFromLong(task.getTime_start(), MyDateUtils.date_Format);
         String time_stop = MyDateUtils.getDateFromLong(task.getTime_stop(), MyDateUtils.date_Format);
         tvTimeStart.setText(time_start);

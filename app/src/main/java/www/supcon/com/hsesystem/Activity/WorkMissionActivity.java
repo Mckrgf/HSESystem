@@ -146,7 +146,7 @@ public class WorkMissionActivity extends BaseActivity {
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            btStart.setText("暂停作业");
+                            btStart.setText("开始作业");
                         }
                     });
                     AlertDialog dialog = builder.create();
@@ -155,7 +155,7 @@ public class WorkMissionActivity extends BaseActivity {
                     //任务未开始
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("操作提示");
-                    builder.setMessage("是否要继续作业");
+                    builder.setMessage("是否要开始作业");
                     builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -165,12 +165,13 @@ public class WorkMissionActivity extends BaseActivity {
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            btStart.setText("继续作业");
+                            btStart.setText("暂停作业");
                         }
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
+                task_status = !task_status;
                 break;
             case R.id.bt_stop:
                 //停止
