@@ -170,12 +170,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
-                View view = View.inflate(getMe(), R.layout.info_window, null);
-                TextView textView = view.findViewById(R.id.tv_title);
-                TextView textView1 = view.findViewById(R.id.tv_content);
-                textView.setText(marker.getTitle());
-                textView1.setText(marker.getSnippet());
-                return view;
+                if (marker.getTitle().contains("作业票")) {
+                    View view = View.inflate(getMe(), R.layout.info_window, null);
+                    TextView textView = view.findViewById(R.id.tv_title);
+                    TextView textView1 = view.findViewById(R.id.tv_content);
+                    textView.setText(marker.getTitle());
+                    textView1.setText(marker.getSnippet());
+                    return view;
+                }else {
+                    return null;
+                }
+
             }
 
             @Override
