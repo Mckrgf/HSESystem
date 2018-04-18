@@ -11,6 +11,7 @@ import java.util.List;
 import www.supcon.com.hsesystem.DB.AirTest;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.R;
+import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
 /**
  * Created by yaobing on 2018/4/4.
@@ -55,6 +56,7 @@ public class AirTestListAdapter extends RecyclerView.Adapter<AirTestListAdapter.
         holder.tv_info.setText(String.valueOf(airTest.getInfo()));
         holder.tv_man.setText(String.valueOf(airTest.getMan()));
         holder.tv_test_location.setText(String.valueOf(airTest.getLocation()));
+        holder.tv_test_time.setText(MyDateUtils.getDateFromLong(Long.valueOf(airTest.getTime_b()),MyDateUtils.date_Format));
         holder.itemView.setTag(position);
     }
 
@@ -71,12 +73,14 @@ public class AirTestListAdapter extends RecyclerView.Adapter<AirTestListAdapter.
         TextView tv_info;
         TextView tv_man;
         TextView tv_test_location;
+        TextView tv_test_time;
 
         private ViewHolder(View view) {
             super(view);
             tv_info = view.findViewById(R.id.tv_test_info);
             tv_man = view.findViewById(R.id.tv_test_man);
             tv_test_location = view.findViewById(R.id.tv_test_location);
+            tv_test_time = view.findViewById(R.id.tv_test_time);
         }
     }
 

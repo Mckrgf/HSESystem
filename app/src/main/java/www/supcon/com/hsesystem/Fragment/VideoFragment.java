@@ -1,16 +1,22 @@
 package www.supcon.com.hsesystem.Fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,6 +27,7 @@ import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.Video;
 import www.supcon.com.hsesystem.DB.VideoDaoDBHelper;
 import www.supcon.com.hsesystem.R;
+import www.supcon.com.hsesystem.Utils.MyDateUtils;
 import www.supcon.com.hsesystem.View.MyDecoration;
 
 /**
@@ -50,7 +57,7 @@ public class VideoFragment extends Fragment {
         VideoListAdapter videoListAdapter = new VideoListAdapter(getActivity(), videos);
         videoListAdapter.setTask(task1);
         llVideos.setAdapter(videoListAdapter);
-         return view;
+        return view;
     }
 
     @Override
@@ -79,4 +86,8 @@ public class VideoFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    private static final String TAG = "VideoFragment";
+
+
 }

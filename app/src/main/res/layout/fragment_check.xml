@@ -1,9 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="check"/>
+    android:layout_height="match_parent"
+    android:background="@color/activity_gray">
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="30px"
+        android:layout_width="match_parent"
+        android:id="@+id/rv_air_test"
+        android:layout_below="@+id/tv_list_title"
+        android:layout_height="wrap_content"/>
+
+    <!--气体检测倒计时-->
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15px"
+        android:layout_centerHorizontal="true"
+        android:layout_width="680px"
+        android:layout_height="115px"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:background="@drawable/bg_airtestinrecord_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.57">
+
+            <TextView
+                android:id="@+id/tv_airtest_title"
+                android:textSize="25px"
+                android:layout_marginLeft="30px"
+                android:layout_marginTop="16px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="气体检测倒计时" />
+            <TextView
+                android:id="@+id/tv_test_count"
+                android:layout_marginLeft="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="气体倒计时"
+                android:textSize="37px"
+                android:layout_below="@+id/tv_airtest_title"
+                android:textColor="@color/yellow_air_test"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_air_test"
+            android:background="@drawable/bg_airtestinrecord_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即检测"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"
+                android:textSize="30px"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>

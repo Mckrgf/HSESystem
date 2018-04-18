@@ -3,8 +3,10 @@ package www.supcon.com.hsesystem.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -66,6 +68,8 @@ public class WorkMissionActivity extends BaseActivity {
     RelativeLayout activityWorkMission;
     @BindView(R.id.iv_return)
     ImageView ivReturn;
+    @BindView(R.id.tv_mission)
+    TextView tvMission;
     private ArrayList<String> listTitles;
     private ArrayList<Fragment> fragments;
     private ArrayList<TextView> listTextViews;
@@ -80,7 +84,7 @@ public class WorkMissionActivity extends BaseActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         initView();
-
+        count_time_task();
         initData();
 
     }
@@ -88,7 +92,7 @@ public class WorkMissionActivity extends BaseActivity {
     @Subscribe
     public void onEvent(HseEvent event) {
         int tag = event.getTAG();
-        if (tag==1) {
+        if (tag == 1) {
             //跳转到第三个fragment
             vpMission.setCurrentItem(2);
             openDialog();
@@ -179,11 +183,12 @@ public class WorkMissionActivity extends BaseActivity {
                     airTest.setMan(String.valueOf(et_man.getText()));
                     airTest.setLocation(String.valueOf(et_location.getText()));
                     airTest.setNumber(task.getNumber());
-                    airTest.setTime_b(String.valueOf(new Date()));
+                    airTest.setTime_b(String.valueOf(new Date().getTime()));
                     AirTestDaoDBHelper.insertAirTest(airTest);
                     Toast.makeText(getMe(), "上传成功", Toast.LENGTH_SHORT).show();
-//                    airTestListAdapter.setData(AirTestDaoDBHelper.queryAllInOneTask(task.getNumber()));
                     dialog.dismiss();
+                    CheckFragment checkFragment = (CheckFragment) fragmentPagerAdapter.getItem(2);
+                    checkFragment.onResume();
                 } else {
                     Toast.makeText(getMe(), "所有内容均不能为空", Toast.LENGTH_SHORT).show();
                 }
@@ -315,6 +320,34 @@ public class WorkMissionActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 工单倒计时处理
+     */
+    private void count_time_task() {
+        long time = task.getTime_stop();
+        long timeGetTime = new Date().getTime();//当前时间戳
+        final long count = time - timeGetTime;
+        final String[] count_s = {MyDateUtils.formatDuringNoSecond(count)};
+        tvMission.setText("作业票详情   (任务倒计时): " + count_s[0]);
+        CountDownTimer timer = new CountDownTimer(count, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                count_s[0] = MyDateUtils.formatDuringNoSecond(millisUntilFinished);
+                if (count_s[0].equals("已超时")) {
+                    tvMission.setTextColor(Color.RED);
+                }
+                tvMission.setText("作业票详情   (任务倒计时): " + count_s[0]);
+            }
+
+            @Override
+            public void onFinish() {
+                tvMission.setTextColor(Color.RED);
+                tvMission.setText("作业票详情   (任务倒计时): " + "已超时");
+            }
+        };
+        timer.start();
     }
 }
 

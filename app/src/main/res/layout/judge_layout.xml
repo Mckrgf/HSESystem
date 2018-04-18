@@ -18,7 +18,7 @@
             android:button="@null"
             android:drawableRight="@drawable/check_selector"
             android:text="动火设备内部构件清理干净"
-            android:textSize="36px" />
+            android:textSize="32px" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="断开与动火设备相关的所有管线"
-            android:textSize="36px" />
+            android:textSize="32px" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="动火点周围易燃物已经清除"
-            android:textSize="36px" />
+            android:textSize="32px" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="高处作业已采取防火花飞溅措施"
-            android:textSize="36px" />
+            android:textSize="32px" />
 
         <TextView
             android:layout_width="wrap_content"
