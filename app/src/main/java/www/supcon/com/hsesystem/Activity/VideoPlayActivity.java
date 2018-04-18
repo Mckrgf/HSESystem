@@ -34,8 +34,6 @@ import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
 public class VideoPlayActivity extends BaseActivity {
 
-    @BindView(R.id.iv_return)
-    ImageView ivReturn;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_take_video)
@@ -54,6 +52,8 @@ public class VideoPlayActivity extends BaseActivity {
     TextView tvTaskCount;
     @BindView(R.id.tv_test_count)
     TextView tvTestCount;
+    @BindView(R.id.iv_return)
+    ImageView ivReturn;
     private String url;
     private Video video;
     private Task task;
@@ -87,7 +87,7 @@ public class VideoPlayActivity extends BaseActivity {
         count_time_test();
     }
 
-    @OnClick({R.id.iv_return, R.id.bt_replay, R.id.bt_start, R.id.bt_abort})
+    @OnClick({R.id.bt_replay, R.id.bt_start, R.id.bt_abort})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_return:

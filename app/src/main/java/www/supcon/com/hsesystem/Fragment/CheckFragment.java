@@ -14,6 +14,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.R;
 
 /**
@@ -40,6 +41,7 @@ public class CheckFragment extends Fragment {
     @BindView(R.id.tv_ensure)
     TextView tvEnsure;
     Unbinder unbinder;
+    private static Task task1;
 
     @Nullable
     @Override
@@ -59,10 +61,10 @@ public class CheckFragment extends Fragment {
         return view;
     }
 
-    public static CheckFragment newInstance(String s) {
+    public static CheckFragment newInstance(Task task) {
+        task1 = task;
         CheckFragment fragment = new CheckFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY, s);
         fragment.setArguments(bundle);
         return fragment;
     }

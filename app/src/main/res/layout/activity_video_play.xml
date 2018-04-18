@@ -5,10 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="www.supcon.com.hsesystem.Activity.VideoPlayActivity">
-
-    <include
+    <RelativeLayout
         android:id="@+id/title"
-        layout="@layout/tiitlebar" />
+        android:layout_width="match_parent"
+        android:layout_height="97px"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/iv_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="23px"
+            android:src="@mipmap/iv_return" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="作业票详情"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
 
     <VideoView
         android:layout_centerHorizontal="true"

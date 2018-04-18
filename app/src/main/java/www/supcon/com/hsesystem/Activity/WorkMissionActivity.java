@@ -93,9 +93,9 @@ public class WorkMissionActivity extends BaseActivity {
         //把三个fragment都添加到列表中
         MissionFragment fragment = MissionFragment.newInstance(task);
         fragments.add(fragment);
-        VideoFragment videoFragment = VideoFragment.newInstance("视频");
+        VideoFragment videoFragment = VideoFragment.newInstance(task);
         fragments.add(videoFragment);
-        CheckFragment checkFragment = CheckFragment.newInstance("检查项");
+        CheckFragment checkFragment = CheckFragment.newInstance(task);
         fragments.add(checkFragment);
 
         ///

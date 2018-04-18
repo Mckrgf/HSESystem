@@ -16,6 +16,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import www.supcon.com.hsesystem.Activity.VideoPlayActivity;
+import www.supcon.com.hsesystem.Activity.VideoRecordActivity;
+import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.Video;
 import www.supcon.com.hsesystem.R;
 
@@ -28,6 +30,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     private List datas;
     private Context context;
     private OnItemClickListener mItemClickListener;
+    private Task task;
 
     @Override
     public void onClick(View view) {
@@ -38,6 +41,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
     public void setData(List<Video> videos) {
         this.datas = videos;
+    }
+
+    public void setTask(Task task1) {
+        task = task1;
     }
 
     public interface OnItemClickListener{
@@ -58,26 +65,41 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //对数据进行操作
-        final Video video = (Video) datas.get(position);
-        MediaMetadataRetriever media =new MediaMetadataRetriever();
-        media.setDataSource(video.getVideoUrl());
-        Bitmap bitmap = media.getFrameAtTime();
-        holder.iv_video.setImageBitmap(bitmap);
-        holder.iv_video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //视频列表,点击查看视频
-                Intent intent = new Intent(context, VideoPlayActivity.class);
-                intent.putExtra("uri",video.getVideoUrl());
-                intent.putExtra("video",video);
-                context.startActivity(intent);
-            }
-        });
+        if (position<datas.size()) {
+            //对数据进行操作
+            final Video video = (Video) datas.get(position);
+            MediaMetadataRetriever media =new MediaMetadataRetriever();
+            media.setDataSource(video.getVideoUrl());
+            Bitmap bitmap = media.getFrameAtTime();
+            holder.iv_video.setImageBitmap(bitmap);
+            holder.iv_video.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //视频列表,点击查看视频
+                    Intent intent = new Intent(context, VideoPlayActivity.class);
+                    intent.putExtra("uri",video.getVideoUrl());
+                    intent.putExtra("video",video);
+                    context.startActivity(intent);
+                }
+            });
 
-        holder.tv_video_time.setText(video.getDate());
+            holder.tv_video_time.setText(video.getDate());
 
-        holder.itemView.setTag(position);
+            holder.itemView.setTag(position);
+            holder.iv_add_video.setVisibility(View.GONE);
+        }else {
+            //多出来地一个
+            holder.iv_add_video.setVisibility(View.VISIBLE);
+            holder.iv_add_video.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent2 = new Intent(context, VideoRecordActivity.class);
+                    intent2.putExtra("task", task);
+                    context.startActivity(intent2);
+                }
+            });
+        }
+
     }
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {
@@ -86,17 +108,19 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
     @Override
     public int getItemCount() {
-        return datas.size();
+        return datas.size()+1;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_video_time;
         ImageView iv_video;
+        ImageView iv_add_video;
 
         private ViewHolder(View view) {
             super(view);
             tv_video_time = view.findViewById(R.id.tv_video_time);
             iv_video = view.findViewById(R.id.iv_video);
+            iv_add_video = view.findViewById(R.id.iv_add_video);
         }
     }
 
