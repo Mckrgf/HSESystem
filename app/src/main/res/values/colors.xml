@@ -20,6 +20,8 @@
     <color name="activity_light_gray">#f5f5f5</color><!--浅灰色 -->
     <color name="red_trans">#50FF0000</color><!--浅灰色 -->
     <color name="black_trans">#20000000</color><!--黑色 -->
+    <color name="black_trans_50">#40000000</color><!--黑色 -->
+    <color name="yellow_air_test">#e69e20</color><!--黑色 -->
 
 
 

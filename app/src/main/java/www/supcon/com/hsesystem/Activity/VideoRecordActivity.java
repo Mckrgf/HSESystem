@@ -21,6 +21,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.Video;
@@ -48,6 +50,10 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
     TextView tvTaskCount;
     @BindView(R.id.tv_test_count)
     TextView tvTestCount;
+    @BindView(R.id.iv_return)
+    ImageView ivReturn;
+    @BindView(R.id.iv_record)
+    ImageView ivRecord;
     private SurfaceView mSurfaceview;
     private TextView mBtnStartStop;
     private boolean mStartedFlg = false;
@@ -176,12 +182,12 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
         long time = task.getTime_stop();
         long timeGetTime = new Date().getTime();//当前时间戳
         final long count = time - timeGetTime;
-        final String[] count_s = {MyDateUtils.formatDuring(count)};
+        final String[] count_s = {MyDateUtils.formatDuringNoSecond(count)};
         tvTaskCount.setText(count_s[0]);
         CountDownTimer timer = new CountDownTimer(count, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                count_s[0] = MyDateUtils.formatDuring(millisUntilFinished);
+                count_s[0] = MyDateUtils.formatDuringNoSecond(millisUntilFinished);
                 if (count_s[0].equals("已超时")) {
                     tvTaskCount.setTextColor(Color.RED);
                 }
@@ -260,6 +266,8 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
                     mStartedFlg = true;
 //                    updateProgress();
                     mBtnStartStop.setText("停止");
+                    //设置按钮为停止的按钮
+                    ivRecord.setImageResource(R.mipmap.video_stop);
                 }
             } catch (Exception e) {
                 /**
@@ -331,8 +339,10 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
                     @Override
                     public void run() {
                         recordTime++;
+                        int h = recordTime / 3600;
                         int m = recordTime / 60;
                         int s = recordTime % 60;
+                        String hour = h + "";
                         String strm = m + "";
                         String strs = s + "";
                         if (m < 10) {
@@ -341,7 +351,10 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
                         if (s < 10) {
                             strs = "0" + s;
                         }
-                        tvTime.setText(strm + ":" + strs);
+                        if (h < 10) {
+                            hour = "0" + h;
+                        }
+                        tvTime.setText(hour + ":" + strm + ":" + strs);
                     }
                 });
             }
@@ -492,4 +505,15 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
         }
     }
 
+    @OnClick({R.id.iv_return, R.id.iv_record})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_return:
+                finish();
+                break;
+            case R.id.iv_record:
+                starRecordVideo();
+                break;
+        }
+    }
 }

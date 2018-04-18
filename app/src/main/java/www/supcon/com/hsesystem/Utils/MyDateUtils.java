@@ -218,6 +218,20 @@ public class MyDateUtils {
      * @return 该毫秒数转换为 * days * hours * minutes * seconds 后的格式
      * @author fy.zhang
      */
+    public static String formatDuringNoSecond(long mss) {
+        if (mss < 0) {
+            return "已超时";
+        }
+        long days = mss / (1000 * 60 * 60 * 24);
+        long hours = (mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+        long minutes = (mss % (1000 * 60 * 60)) / (1000 * 60);
+        long seconds = (mss % (1000 * 60)) / 1000;
+        return days + "天" + hours + "小时" + minutes + "分钟";
+    }
+    /**
+     * @return 该毫秒数转换为 * days * hours * minutes * seconds 后的格式
+     * @author fy.zhang
+     */
     public static String formatDuringNodays(long mss) {
         if (mss < 0) {
             return "已超时";
