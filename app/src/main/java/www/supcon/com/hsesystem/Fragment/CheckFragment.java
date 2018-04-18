@@ -2,9 +2,11 @@ package www.supcon.com.hsesystem.Fragment;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
@@ -55,6 +57,7 @@ public class CheckFragment extends Fragment {
     TextView tvAirtestTitle;
     @BindView(R.id.rl_air_test)
     RelativeLayout rlAirTest;
+    private CountDownTimer timer;
 
     @Nullable
     @Override
@@ -94,6 +97,7 @@ public class CheckFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        timer.cancel();
         unbinder.unbind();
     }
 
@@ -119,10 +123,17 @@ public class CheckFragment extends Fragment {
         final long count = time_stop - timeGetTime;
         final String[] count_s = {MyDateUtils.formatDuringNodays(count)};
         tvTestCount.setText(count_s[0]);
-        CountDownTimer timer = new CountDownTimer(count, 1000) {
+        timer = new CountDownTimer(count, 1000) {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onTick(long millisUntilFinished) {
                 count_s[0] = MyDateUtils.formatDuringNodays(millisUntilFinished);
+
+                long minutes = (millisUntilFinished % (1000 * 60 * 60)) / (1000 * 60);
+                if (minutes<=5) {
+                    rlAirTest.setBackground(getResources().getDrawable(R.drawable.bg_airtestinrecord_right_red));
+                }
+
                 String aaaa = String.valueOf(count_s[0].charAt(0));
                 if (aaaa.equals(1)) {
                     Toast.makeText(getActivity(), "该检测了", Toast.LENGTH_SHORT).show();
