@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,6 +43,8 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     TextView tvTitle;
     @BindView(R.id.et_search)
     EditText etSearch;
+    @BindView(R.id.iv_task)
+    ImageView ivTask;
     private List works;
     private WorkListAdapter workListAdapter;
 
@@ -61,6 +60,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
 
     private void initView() {
         btNav2.setTextColor(getResources().getColor(R.color.green_selected));
+        ivTask.setImageResource(R.mipmap.mission_checked);
         etSearch.setSingleLine();
         etSearch.addTextChangedListener(new EditChangedListener());
     }
@@ -83,7 +83,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     protected void onResume() {
         super.onResume();
         works = fake_data();
-        workListAdapter = new WorkListAdapter(works,this);
+        workListAdapter = new WorkListAdapter(works, this);
         workListAdapter.setItemClickListener(this);
         rlWorkList.setAdapter(workListAdapter);
         rlWorkList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -95,9 +95,9 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                boolean b = ViewCompat.canScrollVertically(recyclerView,1);
+                boolean b = ViewCompat.canScrollVertically(recyclerView, 1);
                 if (!b) {
-                    Toast.makeText(getMe(),"不能滑动了",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getMe(), "不能滑动了", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -136,6 +136,7 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     }
 
     private static final String TAG = "WorkListActivity";
+
     class EditChangedListener implements TextWatcher {
 
         @Override

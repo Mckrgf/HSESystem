@@ -22,6 +22,8 @@
 
         <EditText
             android:gravity="center"
+            android:drawableLeft="@mipmap/search"
+            android:layout_centerVertical="true"
             android:hint="搜索工单"
             android:padding="5dp"
             android:id="@+id/et_search"

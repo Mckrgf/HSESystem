@@ -30,14 +30,14 @@
             android:id="@+id/iv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/fire_icon"
+            android:src="@mipmap/ator"
             android:layout_centerInParent="true"/>
 
         <ImageView
             android:id="@+id/iv_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/fire_icon"
+            android:src="@mipmap/setting"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"/>
@@ -64,7 +64,7 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/fire_icon"
+                android:src="@mipmap/location_me"
                 android:id="@+id/iv_man"/>
 
             <RelativeLayout
@@ -90,7 +90,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/fire_icon"
+                android:src="@mipmap/close"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"/>
@@ -135,7 +135,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/fire_icon"/>
+                android:src="@mipmap/arrow_right"/>
         </RelativeLayout>
 
     </RelativeLayout>

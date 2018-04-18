@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
@@ -49,6 +47,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     TextView tvTaskNo;
     @BindView(R.id.title)
     RelativeLayout title;
+    @BindView(R.id.iv_map)
+    ImageView ivMap;
     private AMap aMap;
     private ArrayList<Marker> marks;
 
@@ -74,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
         btNav1.setTextColor(getResources().getColor(R.color.green_selected));
+        ivMap.setImageResource(R.mipmap.map_checked);
 
         //设置全屏,并且控件在状态栏上也有显示,
         if (Build.VERSION.SDK_INT >= 21) {
