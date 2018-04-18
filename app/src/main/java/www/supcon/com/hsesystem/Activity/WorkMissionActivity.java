@@ -11,12 +11,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,10 +34,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.Base.BaseApplication;
+import www.supcon.com.hsesystem.DB.AirTest;
+import www.supcon.com.hsesystem.DB.AirTestDaoDBHelper;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.DB.Video;
 import www.supcon.com.hsesystem.DB.VideoDaoDBHelper;
+import www.supcon.com.hsesystem.Eventbus.HseEvent;
 import www.supcon.com.hsesystem.Fragment.CheckFragment;
 import www.supcon.com.hsesystem.Fragment.MissionFragment;
 import www.supcon.com.hsesystem.Fragment.VideoFragment;
@@ -68,11 +78,21 @@ public class WorkMissionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_mission);
         ButterKnife.bind(this);
-
+        EventBus.getDefault().register(this);
         initView();
 
         initData();
 
+    }
+
+    @Subscribe
+    public void onEvent(HseEvent event) {
+        int tag = event.getTAG();
+        if (tag==1) {
+            //跳转到第三个fragment
+            vpMission.setCurrentItem(2);
+            openDialog();
+        }
     }
 
     private void initData() {
@@ -127,6 +147,51 @@ public class WorkMissionActivity extends BaseActivity {
 
         tbType.setupWithViewPager(vpMission);//将TabLayout和ViewPager关联起来。
         tbType.setTabsFromPagerAdapter(fragmentPagerAdapter);//给Tabs设置适配器
+    }
+
+    private void openDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.create();
+
+        View view = View.inflate(this, R.layout.air_test_dialog, null);
+        // dialog.setView(view);// 将自定义的布局文件设置给dialog
+        dialog.setView(view, 0, 0, 0, 0);// 设置边距为0,保证在2.x的版本上运行没问题
+
+        final EditText et_man = view
+                .findViewById(R.id.et_man);
+        final EditText et_info = view
+                .findViewById(R.id.et_info);
+        final EditText et_location = view
+                .findViewById(R.id.et_location);
+
+        Button btnOK = view.findViewById(R.id.bt_upload);
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String info = String.valueOf(et_info.getText());
+                String man = String.valueOf(et_man.getText());
+                String location = String.valueOf(et_location.getText());
+                if (!TextUtils.isEmpty(info) && !TextUtils.isEmpty(man) && !TextUtils.isEmpty(location)) {
+                    AirTest airTest = new AirTest();
+                    airTest.setInfo(String.valueOf(et_info.getText()));
+                    airTest.setMan(String.valueOf(et_man.getText()));
+                    airTest.setLocation(String.valueOf(et_location.getText()));
+                    airTest.setNumber(task.getNumber());
+                    airTest.setTime_b(String.valueOf(new Date()));
+                    AirTestDaoDBHelper.insertAirTest(airTest);
+                    Toast.makeText(getMe(), "上传成功", Toast.LENGTH_SHORT).show();
+//                    airTestListAdapter.setData(AirTestDaoDBHelper.queryAllInOneTask(task.getNumber()));
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(getMe(), "所有内容均不能为空", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        dialog.show();
     }
 
     @OnClick({R.id.bt_start, R.id.bt_stop, R.id.iv_return})
@@ -244,6 +309,12 @@ public class WorkMissionActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
 

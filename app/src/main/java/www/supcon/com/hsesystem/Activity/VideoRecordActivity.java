@@ -23,8 +23,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.text.ParseException;
@@ -41,6 +44,7 @@ import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.Video;
 import www.supcon.com.hsesystem.DB.VideoDaoDBHelper;
+import www.supcon.com.hsesystem.Eventbus.HseEvent;
 import www.supcon.com.hsesystem.R;
 import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
@@ -54,6 +58,8 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
     ImageView ivReturn;
     @BindView(R.id.iv_record)
     ImageView ivRecord;
+    @BindView(R.id.rl_air_test)
+    RelativeLayout rlAirTest;
     private SurfaceView mSurfaceview;
     private TextView mBtnStartStop;
     private boolean mStartedFlg = false;
@@ -85,6 +91,7 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
         }
     };
     private Task task;
+    private boolean video_start = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +115,17 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
             @Override
             public void onClick(View v) {
                 starRecordVideo();
+            }
+        });
+        rlAirTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (video_start) {
+                    stopRecord(true);
+                } else {
+                    sendMsg();
+                }
+
             }
         });
 
@@ -224,83 +242,106 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
 
     private void starRecordVideo() {
         if (!mStartedFlg) {
-            // Start
-            if (mRecorder == null) {
-                mRecorder = new MediaRecorder(); // Create MediaRecorder
-            }
-            try {
-                /**
-                 * 解锁camera
-                 * 设置输出格式为mpeg_4（mp4），此格式音频编码格式必须为AAC否则网页无法播放
-                 */
-                mCamera.unlock();
-                mRecorder.setCamera(mCamera);
-                mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-                mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-                mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-                //音频编码格式对应应为AAC
-                mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-                //视频编码格式对应应为H264
-                mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
-                mRecorder.setVideoSize(640, 480);
-                mRecorder.setVideoEncodingBitRate(600 * 1024);
-                mRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
+            startRecord();
+        } else if (mStartedFlg) {
+            stopRecord(false);
+        }
+        mStartedFlg = false; // Set button status flag
 
-                /**
-                 * 设置输出地址
-                 */
-                String sdPath = getSDPath();
-                if (sdPath != null) {
-                    File dir = new File(sdPath + "/VideoAndAudio");
-                    if (!dir.exists()) {
-                        dir.mkdir();
-                    }
-                    path = dir + "/" + getDate() + ".mp4";
+    }
 
-                    mRecorder.setOutputFile(path);
-                    mRecorder.setOrientationHint(90);
-                    mRecorder.prepare();
-                    mRecorder.start();   // Recording is now started
-//                    llTime.setVisibility(View.VISIBLE);
-                    starRecordTimer();
-                    mStartedFlg = true;
-//                    updateProgress();
-                    mBtnStartStop.setText("停止");
-                    //设置按钮为停止的按钮
-                    ivRecord.setImageResource(R.mipmap.video_stop);
+    private void startRecord() {
+        // Start
+        if (mRecorder == null) {
+            mRecorder = new MediaRecorder(); // Create MediaRecorder
+        }
+        try {
+            /**
+             * 解锁camera
+             * 设置输出格式为mpeg_4（mp4），此格式音频编码格式必须为AAC否则网页无法播放
+             */
+            mCamera.unlock();
+            mRecorder.setCamera(mCamera);
+            mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+            mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            //音频编码格式对应应为AAC
+            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            //视频编码格式对应应为H264
+            mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
+            mRecorder.setVideoSize(640, 480);
+            mRecorder.setVideoEncodingBitRate(600 * 1024);
+            mRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
+
+            /**
+             * 设置输出地址
+             */
+            String sdPath = getSDPath();
+            if (sdPath != null) {
+                File dir = new File(sdPath + "/VideoAndAudio");
+                if (!dir.exists()) {
+                    dir.mkdir();
                 }
-            } catch (Exception e) {
-                /**
-                 * 当用户拒绝录音权限会执行这里
-                 */
-                Toast.makeText(getMe(), "没有录音权限", Toast.LENGTH_SHORT).show();
+                path = dir + "/" + getDate() + ".mp4";
+
+                mRecorder.setOutputFile(path);
+                mRecorder.setOrientationHint(90);
+                mRecorder.prepare();
+                mRecorder.start();   // Recording is now started
+//                    llTime.setVisibility(View.VISIBLE);
+                starRecordTimer();
+                mStartedFlg = true;
+//                    updateProgress();
+                mBtnStartStop.setText("停止");
+                //设置按钮为停止的按钮
+                ivRecord.setImageResource(R.mipmap.video_stop);
+            }
+            video_start = true;
+        } catch (Exception e) {
+            /**
+             * 当用户拒绝录音权限会执行这里
+             */
+            Toast.makeText(getMe(), "没有录音权限", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    private void stopRecord(boolean airtest) {
+        try {
+            mRecorder.stop();
+            if (recordTask != null) {
+                recordTask.cancel();
+            }
+            mRecorder.reset();
+            mStartedFlg = false;
+            Toast.makeText(getMe(), "录制完成" + "视频地址:" + path, Toast.LENGTH_SHORT).show();
+
+            Video video = new Video();
+            video.setNumber(task.getNumber());
+            video.setStatus("0");
+            video.setVideoUrl(path);
+            video.setDate(MyDateUtils.getDateFromLong(new Date().getTime(), MyDateUtils.date_Format));
+            VideoDaoDBHelper.insertVideo(video);
+
+            if (airtest) {
+                sendMsg();
+            } else {
                 finish();
             }
-
-        } else {
-            if (mStartedFlg) {
-                try {
-                    mRecorder.stop();
-                    if (recordTask != null) {
-                        recordTask.cancel();
-                    }
-                    mRecorder.reset();
-                    mStartedFlg = false;
-                    Toast.makeText(getMe(), "录制完成" + "视频地址:" + path, Toast.LENGTH_SHORT).show();
-
-                    Video video = new Video();
-                    video.setNumber(task.getNumber());
-                    video.setStatus("0");
-                    video.setVideoUrl(path);
-                    video.setDate(MyDateUtils.getDateFromLong(new Date().getTime(), MyDateUtils.date_Format));
-                    VideoDaoDBHelper.insertVideo(video);
-                    finish();
-                } catch (Exception e) {
-                    Toast.makeText(getMe(), "录制失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-            mStartedFlg = false; // Set button status flag
+        } catch (Exception e) {
+            Log.e(TAG, String.valueOf(e));
         }
+
+
+    }
+
+    private void sendMsg() {
+//        EventBus.getDefault().register(this);//注册
+        HseEvent event = new HseEvent();
+        event.setTAG(1);//AddUserDeviceActivity
+        EventBus.getDefault().post(event);
+        finish();
+//        EventBus.getDefault().unregister(this);//街注册
     }
 
 //    private void updateProgress() {
