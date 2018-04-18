@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -160,7 +161,11 @@ public class MissionFragment extends Fragment {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
                 } else {
                     //如果有权限，进入拍照
-                    take_pic();
+                    if (!task1.getStatus().equals("已完成")) {
+                        take_pic();
+                    }else {
+                        Toast.makeText(getActivity(),"任务已完成,不可操作",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

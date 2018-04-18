@@ -203,67 +203,77 @@ public class WorkMissionActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_start:
-                if (task_status) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("操作提示");
-                    builder.setMessage("是否要暂停作业");
-                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            btStart.setText("开始作业");
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                } else {
-                    //任务未开始
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("操作提示");
-                    builder.setMessage("是否要开始作业");
-                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            btStart.setText("暂停作业");
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                if (!task.getStatus().equals("已完成")) {
+                    if (task_status) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle("操作提示");
+                        builder.setMessage("是否要暂停作业");
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                btStart.setText("开始作业");
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else {
+                        //任务未开始
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle("操作提示");
+                        builder.setMessage("是否要开始作业");
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                btStart.setText("暂停作业");
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                    task_status = !task_status;
+                }else {
+                    Toast.makeText(getMe(),"任务已完成,不可操作",Toast.LENGTH_SHORT).show();
                 }
-                task_status = !task_status;
+
                 break;
             case R.id.bt_stop:
-                //停止
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("操作提示");
-                builder.setMessage("是否要结束作业");
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        task.setStatus("已完成");
-                        TaskDaoDBHelper.updateTask(task);
-                        finish();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                if (!task.getStatus().equals("已完成")) {
+                    //停止
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("操作提示");
+                    builder.setMessage("是否要结束作业");
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            task.setStatus("已完成");
+                            TaskDaoDBHelper.updateTask(task);
+                            finish();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }else {
+                    Toast.makeText(getMe(),"任务已完成,不可操作",Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.iv_return:
                 finish();

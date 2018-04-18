@@ -1,6 +1,7 @@
 package www.supcon.com.hsesystem.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import www.supcon.com.hsesystem.Adapter.AirTestListAdapter;
 import www.supcon.com.hsesystem.DB.AirTest;
 import www.supcon.com.hsesystem.DB.AirTestDaoDBHelper;
 import www.supcon.com.hsesystem.DB.Task;
+import www.supcon.com.hsesystem.DB.TaskDaoDBHelper;
 import www.supcon.com.hsesystem.R;
 import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
@@ -68,7 +70,12 @@ public class CheckFragment extends Fragment {
         rlAirTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog();
+                if (!task1.getStatus().equals("已完成")) {
+                    openDialog();
+                }else {
+                    Toast.makeText(getActivity(),"任务已完成,不可操作",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         return view;

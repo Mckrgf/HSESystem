@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -93,9 +94,14 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
             holder.iv_add_video.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent2 = new Intent(context, VideoRecordActivity.class);
-                    intent2.putExtra("task", task);
-                    context.startActivity(intent2);
+                    if (!task.getStatus().equals("已完成")) {
+                        Intent intent2 = new Intent(context, VideoRecordActivity.class);
+                        intent2.putExtra("task", task);
+                        context.startActivity(intent2);
+                    }else {
+                        Toast.makeText(context,"任务已完成,不可操作",Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
         }
