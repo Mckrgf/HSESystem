@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,12 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
     EditText etSearch;
     @BindView(R.id.iv_task)
     ImageView ivTask;
+    @BindView(R.id.rl_map)
+    RelativeLayout rlMap;
+    @BindView(R.id.rl_tasks)
+    RelativeLayout rlTasks;
+    @BindView(R.id.rl_warning)
+    RelativeLayout rlWarning;
     private List works;
     private WorkListAdapter workListAdapter;
 
@@ -105,15 +112,17 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
         tvTaskNo.setText(String.valueOf(no));
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.bt_nav_3})
+    @OnClick({R.id.bt_nav_1, R.id.rl_map, R.id.rl_warning})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
                 finish();
                 break;
-            case R.id.bt_nav_2:
+            case R.id.rl_map:
+                finish();
                 break;
-            case R.id.bt_nav_3:
+            case R.id.rl_warning:
+                Toast.makeText(getMe(),"暂未开放",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

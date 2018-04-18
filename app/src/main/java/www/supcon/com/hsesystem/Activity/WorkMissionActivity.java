@@ -1,5 +1,6 @@
 package www.supcon.com.hsesystem.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,8 +10,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,6 +24,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.Base.BaseApplication;
 import www.supcon.com.hsesystem.DB.Task;
@@ -37,8 +40,6 @@ import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
 public class WorkMissionActivity extends BaseActivity {
 
-    @BindView(R.id.iv_return)
-    ImageView ivReturn;
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
     @BindView(R.id.tb_type)
@@ -53,11 +54,14 @@ public class WorkMissionActivity extends BaseActivity {
     LinearLayout llCharge;
     @BindView(R.id.activity_work_mission)
     RelativeLayout activityWorkMission;
+    @BindView(R.id.iv_return)
+    ImageView ivReturn;
     private ArrayList<String> listTitles;
     private ArrayList<Fragment> fragments;
     private ArrayList<TextView> listTextViews;
     private Task task;
     private FragmentPagerAdapter fragmentPagerAdapter;
+    boolean task_status = false; //false 未开始  true已开始
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +127,77 @@ public class WorkMissionActivity extends BaseActivity {
 
         tbType.setupWithViewPager(vpMission);//将TabLayout和ViewPager关联起来。
         tbType.setTabsFromPagerAdapter(fragmentPagerAdapter);//给Tabs设置适配器
+    }
+
+    @OnClick({R.id.bt_start, R.id.bt_stop, R.id.iv_return})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bt_start:
+                if (task_status) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("操作提示");
+                    builder.setMessage("是否要暂停作业");
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            btStart.setText("暂停作业");
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    //任务未开始
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("操作提示");
+                    builder.setMessage("是否要继续作业");
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            btStart.setText("继续作业");
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                break;
+            case R.id.bt_stop:
+                //停止
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("操作提示");
+                builder.setMessage("是否要结束作业");
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        task.setStatus("已完成");
+                        TaskDaoDBHelper.updateTask(task);
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
+            case R.id.iv_return:
+                finish();
+                break;
+        }
     }
 
     private static final String TAG = "WorkMissionActivity";

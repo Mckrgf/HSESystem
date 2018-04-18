@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,8 +31,6 @@ public class ManExamineActivity extends BaseActivity {
     TextView tvTaskNo;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_return)
-    ImageView ivReturn;
     @BindView(R.id.tv_work_number)
     TextView tvWorkNumber;
     @BindView(R.id.tv_work_name)
@@ -84,6 +81,8 @@ public class ManExamineActivity extends BaseActivity {
     TextView tvEnsure;
     @BindView(R.id.tv_ensure_sign)
     TextView tvEnsureSign;
+    @BindView(R.id.iv_return)
+    ImageView ivReturn;
     private Task task;
     private int height;
     private boolean judge_status = true;//true为底部
@@ -184,8 +183,8 @@ public class ManExamineActivity extends BaseActivity {
                     Intent intent = new Intent(getMe(), MainActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Toast.makeText(getMe(),"审核项未完成",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getMe(), "审核项未完成", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -207,11 +206,11 @@ public class ManExamineActivity extends BaseActivity {
             checks++;
         }
         tvJudge.setText("审核项(" + checks + "/4)");
-        if (checks==4) {
+        if (checks == 4) {
             tvRefuse.setText("审核通过");
             tvRefuse.setBackgroundColor(getResources().getColor(R.color.green_text));
             task_pass = true;
-        }else {
+        } else {
             tvRefuse.setText("审核拒绝");
             tvRefuse.setBackgroundColor(getResources().getColor(R.color.red));
             task_pass = false;

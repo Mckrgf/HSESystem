@@ -49,6 +49,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     RelativeLayout title;
     @BindView(R.id.iv_map)
     ImageView ivMap;
+    @BindView(R.id.rl_map)
+    RelativeLayout rlMap;
+    @BindView(R.id.rl_tasks)
+    RelativeLayout rlTasks;
+    @BindView(R.id.rl_warning)
+    RelativeLayout rlWarning;
     private AMap aMap;
     private ArrayList<Marker> marks;
 
@@ -93,7 +99,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         title.setLayoutParams(lp);
 
         btNav2.setOnClickListener(this);
-
+        rlMap.setOnClickListener(this);
+        rlTasks.setOnClickListener(this);
+        rlWarning.setOnClickListener(this);
     }
 
     /**
@@ -273,12 +281,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.bt_nav_2:
+//            case R.id.bt_nav_2:
+//                Intent intent = new Intent(getMe(), WorkListActivity.class);
+//                startActivity(intent);
+//                break;
+            case R.id.iv_return:
+                finish();
+                break;
+            case R.id.rl_tasks:
                 Intent intent = new Intent(getMe(), WorkListActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.iv_return:
-                finish();
+            case R.id.rl_warning:
+                Toast.makeText(getMe(),"暂未开放",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
