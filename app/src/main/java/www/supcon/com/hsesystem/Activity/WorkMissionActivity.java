@@ -68,7 +68,7 @@ public class WorkMissionActivity extends BaseActivity {
     RelativeLayout activityWorkMission;
     @BindView(R.id.iv_return)
     ImageView ivReturn;
-    @BindView(R.id.tv_mission)
+    @BindView(R.id.tv_title)
     TextView tvMission;
     private ArrayList<String> listTitles;
     private ArrayList<Fragment> fragments;

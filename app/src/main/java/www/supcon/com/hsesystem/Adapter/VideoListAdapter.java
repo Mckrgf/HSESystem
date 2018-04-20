@@ -1,11 +1,15 @@
 package www.supcon.com.hsesystem.Adapter;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +22,7 @@ import java.util.List;
 
 import www.supcon.com.hsesystem.Activity.VideoPlayActivity;
 import www.supcon.com.hsesystem.Activity.VideoRecordActivity;
+import www.supcon.com.hsesystem.Activity.WorkMissionActivity;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.DB.Video;
 import www.supcon.com.hsesystem.R;
@@ -35,7 +40,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
     @Override
     public void onClick(View view) {
-        if (mItemClickListener!=null){
+        if (mItemClickListener != null) {
             mItemClickListener.onItemClick((Integer) view.getTag());
         }
     }
@@ -48,11 +53,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         task = task1;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public VideoListAdapter(Context context,List data) {
+    public VideoListAdapter(Context context, List data) {
         this.datas = data;
         this.context = context;
     }
@@ -66,10 +71,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (position<datas.size()) {
+        if (position < datas.size()) {
             //对数据进行操作
             final Video video = (Video) datas.get(position);
-            MediaMetadataRetriever media =new MediaMetadataRetriever();
+            MediaMetadataRetriever media = new MediaMetadataRetriever();
             media.setDataSource(video.getVideoUrl());
             Bitmap bitmap = media.getFrameAtTime();
             holder.iv_video.setImageBitmap(bitmap);
@@ -78,8 +83,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
                 public void onClick(View view) {
                     //视频列表,点击查看视频
                     Intent intent = new Intent(context, VideoPlayActivity.class);
-                    intent.putExtra("uri",video.getVideoUrl());
-                    intent.putExtra("video",video);
+                    intent.putExtra("uri", video.getVideoUrl());
+                    intent.putExtra("video", video);
                     context.startActivity(intent);
                 }
             });
@@ -88,25 +93,32 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
             holder.itemView.setTag(position);
             holder.iv_add_video.setVisibility(View.GONE);
-        }else {
+        } else {
             //多出来地一个
-            holder.iv_add_video.setVisibility(View.VISIBLE);
-            holder.iv_add_video.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!task.getStatus().equals("已完成")) {
-                        Intent intent2 = new Intent(context, VideoRecordActivity.class);
-                        intent2.putExtra("task", task);
-                        context.startActivity(intent2);
-                    }else {
-                        Toast.makeText(context,"任务已完成,不可操作",Toast.LENGTH_SHORT).show();
-                    }
+            //动态申请相机权限
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                //如果没有权限，就申请，然后走回调方法，在回调成功的时候调用拍照方法
+                ActivityCompat.requestPermissions(new WorkMissionActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+            } else {
+                holder.iv_add_video.setVisibility(View.VISIBLE);
+                holder.iv_add_video.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!task.getStatus().equals("已完成")) {
+                            Intent intent2 = new Intent(context, VideoRecordActivity.class);
+                            intent2.putExtra("task", task);
+                            context.startActivity(intent2);
+                        } else {
+                            Toast.makeText(context, "任务已完成,不可操作", Toast.LENGTH_SHORT).show();
+                        }
 
-                }
-            });
+                    }
+                });
+            }
         }
 
     }
+
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
@@ -114,7 +126,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
 
     @Override
     public int getItemCount() {
-        return datas.size()+1;
+        return datas.size() + 1;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

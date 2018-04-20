@@ -50,7 +50,7 @@ import www.supcon.com.hsesystem.Utils.MyDateUtils;
 
 public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.Callback {
 
-    @BindView(R.id.tv_task_count)
+    @BindView(R.id.tv_title)
     TextView tvTaskCount;
     @BindView(R.id.tv_test_count)
     TextView tvTestCount;

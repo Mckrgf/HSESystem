@@ -50,6 +50,8 @@ public class VideoPlayActivity extends BaseActivity {
     TextView tvTestCount;
     @BindView(R.id.iv_return)
     ImageView ivReturn;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     private String url;
     private Video video;
     private Task task;
@@ -74,7 +76,7 @@ public class VideoPlayActivity extends BaseActivity {
         vvVideo.setMediaController(controller);
 
         controller.setMediaPlayer(vvVideo);
-
+        tvTitle.setText("播放视频");
 
         vvVideo.requestFocus();
         vvVideo.start();

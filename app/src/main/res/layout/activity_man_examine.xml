@@ -13,29 +13,8 @@
         layout="@layout/tiitlebar"
         android:visibility="gone" />
 
-    <RelativeLayout
-        android:id="@+id/rl_title"
-        android:layout_width="match_parent"
-        android:layout_height="97px"
-        android:background="@color/colorPrimaryDark">
-
-        <ImageView
-            android:id="@+id/iv_return"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="23px"
-            android:src="@mipmap/iv_return" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="作业票审核"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+    <include layout="@layout/common_title"
+        android:id="@+id/rl_title"/>
 
 
     <ScrollView
