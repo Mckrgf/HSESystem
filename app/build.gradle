@@ -53,5 +53,6 @@ dependencies {
     //数据库
     compile 'org.greenrobot:greendao:3.2.2'
     // add library
-    implementation files('libs/zxing.jar')
+//    implementation files('libs/zxing.jar')
+    compile 'cn.yipianfengye.android:zxing-library:2.2'
 }

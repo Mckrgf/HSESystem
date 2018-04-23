@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.util.Log;
 
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         setupDatabase();
+        ZXingLibrary.initDisplayOpinion(this);
     }
     /**
      * 配置数据库

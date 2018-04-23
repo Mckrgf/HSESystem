@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -199,20 +200,17 @@ public class ManExamineActivity extends BaseActivity {
                 open_sign();
                 break;
             case R.id.iv_face_a:
-//                Intent intenta = new Intent(getMe(), FaceActivity.class);
-//                startActivity(intenta);
+                openZxing(1);
                 break;
             case R.id.iv_face_b:
-//                Intent intentb = new Intent(getMe(), FaceActivity.class);
-//                startActivity(intentb);
+                openZxing(2);
+
                 break;
             case R.id.iv_face_c:
-//                Intent intentc = new Intent(getMe(), FaceActivity.class);
-//                startActivity(intentc);
+                openZxing(3);
                 break;
             case R.id.iv_face_d:
-//                Intent intentd = new Intent(getMe(), FaceActivity.class);
-//                startActivity(intentd);
+                openZxing(4);
                 break;
             case R.id.tv_refuse:
                 if (task_pass) {
@@ -227,6 +225,12 @@ public class ManExamineActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void openZxing(int i) {
+        Intent intent = new Intent(this, CaptureActivity.class);
+        startActivityForResult(intent, i);
+    }
+
 
     @SuppressLint("ResourceType")
     private void judge_check() {

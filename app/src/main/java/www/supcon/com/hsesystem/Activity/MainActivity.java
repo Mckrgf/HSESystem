@@ -122,7 +122,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         lp.setMargins(0, statusBarHeight1, 0, 0);
         title.setLayoutParams(lp);
 
-        btNav2.setOnClickListener(this);
         rlMap.setOnClickListener(this);
         rlTasks.setOnClickListener(this);
         rlWarning.setOnClickListener(this);
@@ -343,10 +342,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-//            case R.id.bt_nav_2:
-//                Intent intent = new Intent(getMe(), WorkListActivity.class);
-//                startActivity(intent);
-//                break;
             case R.id.iv_return:
                 finish();
                 break;
