@@ -96,6 +96,8 @@ public class WorkMissionActivity extends BaseActivity {
             //跳转到第三个fragment
             vpMission.setCurrentItem(2);
             openDialog();
+        }else if (tag == 2) {
+            vpMission.setCurrentItem(1);
         }
     }
 
@@ -237,6 +239,9 @@ public class WorkMissionActivity extends BaseActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 btStart.setText("暂停作业");
+                                Intent intent2 = new Intent(getMe(), VideoRecordActivity.class);
+                                intent2.putExtra("task", task);
+                                startActivity(intent2);
                             }
                         });
                         AlertDialog dialog = builder.create();

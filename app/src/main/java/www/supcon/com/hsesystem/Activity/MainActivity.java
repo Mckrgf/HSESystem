@@ -165,8 +165,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             marker1.setTitle("作业票：" + task.getNumber());
             marker1.setSnippet(task.getStatus());
             marker1.setObject(task);
-            marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                    .decodeResource(getResources(), R.mipmap.mark_task)));
+            String status = task.getStatus();
+            if (status.equals("未审核")) {
+                marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                        .decodeResource(getResources(), R.mipmap.mark_task_green)));
+            }else if (status.equals("进行中")) {
+                marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                        .decodeResource(getResources(), R.mipmap.mark_task_yellow)));
+            }else if (status.equals("已完成")) {
+                marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                        .decodeResource(getResources(), R.mipmap.mark_task)));
+            }
             marker1.showInfoWindow();
 
             marks.add(marker1);
@@ -176,7 +185,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public View getInfoWindow(Marker marker) {
                 if (marker.getTitle().contains("作业票")) {
-                    View view = View.inflate(getMe(), R.layout.info_window, null);
+                    Task task1 = (Task) marker.getObject();
+                    String status = task1.getStatus();
+                    View view = null;
+                    if (status.equals("未审核")) {
+                        view = View.inflate(getMe(), R.layout.info_window_green, null);
+                    }else if (status.equals("进行中")) {
+                        view = View.inflate(getMe(), R.layout.info_window_yellow, null);
+                    }else if (status.equals("已完成")) {
+                        view = View.inflate(getMe(), R.layout.info_window, null);
+                    }
                     TextView textView = view.findViewById(R.id.tv_title);
                     TextView textView1 = view.findViewById(R.id.tv_content);
                     textView.setText(marker.getTitle());

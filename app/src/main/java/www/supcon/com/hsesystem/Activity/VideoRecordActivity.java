@@ -326,13 +326,20 @@ public class VideoRecordActivity extends BaseActivity implements SurfaceHolder.C
             if (airtest) {
                 sendMsg();
             } else {
-                finish();
+                sendMsgToLocatTOVideoFragment();
             }
         } catch (Exception e) {
             Log.e(TAG, String.valueOf(e));
         }
 
 
+    }
+
+    private void sendMsgToLocatTOVideoFragment() {
+        HseEvent event = new HseEvent();
+        event.setTAG(2);//AddUserDeviceActivity
+        EventBus.getDefault().post(event);
+        finish();
     }
 
     private void sendMsg() {
