@@ -288,6 +288,13 @@ public class ManExamineActivity extends BaseActivity {
             checks++;
         }
         tvJudge.setText("审核项(" + checks + "/4)");
+        judge_sign_check();
+    }
+
+    /**
+     * 判断审核项和签名项是否都完成,完成之后才能审核通过
+     */
+    private void judge_sign_check() {
         if (checks == 4 && checks_nfc == 4) {
             tvRefuse.setText("审核通过");
             tvRefuse.setBackgroundColor(getResources().getColor(R.color.green_text));
@@ -328,21 +335,25 @@ public class ManExamineActivity extends BaseActivity {
                 tvSignA.setText("已通过");
                 checks_nfc++;
                 tvSign.setText("签名项(" + checks_nfc + "/4)");
+                judge_sign_check();
                 break;
             case 2:
                 tvSignB.setText("已通过");
                 checks_nfc++;
                 tvSign.setText("签名项(" + checks_nfc + "/4)");
+                judge_sign_check();
                 break;
             case 3:
                 tvSignC.setText("已通过");
                 checks_nfc++;
                 tvSign.setText("签名项(" + checks_nfc + "/4)");
+                judge_sign_check();
                 break;
             case 4:
                 tvSignD.setText("已通过");
                 checks_nfc++;
                 tvSign.setText("签名项(" + checks_nfc + "/4)");
+                judge_sign_check();
                 break;
 
         }
