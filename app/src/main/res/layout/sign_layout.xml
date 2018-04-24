@@ -18,7 +18,7 @@
 
             <TextView
                 android:id="@+id/tv_sign_a"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="费振华"
                 android:textColor="@color/black"
@@ -28,7 +28,7 @@
                 android:id="@+id/tv_judge_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_sign_a"
+                android:layout_below="@+id/sign_status_a"
                 android:text="动火设备内部构件清理干净"
                 android:textColor="@color/gray" />
 
@@ -48,6 +48,19 @@
                 android:layout_margin="10px"
                 android:src="@mipmap/nfc_checked" />
 
+            <TextView
+                android:layout_toRightOf="@+id/tv_sign_a"
+                android:id="@+id/sign_status_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="3dp"
+                android:text="签名状态"
+                android:textColor="@color/white" />
+
             <View
                 android:layout_marginTop="20px"
                 android:layout_below="@+id/iv_face_a"
@@ -60,10 +73,21 @@
             android:layout_marginBottom="10px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <TextView
+                android:layout_toRightOf="@+id/tv_sign_b"
+                android:id="@+id/sign_status_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="3dp"
+                android:text="签名状态"
+                android:textColor="@color/white" />
             <TextView
                 android:id="@+id/tv_sign_b"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="费振华"
                 android:textColor="@color/black"
@@ -73,7 +97,7 @@
                 android:id="@+id/tv_judge_content_b"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_sign_b"
+                android:layout_below="@+id/sign_status_b"
                 android:text="断开与动火设备相关的所有管线"
                 android:textColor="@color/gray" />
 
@@ -105,10 +129,21 @@
             android:layout_marginBottom="10px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <TextView
+                android:layout_toRightOf="@+id/tv_sign_c"
+                android:id="@+id/sign_status_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="3dp"
+                android:text="签名状态"
+                android:textColor="@color/white" />
             <TextView
                 android:id="@+id/tv_sign_c"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="费振华"
                 android:textColor="@color/black"
@@ -118,7 +153,7 @@
                 android:id="@+id/tv_judge_content_c"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_sign_c"
+                android:layout_below="@+id/sign_status_c"
                 android:text="冻货店周围易燃物已经清除"
                 android:textColor="@color/gray" />
 
@@ -150,10 +185,21 @@
             android:layout_marginBottom="10px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <TextView
+                android:layout_toRightOf="@+id/tv_sign_d"
+                android:id="@+id/sign_status_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="3dp"
+                android:text="签名状态"
+                android:textColor="@color/white" />
             <TextView
                 android:id="@+id/tv_sign_d"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="费振华"
                 android:textColor="@color/black"
@@ -163,7 +209,7 @@
                 android:id="@+id/tv_judge_content_d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_sign_d"
+                android:layout_below="@+id/sign_status_d"
                 android:text="高处作业已经采取防火花飞溅措施"
                 android:textColor="@color/gray" />
 

@@ -22,6 +22,12 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
 
     <application
         android:name=".Base.BaseApplication"
@@ -60,6 +66,20 @@
         <activity android:name=".Activity.WorkTicketActivity" />
         <activity android:name=".Activity.VideoPlayActivity" />
         <activity android:name=".Activity.VideoRecordActivity" />
+        <activity android:name=".Activity.NFCActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.nfc.action.ACTION_NDEF_DISCOVERED" />
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+                <action android:name="android.nfc.action.ACTION_TAG_DISCOVERED" />
+                <!-- 添加这一条默认设置，能拦截当前页面所有扫描NFC的配置 -->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
         <activity android:name=".Activity.WorkMissionActivity"></activity>
     </application>
 

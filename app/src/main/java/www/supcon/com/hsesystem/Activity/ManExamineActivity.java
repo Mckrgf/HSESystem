@@ -95,12 +95,30 @@ public class ManExamineActivity extends BaseActivity {
     ImageView ivFaceC;
     @BindView(R.id.iv_face_d)
     ImageView ivFaceD;
+    @BindView(R.id.sign_status_a)
+    TextView tvSignA;
+    @BindView(R.id.iv_card_a)
+    ImageView ivCardA;
+    @BindView(R.id.sign_status_b)
+    TextView tvSignB;
+    @BindView(R.id.iv_card_b)
+    ImageView ivCardB;
+    @BindView(R.id.sign_status_c)
+    TextView tvSignC;
+    @BindView(R.id.iv_card_c)
+    ImageView ivCardC;
+    @BindView(R.id.sign_status_d)
+    TextView tvSignD;
+    @BindView(R.id.iv_card_d)
+    ImageView ivCardD;
     private Task task;
     private int height;
     private boolean judge_status = true;//true为底部
     private boolean sign_status = true;//true为弹出
     private int checks = 0;//检查项的勾选数目
-    private boolean task_pass = false;
+    private boolean task_pass = false;//跳转nfc界面
+    private Intent intent_nfc;
+    private int checks_nfc = 0;//签名项
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressLint("SetTextI18n")
@@ -112,6 +130,7 @@ public class ManExamineActivity extends BaseActivity {
         ButterKnife.bind(this);
         initView();
         initData();
+        intent_nfc = new Intent(getMe(),NFCActivity.class);
     }
 
     private void initView() {
@@ -157,7 +176,11 @@ public class ManExamineActivity extends BaseActivity {
         tvTimeStop.setText(time_stop);
     }
 
-    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_face_a, R.id.iv_face_b, R.id.iv_face_c, R.id.iv_face_d, R.id.mongolia, R.id.tv_ensure, R.id.iv_return, R.id.tv_refuse, R.id.tv_judge, R.id.tv_sign, R.id.tv_ensure_sign})
+    @OnClick({R.id.bt_nav_1, R.id.bt_nav_2, R.id.iv_face_a, R.id.iv_face_b,
+            R.id.iv_face_c, R.id.iv_face_d, R.id.mongolia, R.id.tv_ensure,
+            R.id.iv_return, R.id.tv_refuse, R.id.tv_judge, R.id.tv_sign,
+            R.id.tv_ensure_sign, R.id.iv_card_a, R.id.iv_card_b, R.id.iv_card_c,
+            R.id.iv_card_d})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_nav_1:
@@ -223,6 +246,23 @@ public class ManExamineActivity extends BaseActivity {
                     Toast.makeText(getMe(), "审核项未完成", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+            case R.id.iv_card_a:
+                intent_nfc = new Intent(getMe(),NFCActivity.class);
+                startActivityForResult(intent_nfc,1);
+                break;
+            case R.id.iv_card_b:
+                intent_nfc = new Intent(getMe(),NFCActivity.class);
+                startActivityForResult(intent_nfc,2);
+                break;
+            case R.id.iv_card_c:
+                intent_nfc = new Intent(getMe(),NFCActivity.class);
+                startActivityForResult(intent_nfc,3);
+                break;
+            case R.id.iv_card_d:
+                intent_nfc = new Intent(getMe(),NFCActivity.class);
+                startActivityForResult(intent_nfc,4);
+                break;
         }
     }
 
@@ -248,7 +288,7 @@ public class ManExamineActivity extends BaseActivity {
             checks++;
         }
         tvJudge.setText("审核项(" + checks + "/4)");
-        if (checks == 4) {
+        if (checks == 4 && checks_nfc == 4) {
             tvRefuse.setText("审核通过");
             tvRefuse.setBackgroundColor(getResources().getColor(R.color.green_text));
             task_pass = true;
@@ -276,6 +316,35 @@ public class ManExamineActivity extends BaseActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                tvSignA.setText("已通过");
+                checks_nfc++;
+                tvSign.setText("签名项(" + checks_nfc + "/4)");
+                break;
+            case 2:
+                tvSignB.setText("已通过");
+                checks_nfc++;
+                tvSign.setText("签名项(" + checks_nfc + "/4)");
+                break;
+            case 3:
+                tvSignC.setText("已通过");
+                checks_nfc++;
+                tvSign.setText("签名项(" + checks_nfc + "/4)");
+                break;
+            case 4:
+                tvSignD.setText("已通过");
+                checks_nfc++;
+                tvSign.setText("签名项(" + checks_nfc + "/4)");
+                break;
+
         }
     }
 
