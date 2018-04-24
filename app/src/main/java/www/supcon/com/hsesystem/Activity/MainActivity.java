@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,16 +16,19 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
@@ -74,9 +76,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     RelativeLayout rlLatestTask;
     @BindView(R.id.tv_latest_task_name)
     TextView tvLatestTaskName;
+    @BindView(R.id.bt_locate)
+    Button btLocate;
     private AMap aMap;
     private ArrayList<Marker> marks;
     private Task task;
+
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+    //声明AMapLocationClientOption对象
+    public AMapLocationClientOption mLocationOption = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener = new AMapLocationListener() {
+        @Override
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            double lat = aMapLocation.getLatitude();
+            double lng = aMapLocation.getLongitude();
+            Log.i(TAG,"定位成功");
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 10));
+        }
+    };
+    private AMapLocationClientOption option;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -132,7 +153,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         rlWarning.setOnClickListener(this);
         ivHide.setOnClickListener(this);
         rlLatestTask.setOnClickListener(this);
-
+        btLocate.setOnClickListener(this);
 
     }
 
@@ -169,10 +190,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (status.equals("未审核")) {
                 marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                         .decodeResource(getResources(), R.mipmap.mark_task_green)));
-            }else if (status.equals("进行中")) {
+            } else if (status.equals("进行中")) {
                 marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                         .decodeResource(getResources(), R.mipmap.mark_task_yellow)));
-            }else if (status.equals("已完成")) {
+            } else if (status.equals("已完成")) {
                 marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                         .decodeResource(getResources(), R.mipmap.mark_task)));
             }
@@ -190,9 +211,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     View view = null;
                     if (status.equals("未审核")) {
                         view = View.inflate(getMe(), R.layout.info_window_green, null);
-                    }else if (status.equals("进行中")) {
+                    } else if (status.equals("进行中")) {
                         view = View.inflate(getMe(), R.layout.info_window_yellow, null);
-                    }else if (status.equals("已完成")) {
+                    } else if (status.equals("已完成")) {
                         view = View.inflate(getMe(), R.layout.info_window, null);
                     }
                     TextView textView = view.findViewById(R.id.tv_title);
@@ -268,13 +289,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                 .decodeResource(getResources(), R.mipmap.location_me)));
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-//        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 //        UiSettings uiSettings = aMap.getUiSettings();
 //        uiSettings.setCompassEnabled(true);
+
+//        aMap.setLocationSource(this);//通过aMap对象设置定位数据源的监听
+
 
         //地图点击事件
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
@@ -325,6 +349,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(getMyApplication(), "任务详情", Toast.LENGTH_SHORT).show();
             }
         });
+
+        //自定义定位按钮所需变量
+
+        //初始化定位
+        mLocationClient = new AMapLocationClient(getApplicationContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        option = new AMapLocationClientOption();
+        /**
+         * 设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
+         */
+        option.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
+
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //单次定位
+        mLocationOption.setOnceLocation(true);
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        mLocationOption.setOnceLocationLatest(true);
+        //超时时间
+        mLocationOption.setHttpTimeOut(20000);
+        //关闭缓存机制
+        mLocationOption.setLocationCacheEnable(false);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+
     }
 
     @Override
@@ -393,6 +446,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.iv_return:
                 finish();
+                break;
+            case R.id.bt_locate:
+                if (null != mLocationClient) {
+                    mLocationClient.setLocationOption(option);
+                    //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
+                    mLocationClient.stopLocation();
+                    mLocationClient.startLocation();
+                }
                 break;
             case R.id.rl_tasks:
                 Intent intent = new Intent(getMe(), WorkListActivity.class);

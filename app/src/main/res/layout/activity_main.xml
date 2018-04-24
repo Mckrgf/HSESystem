@@ -20,6 +20,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rl_tab"/>
 
+
+
     <RelativeLayout
         android:id="@+id/title"
         android:background="@color/title_color_trans"
@@ -143,10 +145,21 @@
 
     </RelativeLayout>
 
+    <Button
+        android:background="@drawable/bg_status_green"
+        android:layout_marginBottom="120px"
+        android:layout_marginLeft="10px"
+        android:textColor="@color/white"
+        android:id="@+id/bt_locate"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="定位至当前"/>
+
     <include
         android:id="@+id/rl_tab"
         layout="@layout/bottom_tab"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="110px"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>
