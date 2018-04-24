@@ -7,12 +7,15 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextPaint;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,9 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
@@ -80,7 +86,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ButterKnife.bind(this);
 
 
-
         initView();
         map.onCreate(savedInstanceState);// 此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
         int checkPermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -127,6 +132,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         rlWarning.setOnClickListener(this);
         ivHide.setOnClickListener(this);
         rlLatestTask.setOnClickListener(this);
+
+
     }
 
     /**
@@ -138,17 +145,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         List<Task> taskList = TaskDaoDBHelper.queryAll();
 
 
-
         LatLng latLngA = new LatLng(32.298409, 119.856629);
         Marker markerA = aMap.addMarker(new MarkerOptions().position(latLngA));
         markerA.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                .decodeResource(getResources(),R.mipmap.location_other)));
+                .decodeResource(getResources(), R.mipmap.location_other)));
         marks.add(markerA);
 
         LatLng latLngB = new LatLng(32.29783, 119.855288);
         Marker markerB = aMap.addMarker(new MarkerOptions().position(latLngB));
         markerB.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                .decodeResource(getResources(),R.mipmap.location_other)));
+                .decodeResource(getResources(), R.mipmap.location_other)));
         marks.add(markerB);
 
         //任务信息
@@ -160,7 +166,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             marker1.setSnippet(task.getStatus());
             marker1.setObject(task);
             marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                    .decodeResource(getResources(),R.mipmap.mark_task)));
+                    .decodeResource(getResources(), R.mipmap.mark_task)));
             marker1.showInfoWindow();
 
             marks.add(marker1);
@@ -176,7 +182,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     textView.setText(marker.getTitle());
                     textView1.setText(marker.getSnippet());
                     return view;
-                }else {
+                } else {
                     return null;
                 }
 
@@ -188,10 +194,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-        //其余用户信息
+        //定位至指定位置
+        aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
+                new LatLng(32.295121, 119.855541),//新的中心点坐标
+                16, //新的缩放级别
+                0, //俯仰角0°~45°（垂直与地图时为0）
+                0  ////偏航角 0~360° (正北方为0)
+        )));
 
+        //危险区域绘制坐标
+        aMap.addMarker(new MarkerOptions()
+                .position(new LatLng(32.294907, 119.855773))
+                .icon(BitmapDescriptorFactory.fromBitmap(getMyBitmap(""))));
 
     }
+
+    protected Bitmap getMyBitmap(String pm_val) {
+        Bitmap bitmap = BitmapDescriptorFactory.fromView(View.inflate(this, R.layout.dengerous, null)).getBitmap();
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                bitmap.getHeight());
+        Canvas canvas = new Canvas(bitmap);
+        TextPaint textPaint = new TextPaint();
+        textPaint.setAntiAlias(true);
+        textPaint.setTextSize(44f);
+        textPaint.setColor(getResources().getColor(R.color.white));
+        canvas.drawText(pm_val, 17, 35, textPaint);// 设置bitmap上面的文字位置
+        return bitmap;
+    }
+
+    private static final String TAG = "MainActivity";
 
     private void setZone() {
         // 定义多边形的5个点点坐标,暂定于高港地区
@@ -218,8 +249,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                .decodeResource(getResources(),R.mipmap.location_me)));
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
+                .decodeResource(getResources(), R.mipmap.location_me)));
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
 //        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
@@ -318,9 +349,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 task = tasks.get(i);
                 initData();
                 break;
-            }else {
+            } else {
                 //如果是 已完成
-                if (i==tasks.size()-1) {
+                if (i == tasks.size() - 1) {
                     tvLatestTaskName.setText("当前没有任务");
                 }
             }
