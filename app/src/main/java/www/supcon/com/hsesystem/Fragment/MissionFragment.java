@@ -148,6 +148,8 @@ public class MissionFragment extends Fragment {
         tvManA.setText(task1.getMan_a());
         tvManB.setText(task1.getMan_b());
         tvWorkStatus.setText(task1.getStatus());
+        tvExamineWorkmanContent.setText(task1.getUnit());
+        tvWorkTaskContent.setText(task1.getWork_content());
         String status = task1.getStatus();
         if (status.equals("未审核")) {
             tvWorkStatus.setBackground(getActivity().getApplicationContext().getDrawable(R.drawable.bg_status_green));

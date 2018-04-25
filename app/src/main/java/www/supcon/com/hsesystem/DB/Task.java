@@ -36,23 +36,24 @@ public class Task implements Serializable {
     private String work_mans;//工作组成员
     private String attentions;//注意事项
     private String pic;//项目所属的作业票图片
+    private String worK_content;//项目所属的作业票图片
 
 
     //新增字段
-    private String unit;//申请单位
+    private String unit;//证件号
     private String man_c;//申请人
     private String device_detail;//用电设备及功率
     private String power_in;//电源接入点
     private String elec_v;//工作电压
     private String work_unit;//施工单位`
 
-    @Generated(hash = 1172393037)
+    @Generated(hash = 1422957852)
     public Task(Long id, String status, String name, String type, String man_a,
             String man_b, String location, String number, long time_start,
             long time_stop, double lat, double lng, String work_content,
-            String work_mans, String attentions, String pic, String unit,
-            String man_c, String device_detail, String power_in, String elec_v,
-            String work_unit) {
+            String work_mans, String attentions, String pic, String worK_content,
+            String unit, String man_c, String device_detail, String power_in,
+            String elec_v, String work_unit) {
         this.id = id;
         this.status = status;
         this.name = name;
@@ -69,6 +70,7 @@ public class Task implements Serializable {
         this.work_mans = work_mans;
         this.attentions = attentions;
         this.pic = pic;
+        this.worK_content = worK_content;
         this.unit = unit;
         this.man_c = man_c;
         this.device_detail = device_detail;
@@ -275,5 +277,13 @@ public class Task implements Serializable {
 
     public void setWork_unit(String work_unit) {
         this.work_unit = work_unit;
+    }
+
+    public String getWorK_content() {
+        return this.worK_content;
+    }
+
+    public void setWorK_content(String worK_content) {
+        this.worK_content = worK_content;
     }
 }

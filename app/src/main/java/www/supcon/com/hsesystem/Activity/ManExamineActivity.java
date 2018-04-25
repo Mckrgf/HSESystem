@@ -113,6 +113,8 @@ public class ManExamineActivity extends BaseActivity {
     ImageView ivCardD;
     @BindView(R.id.tv_ticket)
     ImageView tvTicket;
+    @BindView(R.id.tv_examine_workman_content)
+    TextView tvExamineWorkmanContent;
     private Task task;
     private int height;
     private boolean judge_status = true;//true为底部
@@ -165,6 +167,7 @@ public class ManExamineActivity extends BaseActivity {
         tvManB.setText(task.getMan_b());
         tvWorkStatus.setText(task.getStatus());
         tvWorkTaskContent.setText(task.getWork_content());
+        tvExamineWorkmanContent.setText(task.getUnit());
         String status = task.getStatus();
         if (status.equals("未审核")) {
             tvWorkStatus.setBackground(getApplicationContext().getDrawable(R.drawable.bg_status_green));

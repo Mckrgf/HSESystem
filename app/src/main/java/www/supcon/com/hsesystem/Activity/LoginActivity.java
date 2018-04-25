@@ -134,6 +134,7 @@ public class LoginActivity extends BaseActivity {
             task.setWork_content("基础开挖");
             task.setTime_start(time_start);
             task.setTime_stop(time_stop);
+            task.setUnit("T441232432142224678");
             TaskDaoDBHelper.insertTask(task);
 
             Task task2 = new Task();
@@ -148,9 +149,10 @@ public class LoginActivity extends BaseActivity {
             task2.setLng(119.852509);
             task2.setAttentions(attention);
             task2.setWork_mans(colleague);
-            task2.setWork_content("基础开挖");
+            task2.setWork_content("接电");
             task2.setTime_start(time_start);
             task2.setTime_stop(time_stop);
+            task2.setUnit("T441900197811201978");
             TaskDaoDBHelper.insertTask(task2);
 
             Task task3 = new Task();
@@ -165,9 +167,10 @@ public class LoginActivity extends BaseActivity {
             task3.setLng(119.857895);
             task3.setAttentions(attention);
             task3.setWork_mans(colleague);
-            task3.setWork_content("基础开挖");
+            task3.setWork_content("吊装");
             task3.setTime_start(time_start);
             task3.setTime_stop(time_stop);
+            task3.setUnit("T620422198706216711");
             TaskDaoDBHelper.insertTask(task3);
 
             Task task4 = new Task();
@@ -182,9 +185,10 @@ public class LoginActivity extends BaseActivity {
             task4.setLng(119.858474);
             task4.setAttentions(attention);
             task4.setWork_mans(colleague);
-            task4.setWork_content("基础开挖");
+            task4.setWork_content("塔内清理");
             task4.setTime_start(time_start);
             task4.setTime_stop(time_stop);
+            task3.setUnit("T110221985051367123");
             TaskDaoDBHelper.insertTask(task4);
         }
     }
