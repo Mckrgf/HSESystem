@@ -5,6 +5,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import www.supcon.com.hsesystem.Base.BaseActivity;
@@ -23,17 +24,12 @@ public class NFCActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
-//        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-//
-//        try {
-//            if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(getIntent().getAction())) {
-//                //处理该intent
-//                processIntent(getIntent());
-//                ParseID();
-//            }
-//        } catch (Exception e) {
-//            Log.i(TAG,e.toString());
-//        }
+        Intent intent = getIntent();
+        int card = intent.getIntExtra("card",0);
+        if (1!=card) {
+            Toast.makeText(getMe(),"请从审核页面签名项中刷卡按钮点击进入",Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
 

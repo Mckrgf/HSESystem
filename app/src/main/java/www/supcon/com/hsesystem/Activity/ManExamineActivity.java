@@ -130,7 +130,7 @@ public class ManExamineActivity extends BaseActivity {
         ButterKnife.bind(this);
         initView();
         initData();
-        intent_nfc = new Intent(getMe(),NFCActivity.class);
+        intent_nfc = new Intent(getMe(), NFCActivity.class);
     }
 
     private void initView() {
@@ -248,20 +248,24 @@ public class ManExamineActivity extends BaseActivity {
                 break;
 
             case R.id.iv_card_a:
-                intent_nfc = new Intent(getMe(),NFCActivity.class);
-                startActivityForResult(intent_nfc,1);
+                intent_nfc = new Intent(getMe(), NFCActivity.class);
+                intent_nfc.putExtra("card", 1);
+                startActivityForResult(intent_nfc, 1);
                 break;
             case R.id.iv_card_b:
-                intent_nfc = new Intent(getMe(),NFCActivity.class);
-                startActivityForResult(intent_nfc,2);
+                intent_nfc = new Intent(getMe(), NFCActivity.class);
+                intent_nfc.putExtra("card", 1);
+                startActivityForResult(intent_nfc, 2);
                 break;
             case R.id.iv_card_c:
-                intent_nfc = new Intent(getMe(),NFCActivity.class);
-                startActivityForResult(intent_nfc,3);
+                intent_nfc = new Intent(getMe(), NFCActivity.class);
+                intent_nfc.putExtra("card", 1);
+                startActivityForResult(intent_nfc, 3);
                 break;
             case R.id.iv_card_d:
-                intent_nfc = new Intent(getMe(),NFCActivity.class);
-                startActivityForResult(intent_nfc,4);
+                intent_nfc = new Intent(getMe(), NFCActivity.class);
+                intent_nfc.putExtra("card", 1);
+                startActivityForResult(intent_nfc, 4);
                 break;
         }
     }
@@ -332,7 +336,7 @@ public class ManExamineActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
-                if (resultCode==1) {
+                if (resultCode == 1) {
                     tvSignA.setText("已通过");
                     checks_nfc++;
                     tvSign.setText("签名项(" + checks_nfc + "/4)");
@@ -340,7 +344,7 @@ public class ManExamineActivity extends BaseActivity {
                 judge_sign_check();
                 break;
             case 2:
-                if (resultCode==1) {
+                if (resultCode == 1) {
                     tvSignB.setText("已通过");
                     checks_nfc++;
                     tvSign.setText("签名项(" + checks_nfc + "/4)");
@@ -348,7 +352,7 @@ public class ManExamineActivity extends BaseActivity {
                 judge_sign_check();
                 break;
             case 3:
-                if (resultCode==1) {
+                if (resultCode == 1) {
                     tvSignC.setText("已通过");
                     checks_nfc++;
                     tvSign.setText("签名项(" + checks_nfc + "/4)");
@@ -356,7 +360,7 @@ public class ManExamineActivity extends BaseActivity {
                 judge_sign_check();
                 break;
             case 4:
-                if (resultCode==1) {
+                if (resultCode == 1) {
                     tvSignD.setText("已通过");
                     checks_nfc++;
                     tvSign.setText("签名项(" + checks_nfc + "/4)");

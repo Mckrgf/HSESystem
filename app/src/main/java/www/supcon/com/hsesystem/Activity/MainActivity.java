@@ -78,6 +78,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     TextView tvLatestTaskName;
     @BindView(R.id.bt_locate)
     ImageView btLocate;
+    @BindView(R.id.iv_setting)
+    ImageView ivSetting;
     private AMap aMap;
     private ArrayList<Marker> marks;
     private Task task;
