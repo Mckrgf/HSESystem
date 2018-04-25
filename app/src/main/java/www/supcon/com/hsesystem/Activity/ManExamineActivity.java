@@ -111,6 +111,8 @@ public class ManExamineActivity extends BaseActivity {
     TextView tvSignD;
     @BindView(R.id.iv_card_d)
     ImageView ivCardD;
+    @BindView(R.id.tv_ticket)
+    ImageView tvTicket;
     private Task task;
     private int height;
     private boolean judge_status = true;//true为底部
@@ -134,6 +136,7 @@ public class ManExamineActivity extends BaseActivity {
     }
 
     private void initView() {
+        tvTicket.setVisibility(View.GONE);
         tvTitle.setText("中控智能HSE-审核页面" + "\n" + "正在对" + task.getNumber() + "进行审核");
         vvDivide.setVisibility(View.VISIBLE);
         viDivide.setVisibility(View.GONE);

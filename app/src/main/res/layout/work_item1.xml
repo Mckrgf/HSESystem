@@ -37,6 +37,15 @@
             android:text="xx区域施工作业"
             android:textSize="35px"
             android:textStyle="bold" />
+        <ImageView
+            android:src="@mipmap/ticket_security"
+            android:layout_toLeftOf="@+id/tv_work_status"
+            android:id="@+id/tv_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10px"
+            android:text="作业票" />
+
 
         <TextView
             android:id="@+id/tv_work_status"

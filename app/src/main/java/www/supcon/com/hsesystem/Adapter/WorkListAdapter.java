@@ -1,17 +1,20 @@
 package www.supcon.com.hsesystem.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
+import www.supcon.com.hsesystem.Activity.TicketIMGActivity;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.R;
 
@@ -69,13 +72,33 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         String status = String.valueOf(task.getStatus());
         if (status.equals("未审核")){
             holder.tv_work_status.setBackground(context.getDrawable(R.drawable.bg_status_green));
+            holder.tv_ticket.setVisibility(View.GONE);
         }else if (status.equals("进行中")) {
             holder.tv_work_status.setBackground(context.getDrawable(R.drawable.bg_status_yellow));
+            holder.tv_ticket.setVisibility(View.VISIBLE);
         }else if (status.equals("已完成")) {
             holder.tv_work_status.setBackground(context.getDrawable(R.drawable.bg_status_blue));
+            holder.tv_ticket.setVisibility(View.VISIBLE);
         }
-
+        String name = task.getName();
+        if (name.contains("A区")) {
+            holder.tv_ticket.setImageResource(R.mipmap.ticket_security);
+        }else if (name.contains("B区")) {
+            holder.tv_ticket.setImageResource(R.mipmap.ticket_elec);
+        }else if (name.contains("C区")) {
+            holder.tv_ticket.setImageResource(R.mipmap.ticket_high);
+        }else {
+            holder.tv_ticket.setImageResource(R.mipmap.ticket_freedom);
+        }
         holder.itemView.setTag(position);
+
+        holder.tv_ticket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TicketIMGActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -96,6 +119,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         TextView tv_man_b;
         TextView tv_work_place;
         TextView tv_work_status;
+        ImageView tv_ticket;
 
         private ViewHolder(View view) {
             super(view);
@@ -106,6 +130,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
             tv_man_b = view.findViewById(R.id.tv_man_b);
             tv_work_place = view.findViewById(R.id.tv_work_place);
             tv_work_status = view.findViewById(R.id.tv_work_status);
+            tv_ticket = view.findViewById(R.id.tv_ticket);
         }
     }
 

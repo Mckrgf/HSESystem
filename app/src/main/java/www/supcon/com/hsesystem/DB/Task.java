@@ -26,6 +26,7 @@ public class Task implements Serializable {
     private String man_b;//审核人b
     private String location;//位置信息
     private String number;//工单编号
+
     private long time_start;//开始时间
     private long time_stop;//结束时间
     private double lat;//经纬度
@@ -36,11 +37,22 @@ public class Task implements Serializable {
     private String attentions;//注意事项
     private String pic;//项目所属的作业票图片
 
-    @Generated(hash = 54050486)
+
+    //新增字段
+    private String unit;//申请单位
+    private String man_c;//申请人
+    private String device_detail;//用电设备及功率
+    private String power_in;//电源接入点
+    private String elec_v;//工作电压
+    private String work_unit;//施工单位`
+
+    @Generated(hash = 1172393037)
     public Task(Long id, String status, String name, String type, String man_a,
-                String man_b, String location, String number, long time_start,
-                long time_stop, double lat, double lng, String work_content,
-                String work_mans, String attentions, String pic) {
+            String man_b, String location, String number, long time_start,
+            long time_stop, double lat, double lng, String work_content,
+            String work_mans, String attentions, String pic, String unit,
+            String man_c, String device_detail, String power_in, String elec_v,
+            String work_unit) {
         this.id = id;
         this.status = status;
         this.name = name;
@@ -57,6 +69,12 @@ public class Task implements Serializable {
         this.work_mans = work_mans;
         this.attentions = attentions;
         this.pic = pic;
+        this.unit = unit;
+        this.man_c = man_c;
+        this.device_detail = device_detail;
+        this.power_in = power_in;
+        this.elec_v = elec_v;
+        this.work_unit = work_unit;
     }
 
     @Generated(hash = 733837707)
@@ -209,5 +227,53 @@ public class Task implements Serializable {
                 getId() +
                 getTime_stop();
 
+    }
+
+    public String getUnit() {
+        return this.unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getMan_c() {
+        return this.man_c;
+    }
+
+    public void setMan_c(String man_c) {
+        this.man_c = man_c;
+    }
+
+    public String getDevice_detail() {
+        return this.device_detail;
+    }
+
+    public void setDevice_detail(String device_detail) {
+        this.device_detail = device_detail;
+    }
+
+    public String getPower_in() {
+        return this.power_in;
+    }
+
+    public void setPower_in(String power_in) {
+        this.power_in = power_in;
+    }
+
+    public String getElec_v() {
+        return this.elec_v;
+    }
+
+    public void setElec_v(String elec_v) {
+        this.elec_v = elec_v;
+    }
+
+    public String getWork_unit() {
+        return this.work_unit;
+    }
+
+    public void setWork_unit(String work_unit) {
+        this.work_unit = work_unit;
     }
 }

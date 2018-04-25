@@ -124,6 +124,10 @@ public class MissionFragment extends Fragment {
     TextView tvManA;
     @BindView(R.id.tv_man_b)
     TextView tvManB;
+    @BindView(R.id.tv_ticket)
+    ImageView tvTicket;
+    @BindView(R.id.mission_fragment)
+    ScrollView missionFragment;
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -136,6 +140,7 @@ public class MissionFragment extends Fragment {
         tvTimeStart.setText(MyDateUtils.getDateFromLong(task1.getTime_start(), MyDateUtils.date_Format));
         tvTimeStop.setText(MyDateUtils.getDateFromLong(task1.getTime_stop(), MyDateUtils.date_Format));
 
+        tvTicket.setVisibility(View.GONE);
         tvWorkNumber.setText(task1.getNumber());
         tvWorkType.setText(task1.getType());
         tvWorkName.setText(task1.getName());
@@ -144,11 +149,11 @@ public class MissionFragment extends Fragment {
         tvManB.setText(task1.getMan_b());
         tvWorkStatus.setText(task1.getStatus());
         String status = task1.getStatus();
-        if (status.equals("未审核")){
+        if (status.equals("未审核")) {
             tvWorkStatus.setBackground(getActivity().getApplicationContext().getDrawable(R.drawable.bg_status_green));
-        }else if (status.equals("进行中")) {
+        } else if (status.equals("进行中")) {
             tvWorkStatus.setBackground(getActivity().getApplicationContext().getDrawable(R.drawable.bg_status_yellow));
-        }else if (status.equals("已完成")) {
+        } else if (status.equals("已完成")) {
             tvWorkStatus.setBackground(getActivity().getApplicationContext().getDrawable(R.drawable.bg_status_blue));
         }
 
@@ -163,8 +168,8 @@ public class MissionFragment extends Fragment {
                     //如果有权限，进入拍照
                     if (!task1.getStatus().equals("已完成")) {
                         take_pic();
-                    }else {
-                        Toast.makeText(getActivity(),"任务已完成,不可操作",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "任务已完成,不可操作", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
