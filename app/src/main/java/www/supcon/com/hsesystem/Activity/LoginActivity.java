@@ -149,7 +149,7 @@ public class LoginActivity extends BaseActivity {
             task2.setLng(119.852509);
             task2.setAttentions(attention);
             task2.setWork_mans(colleague);
-            task2.setWork_content("接电");
+            task2.setWork_content("接电,接b区3号电箱,用电设备为1号压缩机,工作电压220V");
             task2.setTime_start(time_start);
             task2.setTime_stop(time_stop);
             task2.setUnit("T441900197811201978");
@@ -185,7 +185,7 @@ public class LoginActivity extends BaseActivity {
             task4.setLng(119.858474);
             task4.setAttentions(attention);
             task4.setWork_mans(colleague);
-            task4.setWork_content("塔内清理");
+            task4.setWork_content("塔内清理,原有介质为水泥.注意危险因素(窒息/爆炸/吸入性粉尘)");
             task4.setTime_start(time_start);
             task4.setTime_stop(time_stop);
             task3.setUnit("T110221985051367123");
