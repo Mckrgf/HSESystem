@@ -54,6 +54,7 @@ public class NFCActivity extends BaseActivity {
     private static final String TAG = "NFCActivity";
     private void ParseID(){
         Log.i(TAG,"mid: " + mId);
+        setResult(1);
         finish();
     }
 

@@ -332,27 +332,35 @@ public class ManExamineActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
-                tvSignA.setText("已通过");
-                checks_nfc++;
-                tvSign.setText("签名项(" + checks_nfc + "/4)");
+                if (resultCode==1) {
+                    tvSignA.setText("已通过");
+                    checks_nfc++;
+                    tvSign.setText("签名项(" + checks_nfc + "/4)");
+                }
                 judge_sign_check();
                 break;
             case 2:
-                tvSignB.setText("已通过");
-                checks_nfc++;
-                tvSign.setText("签名项(" + checks_nfc + "/4)");
+                if (resultCode==1) {
+                    tvSignB.setText("已通过");
+                    checks_nfc++;
+                    tvSign.setText("签名项(" + checks_nfc + "/4)");
+                }
                 judge_sign_check();
                 break;
             case 3:
-                tvSignC.setText("已通过");
-                checks_nfc++;
-                tvSign.setText("签名项(" + checks_nfc + "/4)");
+                if (resultCode==1) {
+                    tvSignC.setText("已通过");
+                    checks_nfc++;
+                    tvSign.setText("签名项(" + checks_nfc + "/4)");
+                }
                 judge_sign_check();
                 break;
             case 4:
-                tvSignD.setText("已通过");
-                checks_nfc++;
-                tvSign.setText("签名项(" + checks_nfc + "/4)");
+                if (resultCode==1) {
+                    tvSignD.setText("已通过");
+                    checks_nfc++;
+                    tvSign.setText("签名项(" + checks_nfc + "/4)");
+                }
                 judge_sign_check();
                 break;
 
