@@ -145,16 +145,15 @@
 
     </RelativeLayout>
 
-    <Button
-        android:background="@drawable/bg_status_green"
+    <ImageView
+        android:background="@mipmap/map_locate"
         android:layout_marginBottom="120px"
         android:layout_marginLeft="10px"
         android:textColor="@color/white"
         android:id="@+id/bt_locate"
         android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="定位至当前"/>
+        android:layout_width="94px"
+        android:layout_height="94px"/>
 
     <include
         android:id="@+id/rl_tab"

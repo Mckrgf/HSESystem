@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tv_latest_task_name)
     TextView tvLatestTaskName;
     @BindView(R.id.bt_locate)
-    Button btLocate;
+    ImageView btLocate;
     private AMap aMap;
     private ArrayList<Marker> marks;
     private Task task;
@@ -292,7 +292,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER);//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
+        aMap.getUiSettings().setMyLocationButtonEnabled(false);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 //        UiSettings uiSettings = aMap.getUiSettings();
 //        uiSettings.setCompassEnabled(true);
