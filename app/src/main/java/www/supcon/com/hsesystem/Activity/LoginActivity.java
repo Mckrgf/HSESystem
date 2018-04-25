@@ -121,10 +121,10 @@ public class LoginActivity extends BaseActivity {
         if (null == list | list.size() != 4) {
             Task task = new Task();
             task.setName("A区域动火作业");
-            task.setType("施工作业");
+            task.setType("动火作业");
             task.setMan_a("施工负责人a");
-            task.setMan_b("施工负责人b");
-            task.setLocation("xx区域");
+            task.setMan_b("安全负责人b");
+            task.setLocation("A区域");
             task.setStatus("未审核");
             task.setNumber("DH_20180404001");
             task.setLat(32.296232);
@@ -138,10 +138,10 @@ public class LoginActivity extends BaseActivity {
 
             Task task2 = new Task();
             task2.setName("B区域临时用电安全作业");
-            task2.setType("施工作业");
-            task2.setMan_a("施工负责人a");
-            task2.setMan_b("施工负责人b");
-            task2.setLocation("xx区域");
+            task2.setType("用电作业");
+            task2.setMan_a("施工负责人c");
+            task2.setMan_b("安全负责人d");
+            task2.setLocation("B区域");
             task2.setStatus("未审核");
             task2.setNumber("YD_20180404001");
             task2.setLat(32.296957);
@@ -155,10 +155,10 @@ public class LoginActivity extends BaseActivity {
 
             Task task3 = new Task();
             task3.setName("C区域高空安全作业");
-            task3.setType("施工作业");
-            task3.setMan_a("施工负责人a");
-            task3.setMan_b("施工负责人b");
-            task3.setLocation("xx区域");
+            task3.setType("高空作业");
+            task3.setMan_a("施工负责人e");
+            task3.setMan_b("安全负责人f");
+            task3.setLocation("C区域");
             task3.setStatus("未审核");
             task3.setNumber("GK_20180404001");
             task3.setLat(32.292731);
@@ -172,10 +172,10 @@ public class LoginActivity extends BaseActivity {
 
             Task task4 = new Task();
             task4.setName("D区域受限区域安全作业");
-            task4.setType("施工作业");
-            task4.setMan_a("施工负责人a");
-            task4.setMan_b("施工负责人b");
-            task4.setLocation("xx区域");
+            task4.setType("受限作业");
+            task4.setMan_a("施工负责人g");
+            task4.setMan_b("安全负责人h");
+            task4.setLocation("D区域");
             task4.setStatus("未审核");
             task4.setNumber("SX_20180404001");
             task4.setLat(32.295198);

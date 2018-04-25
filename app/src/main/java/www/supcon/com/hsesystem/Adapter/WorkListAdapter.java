@@ -90,8 +90,6 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
         }else {
             holder.tv_ticket.setImageResource(R.mipmap.ticket_freedom);
         }
-        holder.itemView.setTag(position);
-
         holder.tv_ticket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +97,9 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
                 context.startActivity(intent);
             }
         });
+        holder.itemView.setTag(position);
+
+
 
     }
 
