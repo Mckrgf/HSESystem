@@ -112,8 +112,8 @@ public class LoginActivity extends BaseActivity {
         String colleague = StringListConvertUtils.listToString(colleagues);
         String date_Format = "yyyy-MM-dd HH:mm:ss";
         try {
-            time_start = MyDateUtils.getLongDateFromString("2018-04-19 09:00:00", date_Format);
-            time_stop = MyDateUtils.getLongDateFromString("2018-04-19 12:00:00", date_Format);
+            time_start = MyDateUtils.getLongDateFromString("2018-05-05 09:00:00", date_Format);
+            time_stop = MyDateUtils.getLongDateFromString("2018-05-10 12:00:00", date_Format);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -127,8 +127,8 @@ public class LoginActivity extends BaseActivity {
             task.setLocation("A区域");
             task.setStatus("未审核");
             task.setNumber("DH_20180404001");
-            task.setLat(32.296232);
-            task.setLng(119.851951);
+            task.setLat(32.538363);
+            task.setLng(121.08441);
             task.setAttentions(attention);
             task.setWork_mans(colleague);
             task.setWork_content("基础开挖");
@@ -145,8 +145,8 @@ public class LoginActivity extends BaseActivity {
             task2.setLocation("B区域");
             task2.setStatus("未审核");
             task2.setNumber("YD_20180404001");
-            task2.setLat(32.296957);
-            task2.setLng(119.852509);
+            task2.setLat(32.537097);
+            task2.setLng(121.084861);
             task2.setAttentions(attention);
             task2.setWork_mans(colleague);
             task2.setWork_content("接电,接b区3号电箱,用电设备为1号压缩机,工作电压220V");
@@ -163,8 +163,8 @@ public class LoginActivity extends BaseActivity {
             task3.setLocation("C区域");
             task3.setStatus("未审核");
             task3.setNumber("GK_20180404001");
-            task3.setLat(32.292731);
-            task3.setLng(119.857895);
+            task3.setLat(32.535216);
+            task3.setLng(121.074861);
             task3.setAttentions(attention);
             task3.setWork_mans(colleague);
             task3.setWork_content("吊装");
@@ -181,8 +181,8 @@ public class LoginActivity extends BaseActivity {
             task4.setLocation("D区域");
             task4.setStatus("未审核");
             task4.setNumber("SX_20180404001");
-            task4.setLat(32.295198);
-            task4.setLng(119.858474);
+            task4.setLat(32.53404);
+            task4.setLng(121.085418);
             task4.setAttentions(attention);
             task4.setWork_mans(colleague);
             task4.setWork_content("塔内清理,原有介质为水泥.注意危险因素(窒息/爆炸/吸入性粉尘)");

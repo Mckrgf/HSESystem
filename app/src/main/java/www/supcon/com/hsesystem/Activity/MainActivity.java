@@ -167,14 +167,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         marks = new ArrayList<>();
         List<Task> taskList = TaskDaoDBHelper.queryAll();
 
-
-        LatLng latLngA = new LatLng(32.298409, 119.856629);
+        LatLng latLngA = new LatLng(32.540972, 121.086304);
         Marker markerA = aMap.addMarker(new MarkerOptions().position(latLngA));
         markerA.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                 .decodeResource(getResources(), R.mipmap.location_other)));
         marks.add(markerA);
 
-        LatLng latLngB = new LatLng(32.29783, 119.855288);
+        LatLng latLngB = new LatLng(32.540954, 121.071649);
         Marker markerB = aMap.addMarker(new MarkerOptions().position(latLngB));
         markerB.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                 .decodeResource(getResources(), R.mipmap.location_other)));
@@ -237,15 +236,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         //定位至指定位置
         aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
-                new LatLng(32.295121, 119.855541),//新的中心点坐标
-                16, //新的缩放级别
+                new LatLng(32.531923, 121.083294),//新的中心点坐标
+                14, //新的缩放级别
                 0, //俯仰角0°~45°（垂直与地图时为0）
                 0  ////偏航角 0~360° (正北方为0)
         )));
 
         //危险区域绘制坐标
         aMap.addMarker(new MarkerOptions()
-                .position(new LatLng(32.294907, 119.855773))
+                .position(new LatLng(32.53849, 121.080204))
                 .icon(BitmapDescriptorFactory.fromBitmap(getMyBitmap(""))));
 
     }
@@ -267,10 +266,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void setZone() {
         // 定义多边形的5个点点坐标,暂定于高港地区
-        LatLng latLng1 = new LatLng(32.296056, 119.854639);
-        LatLng latLng2 = new LatLng(32.295453, 119.854172);
-        LatLng latLng3 = new LatLng(32.293938, 119.856758);
-        LatLng latLng4 = new LatLng(32.294523, 119.857246);
+        LatLng latLng1 = new LatLng(32.538259, 121.073494);
+        LatLng latLng2 = new LatLng(32.543088, 121.07594);
+        LatLng latLng3 = new LatLng(32.540339, 121.084008856758);
+        LatLng latLng4 = new LatLng(32.535545, 121.081283);
         PolygonOptions polygonOptions = new PolygonOptions();
         polygonOptions.add(latLng1, latLng2, latLng3, latLng4);
         polygonOptions.strokeWidth(1) // 多边形的边框

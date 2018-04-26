@@ -18,9 +18,9 @@
     <ImageView
         android:background="@color/transparent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300px"
-        android:layout_width="300px"
-        android:layout_height="300px"
+        android:layout_marginTop="400px"
+        android:layout_width="400px"
+        android:layout_height="400px"
         android:id="@+id/iv_b"
         android:src="@mipmap/back_b_stop"/>
 

@@ -60,7 +60,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //对数据进行操作
-        Task task = (Task) datas.get(position);
+        final Task task = (Task) datas.get(position);
 
         holder.tv_work_number.setText(String.valueOf(task.getNumber()));
         holder.tv_work_name.setText(String.valueOf(task.getName()));
@@ -94,6 +94,18 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, TicketIMGActivity.class);
+                int type = 0;
+                if (task.getType().contains("动火")) {
+                    type = 1;
+                }else if (task.getType().contains("用电")){
+                    type = 2;
+                }else if (task.getType().contains("高空")){
+                    type = 3;
+                }else if (task.getType().contains("受限")){
+                    type = 4;
+                }
+                intent.putExtra("status",task.getTime_stop());
+                intent.putExtra("type",type);
                 context.startActivity(intent);
             }
         });
