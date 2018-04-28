@@ -295,11 +295,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         aMap.getUiSettings().setMyLocationButtonEnabled(false);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
-//        UiSettings uiSettings = aMap.getUiSettings();
-//        uiSettings.setCompassEnabled(true);
-
-//        aMap.setLocationSource(this);//通过aMap对象设置定位数据源的监听
-
 
         //地图点击事件
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
