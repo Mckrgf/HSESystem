@@ -154,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sign_status_c"
-                android:text="冻货店周围易燃物已经清除"
+                android:text="动火店周围易燃物已经清除"
                 android:textColor="@color/gray" />
 
             <ImageView
