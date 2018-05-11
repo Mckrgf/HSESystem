@@ -16,7 +16,7 @@ import www.supcon.com.hsesystem.DB.DaoSession;
 
 /**
  * Created by yaobing on 2018/3/30.
- * Description xxx
+ *
  */
 
 public class BaseApplication extends Application {
@@ -50,7 +50,7 @@ public class BaseApplication extends Application {
     /**
      * 释放资源，退出程序时候调用
      */
-    private final void release() {
+    private void release() {
         try {
             for (Activity activity : mList) {
                 if (activity != null) {
@@ -59,11 +59,7 @@ public class BaseApplication extends Application {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            if (e != null) {
                 Log.e(TAG, e.toString());
-            } else {
-                Log.e(TAG, "数据异常" + TAG);
-            }
         }
     }
 
@@ -72,7 +68,7 @@ public class BaseApplication extends Application {
         System.exit(code);
     }
 
-    private List<Activity> mList = new LinkedList<Activity>();
+    private List<Activity> mList = new LinkedList<>();
 
     public void addActivity(Activity activity) {
         mList.add(activity);
@@ -82,10 +78,4 @@ public class BaseApplication extends Application {
         mList.remove(activity);
     }
 
-    /**
-     * 拍照后图片路径
-     */
-    public static String photoPath = Environment.getExternalStorageDirectory() + "/HSE" + "/Pic";
-
-    public static String filename = "";//拍照文件名
 }

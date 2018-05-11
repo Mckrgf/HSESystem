@@ -36,6 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.Base.BaseApplication;
+import www.supcon.com.hsesystem.Base.Constant;
 import www.supcon.com.hsesystem.DB.AirTest;
 import www.supcon.com.hsesystem.DB.AirTestDaoDBHelper;
 import www.supcon.com.hsesystem.DB.Task;
@@ -294,8 +295,8 @@ public class WorkMissionActivity extends BaseActivity {
         switch (requestCode) {
             case 104:
                 // 调用压缩的方法。对图片进行一个分辨率的压缩，
-                String filename = BaseApplication.filename;
-                String filepath = BaseApplication.photoPath + File.separator + filename + ".jpg";
+                String filename = Constant.filename;
+                String filepath = Constant.photoPath + File.separator + filename + ".jpg";
                 File file = new File(filepath);
                 long size = file.length();
                 if (size > 0) {

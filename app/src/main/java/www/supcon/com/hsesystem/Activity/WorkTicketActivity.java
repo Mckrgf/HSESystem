@@ -39,6 +39,7 @@ import www.supcon.com.hsesystem.Adapter.AirTestListAdapter;
 import www.supcon.com.hsesystem.Adapter.VideoListAdapter;
 import www.supcon.com.hsesystem.Base.BaseActivity;
 import www.supcon.com.hsesystem.Base.BaseApplication;
+import www.supcon.com.hsesystem.Base.Constant;
 import www.supcon.com.hsesystem.DB.AirTest;
 import www.supcon.com.hsesystem.DB.AirTestDaoDBHelper;
 import www.supcon.com.hsesystem.DB.Task;
@@ -433,7 +434,7 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
 
     private void take_pic() {
         Log.i(TAG, "现场拍照");
-        File PHOTO_DIR = new File(BaseApplication.photoPath);
+        File PHOTO_DIR = new File(Constant.photoPath);
         // 创建照片的存储目录
         if (!PHOTO_DIR.exists()) {
             PHOTO_DIR.mkdirs();
@@ -488,7 +489,7 @@ public class WorkTicketActivity extends BaseActivity implements VideoListAdapter
         switch (requestCode) {
             case 104:
                 // 调用压缩的方法。对图片进行一个分辨率的压缩，
-                String filepath = BaseApplication.photoPath + File.separator + filename + ".jpg";
+                String filepath = Constant.photoPath + File.separator + filename + ".jpg";
                 File file = new File(filepath);
                 long size = file.length();
                 if (size > 0) {

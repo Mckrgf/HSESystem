@@ -33,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import www.supcon.com.hsesystem.Base.BaseApplication;
+import www.supcon.com.hsesystem.Base.Constant;
 import www.supcon.com.hsesystem.DB.Task;
 import www.supcon.com.hsesystem.R;
 import www.supcon.com.hsesystem.Utils.MyDateUtils;
@@ -204,7 +205,7 @@ public class MissionFragment extends Fragment {
 
     private void take_pic() {
         Log.i(TAG, "现场拍照");
-        File PHOTO_DIR = new File(BaseApplication.photoPath);
+        File PHOTO_DIR = new File(Constant.photoPath);
         // 创建照片的存储目录
         if (!PHOTO_DIR.exists()) {
             PHOTO_DIR.mkdirs();
@@ -228,7 +229,7 @@ public class MissionFragment extends Fragment {
 
         imageCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         imageCaptureIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0.8);
-        BaseApplication.filename = filename;
+        Constant.filename = filename;
         getActivity().startActivityForResult(imageCaptureIntent, 104);
     }
 
