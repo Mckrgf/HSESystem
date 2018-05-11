@@ -9,9 +9,11 @@ import android.os.Environment;
 
 public class Constant {
     //图片路径
-    public static final String photoPath = Environment.getExternalStorageDirectory() + "/HSE" + "/Pic";
+    public static String photoPath = Environment.getExternalStorageDirectory() + "/HSE" + "/Pic";
     //拍照的文件名
-    public static final String filename = "";
+    public static String filename = "";
     //网络IP地址
-    public static final String SERVER = "https://news-at.zhihu.com/api/4/news/latest";
+    public static String SERVER = "https://news-at.zhihu.com/api/4/news/latest";
+    //URL-获取版本号
+    public static String URL_A = SERVER + "https://news-at.zhihu.com/api/4/news/latest";
 }
