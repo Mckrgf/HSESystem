@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,8 +56,8 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        String username = String.valueOf(etUsername.getText());
-        String password = String.valueOf(etPassword.getText());
+//        String username = String.valueOf(etUsername.getText());
+//        String password = String.valueOf(etPassword.getText());
         if (ContextCompat.checkSelfPermission(getMe(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             //如果没有权限，就申请，然后走回调方法，在回调成功的时候调用拍照方法
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
@@ -100,7 +101,7 @@ public class LoginActivity extends BaseActivity {
      */
     private void fillDB() {
         List list = TaskDaoDBHelper.queryAll();
-        List<String> attentions = new ArrayList();
+        List<String> attentions = new ArrayList<>();
         attentions.add("动火设备内部构件清理干净");
         attentions.add("断开与动火设备相关的所有管线");
         attentions.add("动火点周围易燃物已经清除");
@@ -118,7 +119,7 @@ public class LoginActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        if (null == list | list.size() != 4) {
+        if (null == list || list.size() != 4) {
             Task task = new Task();
             task.setName("A区域动火作业");
             task.setType("动火作业");
@@ -193,6 +194,7 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    private static final String TAG = "LoginActivity";
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -200,6 +202,7 @@ public class LoginActivity extends BaseActivity {
             case 1:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
+                    Log.i(TAG,"获取到权限");
                 } else {
                     // 没有获取到权限，做特殊处理
                     Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();

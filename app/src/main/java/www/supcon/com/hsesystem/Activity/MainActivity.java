@@ -16,7 +16,6 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -94,8 +93,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         public void onLocationChanged(AMapLocation aMapLocation) {
             double lat = aMapLocation.getLatitude();
             double lng = aMapLocation.getLongitude();
-            Log.i(TAG,"定位成功");
-            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 10));
+            Log.i(TAG, "定位成功");
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 10));
         }
     };
     private AMapLocationClientOption option;
@@ -188,15 +187,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             marker1.setSnippet(task.getStatus());
             marker1.setObject(task);
             String status = task.getStatus();
-            if (status.equals("未审核")) {
-                marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                        .decodeResource(getResources(), R.mipmap.mark_task_green)));
-            } else if (status.equals("进行中")) {
-                marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                        .decodeResource(getResources(), R.mipmap.mark_task_yellow)));
-            } else if (status.equals("已完成")) {
-                marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                        .decodeResource(getResources(), R.mipmap.mark_task)));
+            switch (status) {
+                case "未审核":
+                    marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                            .decodeResource(getResources(), R.mipmap.mark_task_green)));
+                    break;
+                case "进行中":
+                    marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                            .decodeResource(getResources(), R.mipmap.mark_task_yellow)));
+                    break;
+                case "已完成":
+                    marker1.setIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                            .decodeResource(getResources(), R.mipmap.mark_task)));
+                    break;
             }
             marker1.showInfoWindow();
 
@@ -209,13 +212,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (marker.getTitle().contains("作业票")) {
                     Task task1 = (Task) marker.getObject();
                     String status = task1.getStatus();
-                    View view = null;
-                    if (status.equals("未审核")) {
-                        view = View.inflate(getMe(), R.layout.info_window_green, null);
-                    } else if (status.equals("进行中")) {
-                        view = View.inflate(getMe(), R.layout.info_window_yellow, null);
-                    } else if (status.equals("已完成")) {
-                        view = View.inflate(getMe(), R.layout.info_window, null);
+                    View view;
+                    switch (status) {
+                        case "未审核":
+                            view = View.inflate(getMe(), R.layout.info_window_green, null);
+                            break;
+                        case "进行中":
+                            view = View.inflate(getMe(), R.layout.info_window_yellow, null);
+                            break;
+                        case "已完成":
+                            view = View.inflate(getMe(), R.layout.info_window, null);
+                            break;
+                        default:
+                            view = View.inflate(getMe(), R.layout.info_window_green, null);
+                            break;
                     }
                     TextView textView = view.findViewById(R.id.tv_title);
                     TextView textView1 = view.findViewById(R.id.tv_content);
@@ -245,11 +255,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //危险区域绘制坐标
         aMap.addMarker(new MarkerOptions()
                 .position(new LatLng(32.53849, 121.080204))
-                .icon(BitmapDescriptorFactory.fromBitmap(getMyBitmap(""))));
+                .icon(BitmapDescriptorFactory.fromBitmap(getMyBitmap())));
 
     }
 
-    protected Bitmap getMyBitmap(String pm_val) {
+    protected Bitmap getMyBitmap() {
         Bitmap bitmap = BitmapDescriptorFactory.fromView(View.inflate(this, R.layout.dengerous, null)).getBitmap();
         bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
                 bitmap.getHeight());
@@ -258,7 +268,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(44f);
         textPaint.setColor(getResources().getColor(R.color.white));
-        canvas.drawText(pm_val, 17, 35, textPaint);// 设置bitmap上面的文字位置
+        canvas.drawText("", 17, 35, textPaint);// 设置bitmap上面的文字位置
         return bitmap;
     }
 
@@ -355,7 +365,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //初始化AMapLocationClientOption对象
         mLocationOption = new AMapLocationClientOption();
         option = new AMapLocationClientOption();
-        /**
+        /*
          * 设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
          */
         option.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
