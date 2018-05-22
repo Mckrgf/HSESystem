@@ -466,7 +466,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.rl_warning:
-                Toast.makeText(getMe(), "暂未开放", Toast.LENGTH_SHORT).show();
+                Intent intent0 = new Intent(getMe(), WarninglistActivity.class);
+                startActivity(intent0);
+//                Toast.makeText(getMe(), "暂未开放", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_hide:
                 rlUserInfo.setVisibility(View.GONE);
@@ -486,4 +488,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
+
+
 }

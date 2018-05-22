@@ -119,10 +119,13 @@ public class WorkListActivity extends BaseActivity implements WorkListAdapter.On
                 finish();
                 break;
             case R.id.rl_map:
-                finish();
+                Intent intent1 = new Intent(getMe(),MainActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.rl_warning:
-                Toast.makeText(getMe(),"暂未开放",Toast.LENGTH_SHORT).show();
+                Intent intent0 = new Intent(getMe(), WarninglistActivity.class);
+                startActivity(intent0);
+//                Toast.makeText(getMe(),"暂未开放",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
