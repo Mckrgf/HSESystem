@@ -3,7 +3,6 @@ package www.supcon.com.hsesystem.Base;
 import android.app.Activity;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Environment;
 import android.util.Log;
 
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;

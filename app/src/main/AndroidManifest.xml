@@ -52,7 +52,7 @@
             android:value="eecfec225fd95f230af18b6575dc8429" />
 
         <activity
-            android:name=".Base.BaseActivity"
+            android:name=".Base$BaseActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.MainActivity"
             android:launchMode="singleInstance"/>

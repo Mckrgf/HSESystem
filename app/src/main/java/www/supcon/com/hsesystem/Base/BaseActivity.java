@@ -14,17 +14,12 @@ import android.nfc.tech.NfcA;
 import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.RelativeLayout;
 
 import www.supcon.com.hsesystem.Activity.NFCActivity;
-import www.supcon.com.hsesystem.R;
 
 /**
  * Created by yaobing on 2018/3/30.
@@ -36,17 +31,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private NfcAdapter mNfcAdapter;
     private PendingIntent mPendingIntent = null;
 
-    private IntentFilter tagDetected = null;
     private IntentFilter[] intentFiltersArray;
     String[] [] techListsArray;
-
-
-    public boolean bUploadOK = false;
-    public Handler mPostHandler = null;
-
-
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -64,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //
         mPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this,NFCActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        tagDetected = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);//ACTION_TECH_DISCOVERED
+        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
         try {
             tagDetected.addDataType("*/*");
         }
@@ -72,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         catch (IntentFilter.MalformedMimeTypeException e) {
             throw new RuntimeException("fail", e);
         }
-        intentFiltersArray = new IntentFilter[] { tagDetected, };
+        intentFiltersArray = new IntentFilter[] {tagDetected, };
         techListsArray = new String[][] {
                 new String[] { NfcF.class.getName() },
                 new String[] { NfcA.class.getName() },
