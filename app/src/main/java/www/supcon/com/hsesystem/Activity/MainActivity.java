@@ -93,7 +93,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         public void onLocationChanged(AMapLocation aMapLocation) {
             double lat = aMapLocation.getLatitude();
             double lng = aMapLocation.getLongitude();
-            Log.i(TAG, "定位成功");
             aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 10));
         }
     };
